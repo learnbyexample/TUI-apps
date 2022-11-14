@@ -1,0 +1,37 @@
+#header {
+    dock: top;
+    text-align: center;
+    width: 100%;
+    background: orange;
+}
+
+#info {
+    dock: left;
+    align: left middle;
+    text-align: center;
+    width: 20%;
+    background: orange;
+    margin: 1;
+    padding: 1;
+}
+
+#board {
+    layout: grid;
+    align: center middle;
+    grid-size: 4 4;
+    grid-rows: 5;
+    grid-columns: 10;
+    grid-gutter: 0;
+}
+
+.cell {
+    margin: 1;
+    padding: 1;
+}
+
+#control {
+    dock: right;
+    align: left middle;
+    width: 25%;
+}
+
