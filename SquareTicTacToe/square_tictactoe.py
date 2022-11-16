@@ -2,6 +2,7 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Button, Header, Footer, Static
+from typing import List
 import random
 
 class SquareTicTacToeApp(App):
@@ -27,8 +28,8 @@ class SquareTicTacToeApp(App):
                    "variant": "warning", "variant_win": "error"}
         self.user = {"value": self.corners+1, "char": "⭕️", "win": "USER WINS",
                      "variant": "primary", "variant_win": "success"}
-        self.max_ai_sum = (self.corners-1) * self.ai["value"]
-        self.max_user_sum = (self.corners-1) * self.user["value"]
+        self.max_ai_sum = (self.corners-1) * self.ai["value"] # type: ignore
+        self.max_user_sum = (self.corners-1) * self.user["value"] # type: ignore
         self.all_squares = ((0, 1, 4, 5), (1, 2, 5, 6), (2, 3, 6, 7),
                             (4, 5, 8, 9), (5, 6, 9, 10), (6, 7, 10, 11),
                             (8, 9, 12, 13), (9, 10, 13, 14), (10, 11, 14, 15),
@@ -42,7 +43,7 @@ class SquareTicTacToeApp(App):
         self.choice = (Button(label="Easy", id="easy", variant="success"),
                        Button(label="Hard", id="hard", variant="default"))
         self.cell_buttons = tuple(Button(label="", name=str(n),
-                                         classes="cell", variant="disabled")
+                                         classes="cell", disabled=True)
                                   for n in range(self.total_cells))
 
     def compose(self) -> ComposeResult:
@@ -81,6 +82,7 @@ class SquareTicTacToeApp(App):
         for button in self.cell_buttons:
             button.label = ""
             button.variant = "default"
+            button.disabled = False
         self.board = [0] * self.total_cells
         self.available_moves = list(range(self.total_cells))
         self.ai["last_move"] = 0
@@ -176,8 +178,8 @@ class SquareTicTacToeApp(App):
 
         self.user_weights = [0] * self.total_cells
         self.ai_weights = [0] * self.total_cells
-        self.user_winning_indexes = []
-        self.ai_winning_indexes = []
+        self.user_winning_indexes: List[int] = []
+        self.ai_winning_indexes: List[int] = []
         for square in self.all_squares:
             total = sum(self.board[i] for i in square)
             if total == 0:
@@ -186,7 +188,7 @@ class SquareTicTacToeApp(App):
             elif total <= self.max_ai_sum:
                 update(square, self.ai_weights, total, total)
             else:
-                q, r = divmod(total, self.user['value'])
+                q, r = divmod(total, self.user['value']) # type: ignore
                 if r == 0:
                     update(square, self.user_weights, q, total)
 

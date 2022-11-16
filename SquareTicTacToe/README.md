@@ -39,6 +39,10 @@ User moves are denoted by the ⭕️ character and AI moves are denoted by the �
 
 The text area to the left of the game board displays the current status of the game. If the game ends with one of the players forming a valid square, the winning square will be highlighted.
 
+# Blog post
+
+Check out my blog post [Building TUIs with textual: first impressions](https://learnbyexample.github.io/textual-first-impressions/) for motivations behind this project, what I liked about the framework, etc.
+
 # Tkinter version and AI algorithm
 
 **Square Tic Tac Toe** was one of the projects in my [Practice Python Projects](https://github.com/learnbyexample/practice_python_projects) ebook. I had used the `tkinter` module for that version.
@@ -47,5 +51,5 @@ Visit [this link](https://learnbyexample.github.io/practice_python_projects/squa
 
 # Type hints
 
-I didn't have experience with type hinting before. Tried to make it work and then gave up.
+I didn't have experience with type hinting before. Tried to make it work and then gave up when it came to `dict`. On the positive side, it caught an issue when I wrongly used `disabled` as a `Button` variant.
 
