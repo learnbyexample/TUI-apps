@@ -1,7 +1,7 @@
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Container
-from textual.widgets import Button, Header, Footer, Static
+from textual.widgets import Button, Header, Footer, Label
 from typing import List
 import random
 
@@ -38,7 +38,7 @@ class SquareTicTacToeApp(App):
                             (2, 5, 7, 10), (5, 8, 10, 13), (6, 9, 11, 14),
                             (1, 7, 8, 14), (2, 4, 11, 13))
 
-        self.status = Static(renderable=self.state, id="info")
+        self.status = Label(renderable=self.state, id="info")
         self.new_game = Button(label="New Game", id="new game")
         self.choice = (Button(label="Easy", id="easy", variant="success"),
                        Button(label="Hard", id="hard", variant="default"))
@@ -52,11 +52,13 @@ class SquareTicTacToeApp(App):
         title = ("[b]Square Tic Tac Toe[/b]\n"
                  "Like Tic Tac Toe, but form a square "
                  "with 4 corners instead of a line.")
-        yield Static(renderable=title, id="header")
-        yield self.status
-        yield Container(*self.cell_buttons, id="board")
-        yield Container(self.new_game, *self.choice, id="control")
+        yield Label(renderable=title, id="header")
+        yield Container(
+                self.status,
+                Container(*self.cell_buttons, id="board"),
+                Container(self.new_game, *self.choice, id="control"))
         yield Footer()
+        self.action_toggle_dark()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Called when any button is pressed."""
@@ -208,6 +210,5 @@ class SquareTicTacToeApp(App):
 
 if __name__ == "__main__":
     app = SquareTicTacToeApp()
-    app.action_toggle_dark()
     app.run()
 
