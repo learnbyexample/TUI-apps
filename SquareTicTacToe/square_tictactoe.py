@@ -10,7 +10,7 @@ class SquareTicTacToeApp(App):
 
     CSS_PATH = "square_tictactoe.css"
     BINDINGS = [
-        ("d", "toggle_dark", "Toggle dark mode"),
+        ("d", "toggle_dark", "Toggle theme"),
         Binding("ctrl+c,q", "app.quit", "Quit", show=True),
     ]
 
@@ -58,7 +58,11 @@ class SquareTicTacToeApp(App):
                 Container(*self.cell_buttons, id="board"),
                 Container(self.new_game, *self.choice, id="control"))
         yield Footer()
-        self.action_toggle_dark()
+
+    def on_mount(self) -> None:
+        """Set up the application on startup."""
+
+        self.dark = False
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Called when any button is pressed."""
