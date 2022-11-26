@@ -1,0 +1,12 @@
+%=%=
+hi
+%=%=
+brown
+green
+%=%=
+3.14
+42
+1000
+%=%=
+apple
+banana

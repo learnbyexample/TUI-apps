@@ -1,0 +1,46 @@
+#header {
+    dock: top;
+    text-align: center;
+    background: orange;
+}
+
+#question_container {
+    max-height: 5;
+}
+
+Button:focus {
+    text-style: bold;
+}
+
+#previous {
+    dock: left;
+    min-width: 5;
+    height: 100%;
+    align: left middle;  
+}
+
+#next {
+    dock: right;
+    min-width: 5;
+    height: 100%;
+    align: left middle;  
+}
+
+#question {
+    border: blank;
+}
+
+#user_cmd_output {
+    min-height: 5;
+    margin-bottom: 1;
+}
+
+#sample_input {
+    dock: left;
+    width: 50%;
+}
+
+#expected_output {
+    dock: right;
+    width: 50%;
+}

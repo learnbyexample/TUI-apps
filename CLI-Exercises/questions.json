@@ -1,0 +1,62 @@
+{
+    "1": {
+        "question": "Display the first 5 lines for the input file ip.txt",
+        "ip_file": "ip.txt",
+        "op_file": "first_five_lines.txt",
+        "ref_solution": "head -n5 ip.txt"
+    },
+    "2": {
+        "question": "Display except the first 5 lines for the input blocks.txt",
+        "ip_file": "blocks.txt",
+        "op_file": "except_first_five_lines.txt",
+        "ref_solution": "tail -n +6 blocks.txt"
+    },
+    "3": {
+        "question": "Extract 5th to 9th byte from the greeting.txt file",
+        "ip_file": "greeting.txt",
+        "op_file": "fifth_ninth_bytes.txt",
+        "ref_solution": "head -c9 greeting.txt | tail -c +5"
+    },
+    "4": {
+        "question": "For the input file sample.txt filter lines containing \"are\" or \"he\" as whole words as well as the line that comes before such a matching line. There should be no separator between matching groups in the output.",
+        "ip_file": "sample.txt",
+        "op_file": "match_x_and_line_before.txt",
+        "ref_solution": "grep --no-group-separator -B1 -wE 'are|he' sample.txt"
+    },
+    "5": {
+        "question": "Count the number of empty lines for the input file ip.txt",
+        "ip_file": "ip.txt",
+        "op_file": "empty_lines.txt",
+        "ref_solution": "grep -cx '' ip.txt"
+    },
+    "6": {
+        "question": "Display contents of ip.txt except for line numbers 4, 5, 6 and 7",
+        "ip_file": "ip.txt",
+        "op_file": "remove_line_number_range.txt",
+        "ref_solution": "sed '4,7d' ip.txt"
+    },
+    "7": {
+        "question": "For the input file sample.txt display all lines from the start of the file till the first occurrence of \"do\"",
+        "ip_file": "sample.txt",
+        "op_file": "lines_till_first_match.txt",
+        "ref_solution": "sed '/do/q' sample.txt"
+    },
+    "8": {
+        "question": "Reverse contents of blocks.txt considering \"%=%=\" as the separator.",
+        "ip_file": "blocks.txt",
+        "op_file": "block_reverse.txt",
+        "ref_solution": "tac -bs '%=%=' blocks.txt"
+    },
+    "9": {
+        "question": "Display all lines from sample.txt that contain \"do\" but not \"it\"",
+        "ip_file": "sample.txt",
+        "op_file": "match_x_but_not_y.txt",
+        "ref_solution": "awk '/do/ && !/it/' sample.txt"
+    },
+    "10": {
+        "question": "For the input file ip.txt filter paragraphs containing digit characters",
+        "ip_file": "ip.txt",
+        "op_file": "para_digits.txt",
+        "ref_solution": "awk -v RS= '/[0-9]/' ip.txt"
+    }
+}
