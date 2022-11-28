@@ -37,10 +37,10 @@ Button:focus {
 
 #sample_input {
     dock: left;
-    width: 50%;
+    width: 49%;
 }
 
 #expected_output {
     dock: right;
-    width: 50%;
+    width: 49%;
 }
