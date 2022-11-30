@@ -1,0 +1,6 @@
+%=%=,1000
+apple,%=%=
+banana,brown
+%=%=,green
+3.14,%=%=
+42,hi

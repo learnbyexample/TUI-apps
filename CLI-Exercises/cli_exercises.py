@@ -3,6 +3,7 @@ from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Button, Footer, Label, Input
 from rich.panel import Panel
+from rich.markup import escape
 
 import json
 import asyncio
@@ -24,7 +25,7 @@ class CLIExercisesApp(App):
         super().__init__()
         with open('questions.json') as f:
             all_questions = json.load(f)
-        self.questions = tuple(v for k, v in all_questions.items())
+        self.questions = tuple(all_questions.values())
         self.q_idx = 0
         self.q_max_idx = len(self.questions) - 1
 
@@ -43,9 +44,9 @@ class CLIExercisesApp(App):
         self.progress_file = 'user_progress.json'
         if os.path.isfile(self.progress_file):
             with open(self.progress_file) as f:
-                self.user_progress = json.load(f)
+                self.user_progress = {int(k): v for k,v in json.load(f).items()}
             for idx in range(self.q_max_idx):
-                if self.user_progress.get(str(idx), ('', False))[1]:
+                if self.user_progress.get(idx, ('', False))[1]:
                     self.q_idx = idx + 1
                 else:
                     break
@@ -77,6 +78,7 @@ class CLIExercisesApp(App):
             result = subprocess.run(cmd, timeout=2,
                                     shell=True, capture_output=True, text=True)
         except subprocess.TimeoutExpired:
+            self.cmd_entered_by_user = ''
             msg = ('App might become unresponsive.\n'
                    'Wait a few seconds...\n'
                    'Or, press Ctrl+C to quit (press multiple times if needed).')
@@ -100,7 +102,7 @@ class CLIExercisesApp(App):
                         self.answered_correctly = True
                     self.user_cmd_input.styles.background = 'green'
                     solution = (f"[b]Reference Solution:[/b] [green]"
-                                f"{self.questions[self.q_idx]['ref_solution']}")
+                                f"{escape(self.questions[self.q_idx]['ref_solution'])}")
                     panel = self.op_panel(result.stdout,
                                           subtitle=solution,
                                           subtitle_align='left')
@@ -130,14 +132,15 @@ class CLIExercisesApp(App):
                                           title='Expected output',
                                           title_align='center'))
 
-        self.q_idx_str = str(self.q_idx)
-        if self.q_idx_str in self.user_progress:
-            self.set_cmd(self.user_progress[self.q_idx_str][0])
+        if self.q_idx in self.user_progress:
+            self.set_cmd(self.user_progress[self.q_idx][0])
         else:
             self.user_cmd_input.value = ''
             self.user_cmd_input.styles.background = 'lightgray'
             self.user_cmd_output.update(self.op_panel(''))
             self.user_cmd_output.styles.color = 'gray'
+
+        self.user_cmd_input.focus()
 
     def on_button_pressed(self, event):
         button_id = event.button.id
@@ -167,12 +170,12 @@ class CLIExercisesApp(App):
     def save_progress(self):
         cmd = self.cmd_entered_by_user
         if cmd:
-            if self.q_idx_str in self.user_progress:
-                if (self.user_progress[self.q_idx_str][0] == cmd
-                    or (self.user_progress[self.q_idx_str][1]
+            if self.q_idx in self.user_progress:
+                if (self.user_progress[self.q_idx][0] == cmd
+                    or (self.user_progress[self.q_idx][1]
                         and not self.answered_correctly)):
                     return
-            self.user_progress[self.q_idx_str] = [cmd, self.answered_correctly]
+            self.user_progress[self.q_idx] = [cmd, self.answered_correctly]
             with open(self.progress_file, 'w') as f:
                 f.write(json.dumps(self.user_progress, indent=4))
 
@@ -198,7 +201,7 @@ class CLIExercisesApp(App):
 
     def action_quit(self):
         self.save_progress()
-        app.exit()
+        self.app.exit()
 
 
 if __name__ == '__main__':

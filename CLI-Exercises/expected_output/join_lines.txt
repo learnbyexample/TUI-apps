@@ -1,0 +1,4 @@
+coffee,tea
+washing powder,coffee
+toothpaste,tea
+soap,tea

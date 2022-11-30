@@ -1,0 +1,5 @@
+1.4G	games
+316M    projects
+746K    report.log
+104K    power.log
+20K     sample.txt

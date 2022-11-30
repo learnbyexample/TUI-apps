@@ -1,0 +1,9 @@
+3) cherry
+1) apple
+2) banana
+1) almond
+1) apricot
+6) fig
+4) pineapple
+3) mango
+5) pear

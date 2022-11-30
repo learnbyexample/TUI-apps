@@ -1,0 +1,4 @@
+dark red,sky,rose,555
+blue,ruby,water,333
+dark red,ruby,rose,111
+brown,toy,bread,42
