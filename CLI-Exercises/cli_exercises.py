@@ -14,18 +14,18 @@ from functools import partial
 class CLIExercisesApp(App):
     CSS_PATH = 'cli_exercises.css'
     BINDINGS = [
-        Binding('ctrl+s', 'show_answer', 'Show Answer', show=True),
+        Binding('ctrl+s', 'show_answer', 'Solution', show=True),
+        Binding('ctrl+p', 'previous', 'Prev', show=True),
+        Binding('ctrl+n', 'next', 'Next', show=True),
+        ('ctrl+t', 'toggle_theme', 'Theme'),
         ('ctrl+c,ctrl+q', 'quit', 'Quit'),
-        Binding('ctrl+p', 'previous', 'Previous', show=False),
-        Binding('ctrl+n', 'next', 'Next', show=False),
-        ('ctrl+t', 'toggle_dark', 'Toggle theme'),
     ]
 
     def __init__(self):
         super().__init__()
+
         with open('questions.json') as f:
-            all_questions = json.load(f)
-        self.questions = tuple(all_questions.values())
+            self.questions = tuple(json.load(f).values())
         self.q_idx = 0
         self.q_max_idx = len(self.questions) - 1
 
@@ -33,9 +33,6 @@ class CLIExercisesApp(App):
         self.sample_input = Label(id='sample_input')
         self.expected_output = Label(id='expected_output')
 
-        self.previous = Button('←', id='previous', variant='success')
-        self.next = Button('→', id='next', variant='success')
-        
         placeholder = 'Type your command here. Press Enter to execute the command.'
         self.user_cmd_input = Input(placeholder=placeholder, id='user_cmd_input')
         self.user_cmd_output = Label(id='user_cmd_output')
@@ -46,20 +43,18 @@ class CLIExercisesApp(App):
             with open(self.progress_file) as f:
                 self.user_progress = {int(k): v for k,v in json.load(f).items()}
             for idx in range(self.q_max_idx):
-                if self.user_progress.get(idx, ('', False))[1]:
-                    self.q_idx = idx + 1
-                else:
+                if not self.user_progress.get(idx, ('', False))[1]:
                     break
+            self.q_idx = idx
         else:
             self.user_progress = {}
 
     def compose(self):
         yield Label('[b]Linux CLI Text Processing Exercises', id='header')
-        yield Container(self.previous, self.question, self.next,
-                        id='question_container')
+        yield self.question
         yield self.user_cmd_input
         yield self.user_cmd_output
-        yield Container(self.sample_input, self.expected_output, id='ip_op')
+        yield Container(self.sample_input, self.expected_output)
         yield Footer()
 
     def on_mount(self):
@@ -70,15 +65,13 @@ class CLIExercisesApp(App):
         self.process_user_cmd()
 
     def process_user_cmd(self):
-        cmd = self.user_cmd_input.value
-        if not self.show_answer_clicked:
-            self.cmd_entered_by_user = cmd
         self.answered_correctly = False
+        self.timed_out = False
         try:
-            result = subprocess.run(cmd, timeout=2,
+            result = subprocess.run(self.user_cmd_input.value, timeout=2,
                                     shell=True, capture_output=True, text=True)
         except subprocess.TimeoutExpired:
-            self.cmd_entered_by_user = ''
+            self.timed_out = True
             msg = ('App might become unresponsive.\n'
                    'Wait a few seconds...\n'
                    'Or, press Ctrl+C to quit (press multiple times if needed).')
@@ -112,9 +105,9 @@ class CLIExercisesApp(App):
                     self.user_cmd_output.update(self.op_panel(result.stdout))
 
     def set_quest_ip_op(self):
-        self.cmd_entered_by_user = ''
+        self.answered_correctly = False
         self.show_answer_clicked = False
-        self.update_button_state()
+        self.timed_out = False
         quest = f"Q{self.q_idx + 1}) {self.questions[self.q_idx]['question']}"
         self.question.update(quest)
 
@@ -142,61 +135,43 @@ class CLIExercisesApp(App):
 
         self.user_cmd_input.focus()
 
-    def on_button_pressed(self, event):
-        button_id = event.button.id
-        if button_id == 'previous':
-            self.previous_quest()
-        elif button_id == 'next':
-            self.next_quest()
-
-    def previous_quest(self):
-        self.save_progress()
-        self.q_idx -= 1
-        self.set_quest_ip_op()
-
-    def next_quest(self):
-        self.save_progress()
-        self.q_idx += 1
-        self.set_quest_ip_op()
-
-    def update_button_state(self):
-        self.previous.disabled = False
-        self.next.disabled = False
-        if self.q_idx == 0:
-            self.previous.disabled = True
-        if self.q_idx == self.q_max_idx:
-            self.next.disabled = True
-
-    def save_progress(self):
-        cmd = self.cmd_entered_by_user
-        if cmd:
-            if self.q_idx in self.user_progress:
-                if (self.user_progress[self.q_idx][0] == cmd
-                    or (self.user_progress[self.q_idx][1]
-                        and not self.answered_correctly)):
-                    return
-            self.user_progress[self.q_idx] = [cmd, self.answered_correctly]
-            with open(self.progress_file, 'w') as f:
-                f.write(json.dumps(self.user_progress, indent=4))
-
-    def action_show_answer(self):
-        self.show_answer_clicked = True
-        self.set_cmd(self.questions[self.q_idx]['ref_solution'])
-
     def set_cmd(self, cmd):
         self.user_cmd_input.value = cmd
         self.user_cmd_input.cursor_position = len(cmd)
         self.process_user_cmd()
 
+    def save_progress(self):
+        cmd = self.user_cmd_input.value
+        if not (self.timed_out or self.show_answer_clicked):
+            if self.q_idx in self.user_progress:
+                if (self.user_progress[self.q_idx][0] == cmd
+                    or (self.user_progress[self.q_idx][1]
+                        and not self.answered_correctly)):
+                    return
+            elif not cmd:
+                return
+            self.user_progress[self.q_idx] = [cmd, self.answered_correctly]
+            with open(self.progress_file, 'w') as f:
+                f.write(json.dumps(self.user_progress, indent=4))
+
+    def action_show_answer(self):
+        self.save_progress()
+        self.show_answer_clicked = True
+        self.set_cmd(self.questions[self.q_idx]['ref_solution'])
+
     def action_previous(self):
-        if not self.previous.disabled:
-            self.previous_quest()
+        if self.q_idx > 0:
+            self.save_progress()
+            self.q_idx -= 1
+            self.set_quest_ip_op()
 
     def action_next(self):
-        if not self.next.disabled:
-            self.next_quest()
+        if self.q_idx < self.q_max_idx:
+            self.save_progress()
+            self.q_idx += 1
+            self.set_quest_ip_op()
 
-    def action_toggle_dark(self):
+    def action_toggle_theme(self):
         self.dark = not self.dark
 
     def action_quit(self):
