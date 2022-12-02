@@ -1,6 +1,6 @@
 # Linux CLI Text Processing Exercises
 
-This is a **work-in-progress** TUI application to test your CLI text processing skills.
+This TUI application includes 40 questions to test your CLI text processing skills.
 
 > **Note**  
 > This application is intended for exercises based on Linux CLI tools. You might still be able to solve the exercises on other platforms, but I'm not sure if it works.
@@ -40,7 +40,7 @@ After pressing **Ctrl+n** twice, you should get a screen similar to the one show
 * Press **Ctrl+q** or **Ctrl+c** to quit the app.
 
 > **Note**  
-> Commands you have typed are automatically saved in `user_progress.json`. If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped). If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes. Once you have solved a question, only another correct solution can override the previously saved command.
+> Commands you have typed are automatically saved in `user_progress.json` (only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic). If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped). If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes. Once you have solved a question, only a different correct solution can override the previously saved command.
 
 > **Warning**  
 > There is no safeguard against the command you are executing. They are treated as if you typed them from a shell session. For example, `ls` will list the contents of the current directory.

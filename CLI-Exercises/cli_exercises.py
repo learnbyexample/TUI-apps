@@ -18,7 +18,7 @@ class CLIExercisesApp(App):
         Binding('ctrl+p', 'previous', 'Prev', show=True),
         Binding('ctrl+n', 'next', 'Next', show=True),
         ('ctrl+t', 'toggle_theme', 'Theme'),
-        ('ctrl+c,ctrl+q', 'quit', 'Quit'),
+        ('ctrl+c,ctrl+q', 'app.quit', 'Quit'),
     ]
 
     def __init__(self):
@@ -42,7 +42,7 @@ class CLIExercisesApp(App):
         if os.path.isfile(self.progress_file):
             with open(self.progress_file) as f:
                 self.user_progress = {int(k): v for k,v in json.load(f).items()}
-            for idx in range(self.q_max_idx):
+            for idx in range(self.q_max_idx + 1):
                 if not self.user_progress.get(idx, ('', False))[1]:
                     break
             self.q_idx = idx
@@ -66,12 +66,10 @@ class CLIExercisesApp(App):
 
     def process_user_cmd(self):
         self.answered_correctly = False
-        self.timed_out = False
         try:
             result = subprocess.run(self.user_cmd_input.value, timeout=2,
                                     shell=True, capture_output=True, text=True)
         except subprocess.TimeoutExpired:
-            self.timed_out = True
             msg = ('App might become unresponsive.\n'
                    'Wait a few seconds...\n'
                    'Or, press Ctrl+C to quit (press multiple times if needed).')
@@ -103,11 +101,12 @@ class CLIExercisesApp(App):
                 else:
                     self.user_cmd_input.styles.background = 'lightgray'
                     self.user_cmd_output.update(self.op_panel(result.stdout))
+            if not self.show_answer_clicked:
+                self.save_progress()
 
     def set_quest_ip_op(self):
         self.answered_correctly = False
         self.show_answer_clicked = False
-        self.timed_out = False
         quest = f"Q{self.q_idx + 1}) {self.questions[self.q_idx]['question']}"
         self.question.update(quest)
 
@@ -142,41 +141,33 @@ class CLIExercisesApp(App):
 
     def save_progress(self):
         cmd = self.user_cmd_input.value
-        if not (self.timed_out or self.show_answer_clicked):
-            if self.q_idx in self.user_progress:
-                if (self.user_progress[self.q_idx][0] == cmd
-                    or (self.user_progress[self.q_idx][1]
-                        and not self.answered_correctly)):
-                    return
-            elif not cmd:
+        if self.q_idx in self.user_progress:
+            if (self.user_progress[self.q_idx][0] == cmd
+                or (self.user_progress[self.q_idx][1]
+                    and not self.answered_correctly)):
                 return
-            self.user_progress[self.q_idx] = [cmd, self.answered_correctly]
-            with open(self.progress_file, 'w') as f:
-                f.write(json.dumps(self.user_progress, indent=4))
+        elif not cmd:
+            return
+        self.user_progress[self.q_idx] = [cmd, self.answered_correctly]
+        with open(self.progress_file, 'w') as f:
+            f.write(json.dumps(self.user_progress, indent=4))
 
     def action_show_answer(self):
-        self.save_progress()
         self.show_answer_clicked = True
         self.set_cmd(self.questions[self.q_idx]['ref_solution'])
 
     def action_previous(self):
         if self.q_idx > 0:
-            self.save_progress()
             self.q_idx -= 1
             self.set_quest_ip_op()
 
     def action_next(self):
         if self.q_idx < self.q_max_idx:
-            self.save_progress()
             self.q_idx += 1
             self.set_quest_ip_op()
 
     def action_toggle_theme(self):
         self.dark = not self.dark
-
-    def action_quit(self):
-        self.save_progress()
-        self.app.exit()
 
 
 if __name__ == '__main__':

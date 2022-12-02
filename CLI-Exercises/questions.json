@@ -39,7 +39,7 @@
         "question": "For the input file ip.txt filter lines starting with \"b\" or ending with \"e\" or ending with \"es\"",
         "ip_file": "ip.txt",
         "op_file": "starts_x_ends_y_z.txt",
-        "ref_solution": "grep -E '^b|(es?)$' ip.txt"
+        "ref_solution": "grep -E '^b|es?$' ip.txt"
     },
     "8": {
         "question": "Extract all whole words starting with \"h\" or \"m\" irrespective of case from sample.txt",
@@ -78,7 +78,7 @@
         "ref_solution": "sort -hr file_size.txt"
     },
     "14": {
-        "question": "Sort contents of timings.txt based on natural (version) numbers within text",
+        "question": "Sort contents of timings.txt based on natural (version) numbers within the text",
         "ip_file": "timings.txt",
         "op_file": "sort_version.txt",
         "ref_solution": "sort -V timings.txt"
@@ -198,7 +198,7 @@
         "ref_solution": "awk 'BEGIN{p = 1} {p *= $NF} END{print p}' table.txt"
     },
     "34": {
-        "question": "Reverse contents of blocks.txt considering \"%=%=\" as the separator.",
+        "question": "Reverse contents of blocks.txt considering \"%=%=\" as the separator",
         "ip_file": "blocks.txt",
         "op_file": "block_reverse.txt",
         "ref_solution": "tac -bs '%=%=' blocks.txt"
@@ -228,7 +228,7 @@
         "ref_solution": "awk -F'[aeiou]' 'NF>3' ip.txt"
     },
     "39": {
-        "question": "From blocks.txt extract only the third block. A line containing %=%= determines the start of a block",
+        "question": "From blocks.txt extract only the 3rd block. A line containing \"%=%=\" determines the start of a block",
         "ip_file": "blocks.txt",
         "op_file": "third_block.txt",
         "ref_solution": "awk '$0 == \"%=%=\"{c++} c==3' blocks.txt"
