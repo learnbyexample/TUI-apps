@@ -4,10 +4,6 @@
     background: orange;
 }
 
-Button:focus {
-    text-style: bold;
-}
-
 #question {
     border: blank;
     padding: 0 1 0 1;

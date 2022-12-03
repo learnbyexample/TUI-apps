@@ -26,7 +26,8 @@ After pressing **Ctrl+n** twice, you should get a screen similar to the one show
 
 # Guide
 
-* Press **Ctrl+n** and **Ctrl+p** to navigate the questions list.
+* Press **Ctrl+p** and **Ctrl+n** to navigate the questions list.
+    * **Ctrl+←** and **Ctrl+→** can be used instead.
     * You can also click them using mouse from the footer.
 * Type the command in the box below the question. Cursor focus is meant to be always within this box.
 * Press **Enter** to execute the command.
@@ -38,16 +39,28 @@ After pressing **Ctrl+n** twice, you should get a screen similar to the one show
 * Press **Ctrl+s** to show the reference solution if you are unable to solve an exercise.
 * Press **Ctrl+t** to toggle between light and dark themes.
 * Press **Ctrl+q** or **Ctrl+c** to quit the app.
+* Navigating and editing in the command box:
+    * Use mouse click to position the cursor anywhere you like
+    * **←** move left by one character
+    * **→** move right by one character
+    * **Ctrl+a** move to the start of the line
+    * **Ctrl+e** move to the end of the line
+    * **Ctrl+w** delete backwards till whitespace boundary or start of the line
+    * **Ctrl+f** delete forwards till whitespace boundary or end of the line
+    * **Ctrl+u** delete backwards till start of the line
+    * **Ctrl+k** delete forwards till start of the line
+    * **Backspace** delete character to the left of the cursor
+    * **Ctrl+d** delete character to the right of the cursor
 
 > **Note**  
-> Commands you have typed are automatically saved in `user_progress.json` (only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic). If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped). If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes. Once you have solved a question, only a different correct solution can override the previously saved command.
+> Commands you have typed are automatically saved in `user_progress.json` (only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic). Theme choice is also saved. If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped). If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes. Once you have solved a question, only a different correct solution can override the previously saved command.
 
 > **Warning**  
 > There is no safeguard against the command you are executing. They are treated as if you typed them from a shell session. For example, `ls` will list the contents of the current directory.
 
 # Ebooks
 
-Exercises used in this application are based on my [programming ebooks](https://learnbyexample.github.io/books/).
+Exercises used in this application are based on [my programming ebooks](https://learnbyexample.github.io/books/).
 
 # License
 

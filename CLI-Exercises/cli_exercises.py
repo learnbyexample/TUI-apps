@@ -9,16 +9,29 @@ import json
 import asyncio
 import os
 import subprocess
+import re
 from functools import partial
 
 class CLIExercisesApp(App):
     CSS_PATH = 'cli_exercises.css'
     BINDINGS = [
         Binding('ctrl+s', 'show_answer', 'Solution', show=True),
-        Binding('ctrl+p', 'previous', 'Prev', show=True),
-        Binding('ctrl+n', 'next', 'Next', show=True),
+        Binding('ctrl+p,ctrl+left', 'previous', 'Prev', show=True),
+        Binding('ctrl+n,ctrl+right', 'next', 'Next', show=True),
         ('ctrl+t', 'toggle_theme', 'Theme'),
-        ('ctrl+c,ctrl+q', 'app.quit', 'Quit'),
+        ('ctrl+q', 'app.quit', 'Quit'),
+        Binding('ctrl+u', 'clear_till_start',
+                'Clear till start of line', show=False),
+        Binding('ctrl+k', 'clear_till_end',
+                'Clear till end of line', show=False),
+        Binding('ctrl+w', 'clear_till_prev_space',
+                'Clear till previous space or start of line', show=False),
+        Binding('ctrl+f', 'clear_till_next_space',
+                'Clear till next space or end of line', show=False),
+        Binding('ctrl+a', 'move_to_start',
+                'Move cursor to start of line', show=False),
+        Binding('ctrl+e', 'move_to_end',
+                'Move cursor to end of line', show=False),
     ]
 
     def __init__(self):
@@ -58,7 +71,7 @@ class CLIExercisesApp(App):
         yield Footer()
 
     def on_mount(self):
-        self.dark = False
+        self.dark = self.user_progress.get(-1, False)
         self.set_quest_ip_op()
 
     async def on_input_submitted(self, message):
@@ -146,9 +159,10 @@ class CLIExercisesApp(App):
                 or (self.user_progress[self.q_idx][1]
                     and not self.answered_correctly)):
                 return
-        elif not cmd:
-            return
         self.user_progress[self.q_idx] = [cmd, self.answered_correctly]
+        self.write_progress_file()
+
+    def write_progress_file(self):
         with open(self.progress_file, 'w') as f:
             f.write(json.dumps(self.user_progress, indent=4))
 
@@ -168,6 +182,38 @@ class CLIExercisesApp(App):
 
     def action_toggle_theme(self):
         self.dark = not self.dark
+        self.user_progress[-1] = self.dark
+        self.write_progress_file()
+
+    def action_clear_till_start(self):
+        cmd = self.user_cmd_input.value[self.user_cmd_input.cursor_position:]
+        self.user_cmd_input.value = cmd
+        self.user_cmd_input.cursor_position = 0
+
+    def action_clear_till_end(self):
+        cmd = self.user_cmd_input.value[:self.user_cmd_input.cursor_position]
+        self.user_cmd_input.value = cmd
+        self.user_cmd_input.cursor_position = len(cmd)
+
+    def action_clear_till_prev_space(self):
+        cmd = self.user_cmd_input.value
+        pos = self.user_cmd_input.cursor_position
+        s = re.sub(r'\S*\s*$', '', cmd[:pos])
+        self.user_cmd_input.value = s + cmd[pos:]
+        self.user_cmd_input.cursor_position = len(s)
+
+    def action_clear_till_next_space(self):
+        cmd = self.user_cmd_input.value
+        pos = self.user_cmd_input.cursor_position
+        s = re.sub(r'^\s*\S*', '', cmd[pos:])
+        self.user_cmd_input.value = cmd[:pos] + s
+        self.user_cmd_input.cursor_position = pos
+
+    def action_move_to_start(self):
+        self.user_cmd_input.cursor_position = 0
+
+    def action_move_to_end(self):
+        self.user_cmd_input.cursor_position = len(self.user_cmd_input.value)
 
 
 if __name__ == '__main__':
