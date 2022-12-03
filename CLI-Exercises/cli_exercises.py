@@ -67,7 +67,7 @@ class CLIExercisesApp(App):
         yield self.question
         yield self.user_cmd_input
         yield self.user_cmd_output
-        yield Container(self.sample_input, self.expected_output)
+        yield Container(self.sample_input, self.expected_output, id='ip_op')
         yield Footer()
 
     def on_mount(self):
