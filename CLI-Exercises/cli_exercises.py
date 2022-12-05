@@ -1,12 +1,11 @@
-from textual.app import App, ComposeResult
+from textual.app import App
 from textual.binding import Binding
 from textual.containers import Container
-from textual.widgets import Button, Footer, Label, Input
+from textual.widgets import Footer, Label, Input
 from rich.panel import Panel
 from rich.markup import escape
 
 import json
-import asyncio
 import os
 import subprocess
 import re
@@ -164,7 +163,7 @@ class CLIExercisesApp(App):
 
     def write_progress_file(self):
         with open(self.progress_file, 'w') as f:
-            f.write(json.dumps(self.user_progress, indent=4))
+            json.dump(self.user_progress, f, indent=4)
 
     def action_show_answer(self):
         self.show_answer_clicked = True
