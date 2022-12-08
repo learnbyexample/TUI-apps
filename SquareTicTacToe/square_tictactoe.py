@@ -3,23 +3,25 @@ from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Button, Header, Footer, Label
 from typing import List
+from rich.panel import Panel
 import random
+from functools import partial
 
 class SquareTicTacToeApp(App):
     """Square Tic Tac Toe game."""
 
     CSS_PATH = "square_tictactoe.css"
     BINDINGS = [
-        ("d", "toggle_dark", "Toggle theme"),
-        Binding("ctrl+c,q", "app.quit", "Quit", show=True),
+        ("d", "toggle_theme", "Toggle theme"),
+        Binding("q", "app.quit", "Quit", show=True),
     ]
 
     def __init__(self) -> None:
         super().__init__()
 
         self.active = "ACTIVE"
-        self.state_prefix = "Game Status:\n"
-        self.state = f"{self.state_prefix}INACTIVE"
+        self.state = "INACTIVE"
+        self.state_panel = partial(Panel, title='Game Status')
         self.corners = 4
         self.total_cells = 16
         self.easy, self.hard = (0, 1)
@@ -38,7 +40,7 @@ class SquareTicTacToeApp(App):
                             (2, 5, 7, 10), (5, 8, 10, 13), (6, 9, 11, 14),
                             (1, 7, 8, 14), (2, 4, 11, 13))
 
-        self.status = Label(renderable=self.state, id="info")
+        self.status = Label(renderable=self.state_panel(self.state), id="info")
         self.new_game = Button(label="New Game", id="new game")
         self.choice = (Button(label="Easy", id="easy", variant="success"),
                        Button(label="Hard", id="hard", variant="default"))
@@ -94,7 +96,7 @@ class SquareTicTacToeApp(App):
         self.ai["last_move"] = 0
         self.user["last_move"] = 0
         self.state = self.active
-        self.status.update(self.state_prefix + self.state)
+        self.status.update(self.state_panel(self.state))
         if self.choice[0].variant == "success":
             self.difficulty = self.easy
         else:
@@ -127,7 +129,7 @@ class SquareTicTacToeApp(App):
         else:
             if self.state == self.active and not self.available_moves:
                 self.state = "TIE"
-        self.status.update(self.state_prefix + self.state)
+        self.status.update(self.state_panel(self.state))
 
     def ai_response(self) -> None:
         """Move made by AI based on Easy/Hard modes."""
@@ -207,8 +209,8 @@ class SquareTicTacToeApp(App):
             for i in square:
                 self.cell_buttons[i].variant = player["variant_win"]
 
-    def action_toggle_dark(self) -> None:
-        """An action to toggle dark mode."""
+    def action_toggle_theme(self) -> None:
+        """An action to toggle theme."""
 
         self.dark = not self.dark
 

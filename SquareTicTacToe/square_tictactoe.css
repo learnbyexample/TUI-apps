@@ -3,6 +3,7 @@
     text-align: center;
     width: 100%;
     background: orange;
+    color: black;
 }
 
 #info {
@@ -13,6 +14,7 @@
     background: orange;
     margin: 1;
     padding: 1;
+    color: black;
 }
 
 Button:focus {

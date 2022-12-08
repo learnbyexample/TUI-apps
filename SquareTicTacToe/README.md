@@ -18,26 +18,26 @@ $ pip install textual
 
 $ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
 $ cd TUI-apps/SquareTicTacToe
-$ python3 square_tictactoe.py
+$ python square_tictactoe.py
 ```
 
 You should get a screen similar to the one shown below:
 
 <p align="center"><img src="./square_tictactoe.png" alt="Square Tic Tac Toe initial screen" /></p>
 
-# Game controls
+# Guide
 
 * Click the **New Game** button to start a new game. Existing game, if any, will be abandoned.
 * You can choose between **Easy** (default) and **Hard** modes by clicking those buttons.
     * In *Easy* mode, the AI will make the first move with a 50% chance and afterwards it will make a move randomly in response to user moves.
     * In *Hard* mode, the AI will always make the first move and at best you'll be able to TIE the game ;)
     * These choices will come into effect only after a new game is started.
-* Press **d** key to switch between light and dark themes.
+* Press **d** key to toggle between light and dark themes.
 * Press **q** key or **Ctrl+c** to quit the app.
 
 User moves are denoted by the ⭕️ character and AI moves are denoted by the ✖️  character.
 
-The text area to the left of the game board displays the current status of the game. If the game ends with one of the players forming a valid square, the winning square will be highlighted.
+The text panel to the left of the game board displays the current status of the game. If the game ends with one of the players forming a valid square, the winning square will be highlighted.
 
 # Blog post
 
