@@ -17,12 +17,12 @@ $ pip install textual==0.5.0
 
 $ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
 $ cd TUI-apps/CLI-Exercises
-$ python3 cli_exercises.py
+$ python cli_exercises.py
 ```
 
 After pressing **Ctrl+n** twice, you should get a screen similar to the one shown below:
 
-<p align="center"><img src="./cli_exercises.png" alt="Sample CLI exercises screen" /></p>
+<p align="center"><img src="./cli_exercises.png" alt="Sample screenshot for CLI exercises" /></p>
 
 # Guide
 
@@ -51,12 +51,19 @@ After pressing **Ctrl+n** twice, you should get a screen similar to the one show
     * **Ctrl+k** delete forwards till start of the line
     * **Backspace** delete character to the left of the cursor
     * **Ctrl+d** delete character to the right of the cursor
+* Use **Page Up** and **Page Down** (or mouse) to scroll.
 
 > **Note**  
 > Commands you have typed are automatically saved in `user_progress.json` (only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic). Theme choice is also saved. If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped). If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes. Once you have solved a question, only a different correct solution can override the previously saved command.
 
 > **Warning**  
 > There is no safeguard against the command you are executing. They are treated as if you typed them from a shell session. For example, `ls` will list the contents of the current directory.
+
+## Video demo
+
+https://user-images.githubusercontent.com/17766317/206649676-a913ad0d-1be7-430d-8978-98517347d86b.mp4
+
+You can also view the [demo video on youtube](https://youtu.be/0ggfQzXeYJg).
 
 # Ebooks
 
