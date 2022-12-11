@@ -24,7 +24,7 @@ Alternatively, install the app using pip:
 
 ```bash
     python3 -m venv textual_apps
-    . textual_apps/bin/activate
+    source textual_apps/bin/activate
     pip install -e "git+https://github.com/learnbyexample/TUI-apps.git#egg=CLI-Exercises&subdirectory=CLI-Exercises"
     cli_exercises
 ```
