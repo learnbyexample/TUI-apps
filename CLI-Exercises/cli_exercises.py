@@ -215,7 +215,10 @@ class CLIExercisesApp(App):
         self.user_cmd_input.cursor_position = len(self.user_cmd_input.value)
 
 
-if __name__ == '__main__':
+def main():
     app = CLIExercisesApp()
     app.run()
 
+
+if __name__ == '__main__':
+    main()
