@@ -8,13 +8,13 @@ A 3x3 grid would be too small a playing area, so 4x4 grid is used instead. Compa
 
 # Installation
 
-You'll need to install `textual` first (minimum version required is `0.5.0`). See [Textual documentation](https://textual.textualize.io/getting_started/) for more details about installation. After that, you can clone this repository and run the `square_tictactoe.py` script. Terminal dimension should be at least 84x25 (characters x lines) for the game widgets to appear properly. Example instructions shown below, adjust them based on your preferences and OS.
+You'll need to install `textual` first. See [Textual documentation](https://textual.textualize.io/getting_started/) for more details about installation. After that, you can clone this repository and run the `square_tictactoe.py` script. Terminal dimension should be at least 84x25 (characters x lines) for the game widgets to appear properly. Example instructions shown below, adjust them based on your preferences and OS.
 
 ```bash
 $ python3 -m venv textual_apps
 $ cd textual_apps
 $ source bin/activate
-$ pip install textual
+$ pip install textual==0.5.0
 
 $ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
 $ cd TUI-apps/SquareTicTacToe
