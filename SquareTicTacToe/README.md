@@ -14,7 +14,7 @@ You'll need to install `textual` first. See [Textual documentation](https://text
 $ python3 -m venv textual_apps
 $ cd textual_apps
 $ source bin/activate
-$ pip install textual==0.5.0
+$ pip install textual==0.10.0
 
 $ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
 $ cd TUI-apps/SquareTicTacToe
