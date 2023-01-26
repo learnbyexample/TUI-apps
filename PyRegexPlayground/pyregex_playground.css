@@ -1,0 +1,41 @@
+#header {
+    dock: top;
+    text-align: center;
+    color: black;
+    background: orange;
+    width: 100%;
+}
+
+#h_search {
+    height: auto;
+}
+
+#h_replace {
+    height: auto;
+}
+
+#l_search {
+    min-height: 1;
+    padding: 1;
+    text-style: bold;
+    text-align: right;
+    width: 10;
+}
+
+#l_replace {
+    min-height: 1;
+    padding: 1;
+    text-style: bold;
+    text-align: right;
+    width: 10;
+}
+
+#l_input {
+    margin: 1 1 0 1;
+    width: 100%;
+}
+
+#l_output {
+    margin: 0 1 0 1;
+    width: 100%;
+}

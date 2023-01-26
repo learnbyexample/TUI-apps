@@ -6,6 +6,7 @@ Repository for Terminal User Interface (TUI) apps. Mostly for fun (ex: games), l
 
 * [Square Tic Tac Toe](./SquareTicTacToe) — form a square with 4 corners
 * [Linux CLI Text Processing Exercises](./CLI-Exercises) — test your CLI text processing skills
+* [Python re(gex)? playground](./PyRegexPlayground) — interactive playground for Python Regular Expressions
 
 # Acknowledgements
 
