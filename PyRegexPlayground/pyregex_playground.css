@@ -6,15 +6,15 @@
     width: 100%;
 }
 
-#h_search {
+#h_compile {
     height: auto;
 }
 
-#h_replace {
+#h_action {
     height: auto;
 }
 
-#l_search {
+#l_compile {
     min-height: 1;
     padding: 1;
     text-style: bold;
@@ -22,7 +22,7 @@
     width: 10;
 }
 
-#l_replace {
+#l_action {
     min-height: 1;
     padding: 1;
     text-style: bold;
@@ -31,7 +31,7 @@
 }
 
 #l_input {
-    margin: 1 1 0 1;
+    margin: 0 1 0 1;
     width: 100%;
 }
 
