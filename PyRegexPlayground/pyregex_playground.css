@@ -6,15 +6,11 @@
     width: 100%;
 }
 
-#h_compile {
+.container {
     height: auto;
 }
 
-#h_action {
-    height: auto;
-}
-
-#l_compile {
+.name {
     min-height: 1;
     padding: 1;
     text-style: bold;
@@ -22,20 +18,14 @@
     width: 10;
 }
 
-#l_action {
-    min-height: 1;
-    padding: 1;
-    text-style: bold;
-    text-align: right;
-    width: 10;
-}
-
-#l_input {
-    margin: 0 1 0 1;
+.error {
+    min-height: 0;
+    height: auto;
     width: 100%;
+    color: red;
 }
 
-#l_output {
+.ip_op {
     margin: 0 1 0 1;
     width: 100%;
 }

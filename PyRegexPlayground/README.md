@@ -34,7 +34,7 @@ The compiled pattern is available via the `pat` variable and you can use `ip` to
 
 The input string is obtained from the `ip.txt` file. You can change contents of this file and press **Ctrl+u** to update the `ip` variable. You'll have to press **Enter** again to update the results for the changed data.
 
-Some of the error types are caught and the background color of the input boxes will change to red. Other errors might result in the app crashing.
+Some of the error types are caught. In such cases, the background color of the input boxes will change to red and the error message will be displayed below the corresponding box. Other errors might result in the app crashing.
 
 Press **Ctrl+t** to toggle the theme between light and dark modes.
 
