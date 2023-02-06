@@ -2,6 +2,7 @@ from textual.app import App
 from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
 from textual.widgets import Footer, Label, Input
+from textual.screen import Screen
 from rich.panel import Panel
 from rich.text import Text
 from rich.pretty import Pretty
@@ -9,13 +10,46 @@ from rich.pretty import Pretty
 import re
 from functools import partial
 
+GUIDE_TEXT = '''
+You can type the search pattern in the [b]Compile[/b] input box and press the \
+[b]Enter[/b] key to execute. For example, [b][green]re.compile(r'\d')[/green][/b] \
+to match digit characters. Matching portions will be highlighted in red.
+
+The compiled pattern is available via the [b][green]pat[/green][/b] variable \
+and you can use [b][green]ip[/green][/b] to refer to the input string. You \
+can transform or extract data by typing appropriate methods in the \
+[b]Action[/b] box. For example, [b][green]pat.sub(r'(\g<0>)', ip)[/green][/b] \
+will add parenthesis around the matching portions.
+
+The input string is obtained from the [b][green]ip.txt[/green][/b] file. You \
+can change contents of this file and press [b][red]Ctrl+u[/red][/b] to update \
+the [b][green]ip[/green][/b] variable. You'll have to press [b]Enter[/b] again \
+to update the results for the changed data.
+
+Some of the error types are caught. In such cases, the background color of the \
+input boxes will change to red and the error message will be displayed below \
+the corresponding box. Other errors might result in the app crashing.
+
+Press [b][red]Ctrl+t[/red][/b] to toggle the theme between light and dark modes.
+'''
+
+class Guide(Screen):
+    BINDINGS = [('escape', 'app.pop_screen', 'Pop screen')]
+
+    def compose(self):
+        yield Label(Panel(Text.from_markup(GUIDE_TEXT),
+                          title='[b]Guide[/b] (press Esc to go back)',
+                          title_align='center'))
+
 class PyRegexPlayground(App):
     CSS_PATH = 'pyregex_playground.css'
     BINDINGS = [
         Binding('ctrl+u', 'update_ip', 'Update ip', show=True),
+        ('ctrl+g,f1', 'push_screen("guide")', 'Guide'),
         ('ctrl+t', 'toggle_theme', 'Theme'),
         ('ctrl+q', 'app.quit', 'Quit'),
     ]
+    SCREENS = {'guide': Guide()}
 
     def __init__(self):
         super().__init__()
@@ -73,7 +107,7 @@ class PyRegexPlayground(App):
             t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
             self.l_compile_error = Label(t, classes='error')
             self.v_compile.mount(self.l_compile_error)
-            self.i_compile.styles.background = 'red'
+            self.i_compile.styles.background = 'ansi_red'
         else:
             op = Text(ip)
             for m in pat.finditer(ip):
@@ -91,7 +125,7 @@ class PyRegexPlayground(App):
             t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
             self.l_action_error = Label(t, classes='error')
             self.v_action.mount(self.l_action_error)
-            self.i_action.styles.background = 'red'
+            self.i_action.styles.background = 'ansi_red'
         else:
             if type(op) != str:
                 op = Pretty(op)

@@ -38,6 +38,8 @@ Some of the error types are caught. In such cases, the background color of the i
 
 Press **Ctrl+t** to toggle the theme between light and dark modes.
 
+Press **Ctrl+g** or **F1** to display this guide from within the app. Press **Esc** to go back.
+
 > **Warning**  
 > There is no safeguard against the commands you have typed. They are treated as if you executed them from a Python program.
 
