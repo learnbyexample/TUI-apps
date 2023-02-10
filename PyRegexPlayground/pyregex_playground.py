@@ -6,11 +6,15 @@ from textual.screen import Screen
 from rich.panel import Panel
 from rich.text import Text
 from rich.pretty import Pretty
+from rich.markdown import Markdown
+from rich.highlighter import Highlighter
 
+import json
 import re
 from functools import partial
+from math import factorial
 
-GUIDE_TEXT = '''
+HELP_TEXT = '''
 You can type the search pattern in the [b]Compile[/b] input box and press the \
 [b]Enter[/b] key to execute. For example, [b][green]re.compile(r'\d')[/green][/b] \
 to match digit characters. Matching portions will be highlighted in red.
@@ -33,23 +37,92 @@ the corresponding box. Other errors might result in the app crashing.
 Press [b][red]Ctrl+t[/red][/b] to toggle the theme between light and dark modes.
 '''
 
-class Guide(Screen):
+ERROR_TYPES = (re.error, SyntaxError, TypeError, ValueError,
+               NameError, AttributeError)
+
+class CommentHighlighter(Highlighter):
+    def highlight(self, text):
+        if str(text[0]) == '#':
+            text.stylize('italic color(8)')
+
+class Help(Screen):
     BINDINGS = [('escape', 'app.pop_screen', 'Pop screen')]
 
     def compose(self):
-        yield Label(Panel(Text.from_markup(GUIDE_TEXT),
-                          title='[b]Guide[/b] (press Esc to go back)',
+        yield Label(Panel(Text.from_markup(HELP_TEXT),
+                          title='[b]Help[/b] (press Esc to go back)',
                           title_align='center'))
+
+
+class Cheatsheet(Screen):
+    BINDINGS = [('escape', 'app.pop_screen', 'Pop screen')]
+
+    def compose(self):
+        yield Label('[b]Cheatsheet[/b] (press Esc to go back)',
+                    classes='header')
+        self.v_cheatsheet = Vertical(classes='container')
+        yield self.v_cheatsheet
+
+    def on_mount(self):
+        self.load_cheatsheet()
+
+    async def on_input_submitted(self, event):
+        idx = int(event.input.name)
+        input_block = self.input_collection[idx]
+        self.l_error[idx].remove()
+        try:
+            for unit in input_block:
+                *i_setup, i_expr, l_op = unit
+                if i_setup:
+                    exec(''.join(ip.value for ip in i_setup))
+                op = eval(i_expr.value)
+                l_op.update(Pretty(op))
+        except ERROR_TYPES as e:
+            t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
+            self.l_error[idx] = Label(t, classes='error')
+            self.v_code_block[idx].mount(self.l_error[idx])
+            #self.v_code_block[idx].styles.background = 'ansi_red'
+
+    def load_cheatsheet(self):
+        self.v_code_block = []
+        self.input_collection = []
+        with open('cheatsheet.json') as f:
+            md = iter(json.load(f).values())
+        idx = 0
+        for info in md:
+            code_block = next(md)
+            self.v_code_block.append(Vertical(classes='code_container'))
+            self.input_collection.append([])
+            for unit in code_block:
+                lines = unit.splitlines(keepends=True)
+                *setup, expr = lines
+                if setup:
+                    exec(''.join(setup))
+                op = eval(expr)
+
+                t = [Input(value=line, classes='code_ip',
+                           highlighter=CommentHighlighter(), name=str(idx))
+                     for line in lines]
+                l_op = Label(Pretty(op), classes='code_op')
+                t.append(l_op)
+                self.input_collection[idx].append(t)
+                self.v_code_block[idx].mount(*t)
+            self.v_cheatsheet.mount(Label(Panel(Markdown(info)), shrink=True))
+            self.v_cheatsheet.mount(self.v_code_block[idx])
+            idx += 1
+        self.l_error = [Label('') for i in range(idx)]
 
 class PyRegexPlayground(App):
     CSS_PATH = 'pyregex_playground.css'
     BINDINGS = [
         Binding('ctrl+u', 'update_ip', 'Update ip', show=True),
-        ('ctrl+g,f1', 'push_screen("guide")', 'Guide'),
+        ('ctrl+s,f2', 'push_screen("cheatsheet")', 'Cheatsheet'),
+        ('ctrl+g,f1', 'push_screen("help")', 'Help'),
         ('ctrl+t', 'toggle_theme', 'Theme'),
         ('ctrl+q', 'app.quit', 'Quit'),
     ]
-    SCREENS = {'guide': Guide()}
+    SCREENS = {'help': Help(),
+               'cheatsheet': Cheatsheet()}
 
     def __init__(self):
         super().__init__()
@@ -76,11 +149,9 @@ class PyRegexPlayground(App):
         self.i_action = Input(placeholder=placeholder)
         self.i_action.styles.background = 'lightgray'
 
-        self.error_types = (re.error, SyntaxError, TypeError, ValueError,
-                            NameError, AttributeError)
 
     def compose(self):
-        yield Label('[b]Python re(gex)? playground', id='header')
+        yield Label('[b]Python re(gex)? playground', classes='header')
         self.v_compile = Vertical(
                 Horizontal(self.l_compile, self.i_compile, classes='container'),
                 classes='container')
@@ -97,13 +168,13 @@ class PyRegexPlayground(App):
         self.dark = False
         self.i_compile.focus()
 
-    async def on_input_submitted(self, message):
+    async def on_input_submitted(self, event):
         self.l_compile_error.remove()
         ip = self.data
         try:
             self.i_compile.styles.background = 'lightgray'
             pat = eval(self.i_compile.value)
-        except self.error_types as e:
+        except ERROR_TYPES as e:
             t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
             self.l_compile_error = Label(t, classes='error')
             self.v_compile.mount(self.l_compile_error)
@@ -121,7 +192,7 @@ class PyRegexPlayground(App):
                 op = eval(self.i_action.value)
             else:
                 op = ''
-        except self.error_types as e:
+        except ERROR_TYPES as e:
             t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
             self.l_action_error = Label(t, classes='error')
             self.v_action.mount(self.l_action_error)

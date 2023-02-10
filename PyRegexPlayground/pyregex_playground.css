@@ -1,8 +1,32 @@
-Guide {
+Cheatsheet {
     align: center middle;
 }
 
-#header {
+.code_container {
+    height: auto;
+    border: solid brown;
+}
+
+.code_ip {
+    padding: 0 1 0 1;
+    margin: 0 1 0 1;
+    border: none;
+    background: silver;
+}
+
+.code_op {
+    padding: 0 1 1 1;
+    margin: 0 1 0 1;
+    border: none;
+    background: lightgray;
+    width: 100%;
+}
+
+Help {
+    align: center middle;
+}
+
+.header {
     dock: top;
     text-align: center;
     color: black;
