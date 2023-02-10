@@ -45,6 +45,7 @@ class CommentHighlighter(Highlighter):
         if str(text[0]) == '#':
             text.stylize('italic color(8)')
 
+
 class Help(Screen):
     BINDINGS = [('escape', 'app.pop_screen', 'Pop screen')]
 
@@ -86,6 +87,7 @@ class Cheatsheet(Screen):
     def load_cheatsheet(self):
         self.v_code_block = []
         self.input_collection = []
+        comment_highlighter = CommentHighlighter()
         with open('cheatsheet.json') as f:
             md = iter(json.load(f).values())
         idx = 0
@@ -101,7 +103,7 @@ class Cheatsheet(Screen):
                 op = eval(expr)
 
                 t = [Input(value=line, classes='code_ip',
-                           highlighter=CommentHighlighter(), name=str(idx))
+                           highlighter=comment_highlighter, name=str(idx))
                      for line in lines]
                 l_op = Label(Pretty(op), classes='code_op')
                 t.append(l_op)
@@ -111,6 +113,7 @@ class Cheatsheet(Screen):
             self.v_cheatsheet.mount(self.v_code_block[idx])
             idx += 1
         self.l_error = [Label('') for i in range(idx)]
+
 
 class PyRegexPlayground(App):
     CSS_PATH = 'pyregex_playground.css'
@@ -148,7 +151,6 @@ class PyRegexPlayground(App):
         placeholder = "Function to run. Example: pat.sub(r'X', ip)"
         self.i_action = Input(placeholder=placeholder)
         self.i_action.styles.background = 'lightgray'
-
 
     def compose(self):
         yield Label('[b]Python re(gex)? playground', classes='header')
@@ -212,6 +214,7 @@ class PyRegexPlayground(App):
 
     def action_toggle_theme(self):
         self.dark = not self.dark
+
 
 if __name__ == '__main__':
     app = PyRegexPlayground()
