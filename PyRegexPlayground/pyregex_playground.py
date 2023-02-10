@@ -70,19 +70,17 @@ class Cheatsheet(Screen):
     async def on_input_submitted(self, event):
         idx = int(event.input.name)
         input_block = self.input_collection[idx]
-        self.l_error[idx].remove()
-        try:
-            for unit in input_block:
-                *i_setup, i_expr, l_op = unit
+        for unit in input_block:
+            *i_setup, i_expr, l_op = unit
+            try:
                 if i_setup:
                     exec(''.join(ip.value for ip in i_setup))
                 op = eval(i_expr.value)
                 l_op.update(Pretty(op))
-        except ERROR_TYPES as e:
-            t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
-            self.l_error[idx] = Label(t, classes='error')
-            self.v_code_block[idx].mount(self.l_error[idx])
-            #self.v_code_block[idx].styles.background = 'ansi_red'
+            except ERROR_TYPES as e:
+                t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
+                l_op.update(t)
+                l_op.styles.color = 'red'
 
     def load_cheatsheet(self):
         self.v_code_block = []
@@ -112,7 +110,6 @@ class Cheatsheet(Screen):
             self.v_cheatsheet.mount(Label(Panel(Markdown(info)), shrink=True))
             self.v_cheatsheet.mount(self.v_code_block[idx])
             idx += 1
-        self.l_error = [Label('') for i in range(idx)]
 
 
 class PyRegexPlayground(App):
