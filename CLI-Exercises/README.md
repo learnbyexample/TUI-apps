@@ -48,7 +48,7 @@ After pressing **Ctrl+n** twice, you should get a screen similar to the one show
     * **Ctrl+w** delete backwards till whitespace boundary or start of the line
     * **Ctrl+f** delete forwards till whitespace boundary or end of the line
     * **Ctrl+u** delete backwards till start of the line
-    * **Ctrl+k** delete forwards till start of the line
+    * **Ctrl+k** delete forwards till end of the line
     * **Backspace** delete character to the left of the cursor
     * **Ctrl+d** delete character to the right of the cursor
 * Use **Page Up** and **Page Down** (or mouse) to scroll.

@@ -1,6 +1,6 @@
 # Python re(gex)? playground
 
-This TUI application is intended as an interactive playground for Python Regular Expressions.
+This TUI application is intended as an interactive playground for Python Regular Expressions. The app also includes a comprehensive cheatsheet and several interactive examples.
 
 > **Warning**  
 > Work in progress.
@@ -13,7 +13,7 @@ You'll need to install `textual` first. See [Textual documentation](https://text
 $ python3 -m venv textual_apps
 $ cd textual_apps
 $ source bin/activate
-$ pip install textual==0.10.0
+$ pip install textual==0.12.1
 
 $ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
 $ cd TUI-apps/PyRegexPlayground
@@ -22,28 +22,13 @@ $ python pyregex_playground.py
 
 Here are some sample screenshots:
 
-<p align="center"><img src="./pyregex_sub.png" alt="Sample screenshot for the re.sub() function" /></p><br>
+<p align="center"><img src="./pyregex_finditer.png" alt="Sample screenshot from the Playground screen" /></p>
 
-<p align="center"><img src="./pyregex_finditer.png" alt="Sample screenshot for the re.finditer() function" /></p>
+<p align="center"><img src="./pyregex_examples.png" alt="Sample screenshot from the Interactive Examples screen" /></p><br>
 
 # Guide
 
-You can type the search pattern in the **Compile** input box and press the **Enter** key to execute. For example, `re.compile(r'\d')` to match digit characters. Matching portions will be highlighted in red.
-
-The compiled pattern is available via the `pat` variable and you can use `ip` to refer to the input string. You can transform or extract data by typing appropriate methods in the **Action** box. For example, `pat.sub(r'(\g<0>)', ip)` will add parenthesis around the matching portions.
-
-The input string is obtained from the `ip.txt` file. You can change contents of this file and press **Ctrl+u** to update the `ip` variable. You'll have to press **Enter** again to update the results for the changed data.
-
-Some of the error types are caught. In such cases, the background color of the input boxes will change to red and the error message will be displayed below the corresponding box. Other errors might result in the app crashing.
-
-Press **Ctrl+t** to toggle the theme between light and dark modes.
-
-Press **Ctrl+g** or **F1** to display this help text from within the app. Press **Esc** to go back.
-
-Press **Ctrl+s** or **F2** to display a cheatsheet for Python regular expressions from within the app. You can modify the code snippets and pressing the **Enter** key will update the corresponding output. Press **Esc** to go back.
-
-> **Warning**  
-> There is no safeguard against the commands you have typed. They are treated as if you executed them from a Python program.
+See [app_guide.md](./app_guide.md)
 
 # Ebook
 
@@ -51,5 +36,7 @@ See my [Understanding Python re(gex)?](https://github.com/learnbyexample/py_regu
 
 # License
 
-Code is licensed under [MIT LICENSE](../LICENSE)
+Code snippets are licensed under [MIT LICENSE](../LICENSE)
+
+Explanations and associated files (like `cheatsheet.md`) are licensed under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
