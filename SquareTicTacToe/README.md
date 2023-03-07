@@ -8,20 +8,29 @@ A 3x3 grid would be too small a playing area, so 4x4 grid is used instead. Compa
 
 # Installation
 
-You'll need to install `textual` first. See [Textual documentation](https://textual.textualize.io/getting_started/) for more details about installation. After that, you can clone this repository and run the `square_tictactoe.py` script. Terminal dimension should be at least 84x25 (characters x lines) for the game widgets to appear properly. Example instructions shown below, adjust them based on your preferences and OS.
+This app is available on PyPI as [squaretictactoe](https://pypi.org/project/squaretictactoe/). Example installation instructions are shown below, adjust them based on your preferences and OS.
 
 ```bash
+# virtual environment
 $ python3 -m venv textual_apps
 $ cd textual_apps
 $ source bin/activate
-$ pip install textual==0.10.0
+$ pip install squaretictactoe
 
-$ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
-$ cd TUI-apps/SquareTicTacToe
-$ python square_tictactoe.py
+# launch the app
+$ squaretictactoe
 ```
 
-You should get a screen similar to the one shown below:
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias squaretictactoe='/path/to/textual_apps/bin/squaretictactoe'
+```
+
+As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `square_tictactoe.py` file.
+
+Terminal dimension should be at least 84x25 (characters x lines) for the game widgets to appear properly. You should get an initial screen similar to the one shown below:
 
 <p align="center"><img src="./square_tictactoe.png" alt="Square Tic Tac Toe initial screen" /></p>
 

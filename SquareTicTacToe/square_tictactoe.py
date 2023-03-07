@@ -214,7 +214,10 @@ class SquareTicTacToeApp(App):
 
         self.dark = not self.dark
 
-if __name__ == "__main__":
+def main():
     app = SquareTicTacToeApp()
     app.run()
+
+if __name__ == "__main__":
+    main()
 
