@@ -1,240 +1,240 @@
 {
     "1": {
-        "question": "Display the first 5 lines for the input file ip.txt",
+        "question": "Display the first 5 lines for the input file `ip.txt`",
         "ip_file": "ip.txt",
         "op_file": "first_five_lines.txt",
         "ref_solution": "head -n5 ip.txt"
     },
     "2": {
-        "question": "Display except the first 5 lines for the input blocks.txt",
+        "question": "Display *except* the first 5 lines for the input `blocks.txt`",
         "ip_file": "blocks.txt",
         "op_file": "except_first_five_lines.txt",
         "ref_solution": "tail -n +6 blocks.txt"
     },
     "3": {
-        "question": "Extract 5th to 9th byte from the greeting.txt file",
+        "question": "Extract 5th to 9th byte from the `greeting.txt` file",
         "ip_file": "greeting.txt",
         "op_file": "fifth_ninth_bytes.txt",
         "ref_solution": "head -c9 greeting.txt | tail -c +5"
     },
     "4": {
-        "question": "For the input file sample.txt filter lines containing \"are\" or \"he\" as whole words as well as the line that comes before such a matching line. There should be no separator between matching groups in the output",
+        "question": "For the input file `sample.txt` filter lines containing `are` or `he` as whole words as well as the line that comes before such a matching line. There should be no separator between the matching groups in the output",
         "ip_file": "sample.txt",
         "op_file": "match_x_and_line_before.txt",
         "ref_solution": "grep --no-group-separator -B1 -wE 'are|he' sample.txt"
     },
     "5": {
-        "question": "Count the number of empty lines for the input file ip.txt",
+        "question": "Count the number of empty lines for the input file `ip.txt`",
         "ip_file": "ip.txt",
         "op_file": "empty_lines.txt",
         "ref_solution": "grep -cx '' ip.txt"
     },
     "6": {
-        "question": "Display all lines from purchases.txt except those that contain \"tea\" or \"ash\"",
+        "question": "Display all lines from `purchases.txt` except those that contain `tea` or `ash`",
         "ip_file": "purchases.txt",
         "op_file": "except_x_or_y.txt",
         "ref_solution": "grep -vE 'tea|ash' purchases.txt"
     },
     "7": {
-        "question": "For the input file ip.txt filter lines starting with \"b\" or ending with \"e\" or ending with \"es\"",
+        "question": "For the input file `ip.txt` filter lines starting with `b` or ending with `e` or ending with `es`",
         "ip_file": "ip.txt",
         "op_file": "starts_x_ends_y_z.txt",
         "ref_solution": "grep -E '^b|es?$' ip.txt"
     },
     "8": {
-        "question": "Extract all whole words starting with \"h\" or \"m\" irrespective of case from sample.txt",
+        "question": "Extract all whole words starting with `h` or `m` irrespective of case from `sample.txt`",
         "ip_file": "sample.txt",
         "op_file": "extract_whole_words.txt",
         "ref_solution": "grep -iow '[hm]\\w*' sample.txt"
     },
     "9": {
-        "question": "Display the number of words present in ip.txt",
+        "question": "Display the number of words present in `ip.txt`",
         "ip_file": "ip.txt",
         "op_file": "number_of_words.txt",
         "ref_solution": "wc -w <ip.txt"
     },
     "10": {
-        "question": "Print the maximum display width for the input file sample.txt",
+        "question": "Print the maximum display width for the input file `sample.txt`",
         "ip_file": "sample.txt",
         "op_file": "max_display_width.txt",
         "ref_solution": "wc -L <sample.txt"
     },
     "11": {
-        "question": "Sort the contents of nums_1.txt numerically",
+        "question": "Sort the contents of `nums_1.txt` numerically",
         "ip_file": "nums_1.txt",
         "op_file": "sort_numbers.txt",
         "ref_solution": "sort -n nums_1.txt"
     },
     "12": {
-        "question": "Sort the contents of nums_2.txt according to general numerical value",
+        "question": "Sort the contents of `nums_2.txt` according to general numerical value",
         "ip_file": "nums_2.txt",
         "op_file": "sort_general.txt",
         "ref_solution": "sort -g nums_2.txt"
     },
     "13": {
-        "question": "Sort contents of file_size.txt based on human readable numbers. Display the results in descending order",
+        "question": "Sort contents of `file_size.txt` based on human readable numbers. Display the results in descending order",
         "ip_file": "file_size.txt",
         "op_file": "sort_human_reverse.txt",
         "ref_solution": "sort -hr file_size.txt"
     },
     "14": {
-        "question": "Sort contents of timings.txt based on natural (version) numbers within the text",
+        "question": "Sort contents of `timings.txt` based on natural (version) numbers within the text",
         "ip_file": "timings.txt",
         "op_file": "sort_version.txt",
         "ref_solution": "sort -V timings.txt"
     },
     "15": {
-        "question": "Sort the contents of duplicates.txt by the 4th column numbers in descending order. Retain only the first copy of lines with the same number",
+        "question": "Sort the contents of `duplicates.txt` by the 4th column numbers in descending order. Retain only the first copy of lines with the same number",
         "ip_file": "duplicates.txt",
         "op_file": "sort_column_unique.txt",
         "ref_solution": "sort -t, -k4,4nr -u duplicates.txt"
     },
     "16": {
-        "question": "For the input file fruits.txt retain only unique entries based on the first two characters",
+        "question": "For the input file `fruits.txt` retain only unique entries based on the first two characters",
         "ip_file": "fruits.txt",
         "op_file": "unique_2_chars.txt",
         "ref_solution": "sort fruits.txt | uniq -u -w2"
     },
     "17": {
-        "question": "Count the number of times input lines are repeated in colors.txt and display the results as shown in the expected output panel",
+        "question": "Count the number of times input lines are repeated in `colors.txt` and display the results as shown in the expected output panel",
         "ip_file": "colors.txt",
         "op_file": "sorted_count.txt",
         "ref_solution": "sort colors.txt | uniq -c | sort -n"
     },
     "18": {
-        "question": "Delete the second field for the input varying_fields.csv",
+        "question": "Delete the second field for the input `varying_fields.csv`",
         "ip_file": "varying_fields.csv",
         "op_file": "except_field_x.csv",
         "ref_solution": "cut -d, --complement -f2 varying_fields.csv"
     },
     "19": {
-        "question": "Delete the first three characters from each line for the input fruits.txt",
+        "question": "Delete the first three characters from each line for the input `fruits.txt`",
         "ip_file": "fruits.txt",
         "op_file": "char_range.txt",
         "ref_solution": "cut -c4- fruits.txt"
     },
     "20": {
-        "question": "Filter 1st and 3rd fields of varying_fields.csv and align the output fields using space characters",
+        "question": "Filter 1st and 3rd fields of `varying_fields.csv` and align the output fields using space characters",
         "ip_file": "varying_fields.csv",
         "op_file": "filter_fields_align.csv",
         "ref_solution": "cut -d, -f1,3  varying_fields.csv | column -ts,"
     },
     "21": {
-        "question": "Delete other than alphabets, digits and whitespace characters from blocks.txt",
+        "question": "Delete other than alphabets, digits and whitespace characters from `blocks.txt`",
         "ip_file": "blocks.txt",
         "op_file": "retain_only_alnum_space.txt",
         "ref_solution": "tr -dc '[:alnum:][:space:]' <blocks.txt"
     },
     "22": {
-        "question": "Display second column from varying_fields.csv as a single row",
+        "question": "Display second column from `varying_fields.csv` as a single row",
         "ip_file": "varying_fields.csv",
         "op_file": "field_serialize.csv",
         "ref_solution": "cut -d, -f2 varying_fields.csv | paste -sd,"
     },
     "23": {
-        "question": "Combine every two lines of purchases.txt using comma as the separator",
+        "question": "Combine every two lines of `purchases.txt` using comma as the separator",
         "ip_file": "purchases.txt",
         "op_file": "join_lines.txt",
         "ref_solution": "pr -2ats, purchases.txt"
     },
     "24": {
-        "question": "Divide the contents of blocks.txt into two equal parts (based on number of lines) and then join these parts vertically using comma as the separator",
+        "question": "Divide the contents of `blocks.txt` into two equal parts (based on number of lines) and then join these parts vertically using comma as the separator",
         "ip_file": "blocks.txt",
         "op_file": "divide_into_two_and_paste.txt",
         "ref_solution": "pr -2ts, blocks.txt"
     },
     "25": {
-        "question": "Retain only the last three characters of each line from purchases.txt",
+        "question": "Retain only the last three characters of each line from `purchases.txt`",
         "ip_file": "purchases.txt",
         "op_file": "last_x_chars.txt",
         "ref_solution": "grep -o '...$' purchases.txt"
     },
     "26": {
-        "question": "Reshape contents of varying_fields.csv such that three fields are displayed per line, separated by tab character",
+        "question": "Reshape contents of `varying_fields.csv` such that three fields are displayed per line, separated by tab character",
         "ip_file": "varying_fields.csv",
         "op_file": "reshape.txt",
         "ref_solution": "<varying_fields.csv tr ',' '\\n' | pr -3ats"
     },
     "27": {
-        "question": "For the input file purchases.txt replace all occurrences of \"tea\" with \"cake\" and \"coffee\" with \"toffee\"",
+        "question": "For the input file `purchases.txt` replace all occurrences of `tea` with `cake` and `coffee` with `toffee`",
         "ip_file": "purchases.txt",
         "op_file": "multi_replace.txt",
         "ref_solution": "sed 's/tea/cake/g; s/coffee/toffee/g' purchases.txt"
     },
     "28": {
-        "question": "Display contents of ip.txt except for line numbers 4, 5, 6 and 7",
+        "question": "Display contents of `ip.txt` *except* for line numbers 4, 5, 6 and 7",
         "ip_file": "ip.txt",
         "op_file": "remove_line_number_range.txt",
         "ref_solution": "sed '4,7d' ip.txt"
     },
     "29": {
-        "question": "For the input file sample.txt display all lines from the start of the file till the first occurrence of \"do\"",
+        "question": "For the input file `sample.txt` display all lines from the start of the file till the first occurrence of `do`",
         "ip_file": "sample.txt",
         "op_file": "lines_till_first_match.txt",
         "ref_solution": "sed '/do/q' sample.txt"
     },
     "30": {
-        "question": "Delete all groups of lines from a line containing \"start\" to a line containing \"end\" for the input file range.txt",
+        "question": "Delete all groups of lines from a line containing `start` to a line containing `end` for the input file `range.txt`",
         "ip_file": "range.txt",
         "op_file": "delete_regex_range.txt",
         "ref_solution": "sed '/start/,/end/d' range.txt"
     },
     "31": {
-        "question": "For the input file anchors.txt convert markdown anchors to hyperlinks as shown in the excepted output panel",
+        "question": "For the input file `anchors.txt` convert markdown anchors to hyperlinks as shown in the excepted output panel",
         "ip_file": "anchors.txt",
         "op_file": "anchors_to_links.txt",
         "ref_solution": "sed -E 's|[^\"]+\"([^\"]+)\"></a>(.+)|[\\2](#\\1)|' anchors.txt"
     },
     "32": {
-        "question": "For the input file greeting.txt surround all lowercase vowels with [] except for the first two vowels in the line",
+        "question": "For the input file `greeting.txt` surround all lowercase vowels with `[]` except for the first two vowels in the line",
         "ip_file": "greeting.txt",
         "op_file": "replace_except_first_two.txt",
         "ref_solution": "sed 's/[aeiou]/[&]/3g' greeting.txt"
     },
     "33": {
-        "question": "For the input file table.txt calculate and display the product of numbers in the last field of each line",
+        "question": "For the input file `table.txt` calculate and display the product of numbers in the last field of each line",
         "ip_file": "table.txt",
         "op_file": "column_product.txt",
         "ref_solution": "awk 'BEGIN{p = 1} {p *= $NF} END{print p}' table.txt"
     },
     "34": {
-        "question": "Reverse contents of blocks.txt considering \"%=%=\" as the separator",
+        "question": "Reverse contents of `blocks.txt` considering `%=%=` as the separator",
         "ip_file": "blocks.txt",
         "op_file": "block_reverse.txt",
         "ref_solution": "tac -bs '%=%=' blocks.txt"
     },
     "35": {
-        "question": "Display all lines from sample.txt that contain \"do\" but not \"it\"",
+        "question": "Display all lines from `sample.txt` that contain `do` but not `it`",
         "ip_file": "sample.txt",
         "op_file": "match_x_but_not_y.txt",
         "ref_solution": "awk '/do/ && !/it/' sample.txt"
     },
     "36": {
-        "question": "For the input file ip.txt filter paragraphs containing digit characters",
+        "question": "For the input file `ip.txt` filter paragraphs containing digit characters",
         "ip_file": "ip.txt",
         "op_file": "para_digits.txt",
         "ref_solution": "awk -v RS= '/[0-9]/' ip.txt"
     },
     "37": {
-        "question": "For the input file varying_fields.csv display 3rd field followed by the 1st field. Use : as the output field separator",
+        "question": "For the input file `varying_fields.csv` display 3rd field followed by the 1st field. Use `:` as the output field separator",
         "ip_file": "varying_fields.csv",
         "op_file": "third_first.csv",
         "ref_solution": "awk -F, '{print $3 \":\" $1}' varying_fields.csv"
     },
     "38": {
-        "question": "For the input file ip.txt filter lines containing 3 or more lowercase vowels",
+        "question": "For the input file `ip.txt` filter lines containing 3 or more lowercase vowels",
         "ip_file": "ip.txt",
         "op_file": "more_than_2_vowels.txt",
         "ref_solution": "awk -F'[aeiou]' 'NF>3' ip.txt"
     },
     "39": {
-        "question": "From blocks.txt extract only the 3rd block. A line containing \"%=%=\" determines the start of a block",
+        "question": "From `blocks.txt` extract only the 3rd block. A line containing `%=%=` determines the start of a block",
         "ip_file": "blocks.txt",
         "op_file": "third_block.txt",
         "ref_solution": "awk '$0 == \"%=%=\"{c++} c==3' blocks.txt"
     },
     "40": {
-        "question": "Retain only the first copy of repeated lines from the duplicates.txt input file. Use only the contents of the last field for determining duplicates",
+        "question": "Retain only the first copy of repeated lines from the `duplicates.txt` input file. Use only the contents of the last field for determining duplicates",
         "ip_file": "duplicates.txt",
         "op_file": "field_duplicates.txt",
         "ref_solution": "awk -F, '!seen[$NF]++' duplicates.txt"

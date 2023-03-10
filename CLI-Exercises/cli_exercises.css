@@ -1,29 +1,28 @@
 #header {
     dock: top;
     text-align: center;
+    color: black;
     background: orange;
+    width: 100%;
 }
 
 #question {
     border: blank;
     padding: 0 1 0 1;
+    width: 100%;
 }
 
 #user_cmd_output {
     min-height: 3;
     margin-bottom: 1;
+    width: 100%;
 }
 
-#ip_op {
+.container {
     height: auto;
+    align: center middle;
 }
 
-#sample_input {
-    dock: left;
+.ip_op {
     width: 50%;
-}
-
-#expected_output {
-    dock: right;
-    width: 49%;
 }

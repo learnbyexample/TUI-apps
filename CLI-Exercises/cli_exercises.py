@@ -1,36 +1,23 @@
 from textual.app import App
 from textual.binding import Binding
-from textual.containers import Container
+from textual.containers import Horizontal, Vertical
 from textual.widgets import Footer, Label, Input
 from rich.panel import Panel
 from rich.markup import escape
+from rich.markdown import Markdown
 
 import json
-import os
 import subprocess
-import re
 from functools import partial
 
 class CLIExercisesApp(App):
     CSS_PATH = 'cli_exercises.css'
     BINDINGS = [
         Binding('ctrl+s', 'show_answer', 'Solution', show=True),
-        Binding('ctrl+p,ctrl+left', 'previous', 'Prev', show=True),
-        Binding('ctrl+n,ctrl+right', 'next', 'Next', show=True),
+        Binding('ctrl+p', 'previous', 'Prev', show=True),
+        Binding('ctrl+n', 'next', 'Next', show=True),
         ('ctrl+t', 'toggle_theme', 'Theme'),
         ('ctrl+q', 'app.quit', 'Quit'),
-        Binding('ctrl+u', 'clear_till_start',
-                'Clear till start of line', show=False),
-        Binding('ctrl+k', 'clear_till_end',
-                'Clear till end of line', show=False),
-        Binding('ctrl+w', 'clear_till_prev_space',
-                'Clear till previous space or start of line', show=False),
-        Binding('ctrl+f', 'clear_till_next_space',
-                'Clear till next space or end of line', show=False),
-        Binding('ctrl+a', 'move_to_start',
-                'Move cursor to start of line', show=False),
-        Binding('ctrl+e', 'move_to_end',
-                'Move cursor to end of line', show=False),
     ]
 
     def __init__(self):
@@ -42,31 +29,35 @@ class CLIExercisesApp(App):
         self.q_max_idx = len(self.questions) - 1
 
         self.question = Label(id='question')
-        self.sample_input = Label(id='sample_input')
-        self.expected_output = Label(id='expected_output')
+        self.sample_input = Label(classes='ip_op')
+        self.expected_output = Label(classes='ip_op')
 
         placeholder = 'Type your command here. Press Enter to execute the command.'
-        self.user_cmd_input = Input(placeholder=placeholder, id='user_cmd_input')
+        self.user_cmd_input = Input(placeholder=placeholder)
         self.user_cmd_output = Label(id='user_cmd_output')
         self.op_panel = partial(Panel, title='Output', title_align='left')
 
         self.progress_file = 'user_progress.json'
-        if os.path.isfile(self.progress_file):
+        try:
             with open(self.progress_file) as f:
                 self.user_progress = {int(k): v for k,v in json.load(f).items()}
+        except FileNotFoundError:
+            self.user_progress = {}
+        else:
             for idx in range(self.q_max_idx + 1):
                 if not self.user_progress.get(idx, ('', False))[1]:
                     break
             self.q_idx = idx
-        else:
-            self.user_progress = {}
 
     def compose(self):
         yield Label('[b]Linux CLI Text Processing Exercises', id='header')
-        yield self.question
-        yield self.user_cmd_input
-        yield self.user_cmd_output
-        yield Container(self.sample_input, self.expected_output, id='ip_op')
+        with Vertical(classes='container'):
+            yield self.question
+            yield self.user_cmd_input
+            yield self.user_cmd_output
+            with Horizontal(classes='container'):
+                yield self.sample_input
+                yield self.expected_output
         yield Footer()
 
     def on_mount(self):
@@ -119,8 +110,8 @@ class CLIExercisesApp(App):
     def set_quest_ip_op(self):
         self.answered_correctly = False
         self.show_answer_clicked = False
-        quest = f"Q{self.q_idx + 1}) {self.questions[self.q_idx]['question']}"
-        self.question.update(quest)
+        self.question.update(Markdown(f'Q{self.q_idx+1}) ' +
+                             self.questions[self.q_idx]['question']))
 
         ip_file = self.questions[self.q_idx]['ip_file']
         with open(ip_file) as f:
@@ -183,36 +174,6 @@ class CLIExercisesApp(App):
         self.dark = not self.dark
         self.user_progress[-1] = self.dark
         self.write_progress_file()
-
-    def action_clear_till_start(self):
-        cmd = self.user_cmd_input.value[self.user_cmd_input.cursor_position:]
-        self.user_cmd_input.value = cmd
-        self.user_cmd_input.cursor_position = 0
-
-    def action_clear_till_end(self):
-        cmd = self.user_cmd_input.value[:self.user_cmd_input.cursor_position]
-        self.user_cmd_input.value = cmd
-        self.user_cmd_input.cursor_position = len(cmd)
-
-    def action_clear_till_prev_space(self):
-        cmd = self.user_cmd_input.value
-        pos = self.user_cmd_input.cursor_position
-        s = re.sub(r'\S*\s*$', '', cmd[:pos])
-        self.user_cmd_input.value = s + cmd[pos:]
-        self.user_cmd_input.cursor_position = len(s)
-
-    def action_clear_till_next_space(self):
-        cmd = self.user_cmd_input.value
-        pos = self.user_cmd_input.cursor_position
-        s = re.sub(r'^\s*\S*', '', cmd[pos:])
-        self.user_cmd_input.value = cmd[:pos] + s
-        self.user_cmd_input.cursor_position = pos
-
-    def action_move_to_start(self):
-        self.user_cmd_input.cursor_position = 0
-
-    def action_move_to_end(self):
-        self.user_cmd_input.cursor_position = len(self.user_cmd_input.value)
 
 
 if __name__ == '__main__':
