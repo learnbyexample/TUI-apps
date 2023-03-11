@@ -2,25 +2,31 @@
 
 This TUI application is intended as an interactive playground for Python Regular Expressions. The app also includes a comprehensive cheatsheet and several interactive examples.
 
-> **Warning**  
-> Work in progress.
-
 # Installation
 
-You'll need to install `textual` first. See [Textual documentation](https://textual.textualize.io/getting_started/) for more details about installation. After that, you can clone this repository and run the `pyregex_playground.py` script. Adjust terminal dimensions as needed. Example instructions are shown below, adjust them based on your preferences and OS.
+This app is available on PyPI as [regexplayground](https://pypi.org/project/regexplayground/). Example installation instructions are shown below, adjust them based on your preferences and OS.
 
 ```bash
+# virtual environment
 $ python3 -m venv textual_apps
 $ cd textual_apps
 $ source bin/activate
-$ pip install textual==0.12.1
+$ pip install regexplayground
 
-$ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
-$ cd TUI-apps/PyRegexPlayground
-$ python pyregex_playground.py
+# launch the app
+$ regexplayground
 ```
 
-Here are some sample screenshots:
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias regexplayground='/path/to/textual_apps/bin/regexplayground'
+```
+
+As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `pyregex_playground.py` file.
+
+Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here are some sample screenshots:
 
 <p align="center"><img src="./pyregex_finditer.png" alt="Sample screenshot from the Playground screen" /></p>
 

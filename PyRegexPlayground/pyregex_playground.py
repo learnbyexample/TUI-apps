@@ -13,9 +13,11 @@ import json
 import re
 from functools import partial
 from math import factorial
+from pathlib import Path
 
 ERROR_TYPES = (re.error, SyntaxError, TypeError, ValueError,
-               NameError, AttributeError)
+               NameError, AttributeError, IndexError)
+APP_DIR = Path(__file__).parent.resolve()
 
 class CommentHighlighter(Highlighter):
     def highlight(self, text):
@@ -83,7 +85,7 @@ class Examples(Screen):
         self.v_code_block = []
         self.input_collection = []
         comment_highlighter = CommentHighlighter()
-        with open('examples.json') as f:
+        with open(APP_DIR.joinpath('examples.json')) as f:
             md = iter(json.load(f).values())
         idx = 0
         for info in md:
@@ -115,7 +117,7 @@ class Examples(Screen):
 
 
 class Playground(Screen):
-    BINDINGS = [Binding('ctrl+i', 'update_ip', 'Update ip', show=True),
+    BINDINGS = [Binding('ctrl+p', 'update_ip', 'Update ip', show=True),
                 Binding('f1', 'guide', 'App Guide', show=False),
                 Binding('f2', 'cheatsheet', 'Cheatsheet', show=False),
                 Binding('f3', 'examples', 'Interactive Examples', show=False),
@@ -132,6 +134,7 @@ class Playground(Screen):
         self.l_compile_error = Label('')
         self.l_action_error = Label('')
 
+        self.ip_file = APP_DIR.joinpath('ip.txt')
         self.read_data()
         self.l_input = Label(classes='playground_ip_op')
         self.ip_panel = partial(Panel, title='ip', title_align='center')
@@ -219,17 +222,17 @@ class Playground(Screen):
             self.action_guide()
 
     def read_data(self):
-        with open('ip.txt') as f:
+        with open(self.ip_file) as f:
             self.data = f.read()
 
     def action_guide(self):
-        app.push_screen('guide')
+        self.app.push_screen('guide')
 
     def action_cheatsheet(self):
-        app.push_screen('cheatsheet')
+        self.app.push_screen('cheatsheet')
 
     def action_examples(self):
-        app.push_screen('examples')
+        self.app.push_screen('examples')
 
     def action_update_ip(self):
         self.read_data()
@@ -237,21 +240,24 @@ class Playground(Screen):
 
 class PyRegexPlayground(App):
     SCREENS = {'playground': Playground(),
-               'guide': ShowMarkdown('app_guide.md'),
-               'cheatsheet': ShowMarkdown('cheatsheet.md'),
+               'guide': ShowMarkdown(APP_DIR.joinpath('app_guide.md')),
+               'cheatsheet': ShowMarkdown(APP_DIR.joinpath('cheatsheet.md')),
                'examples': Examples()}
     CSS_PATH = 'pyregex_playground.css'
     BINDINGS = [('ctrl+t', 'toggle_theme', 'Theme'),
                 ('ctrl+q', 'app.quit', 'Quit')]
 
     def on_mount(self):
-        self.dark = False
-        self.push_screen('playground')
+        self.app.dark = False
+        self.app.push_screen('playground')
 
     def action_toggle_theme(self):
-        self.dark ^= True
+        self.app.dark ^= True
 
-if __name__ == '__main__':
+def main():
     app = PyRegexPlayground()
     app.run()
+
+if __name__ == '__main__':
+    main()
 
