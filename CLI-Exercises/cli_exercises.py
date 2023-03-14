@@ -9,6 +9,8 @@ from rich.markdown import Markdown
 import json
 import subprocess
 from functools import partial
+import os
+from pathlib import Path
 
 class CLIExercisesApp(App):
     CSS_PATH = 'cli_exercises.css'
@@ -176,7 +178,10 @@ class CLIExercisesApp(App):
         self.write_progress_file()
 
 
-if __name__ == '__main__':
+def main():
+    os.chdir(Path(__file__).parent.resolve())
     app = CLIExercisesApp()
     app.run()
 
+if __name__ == '__main__':
+    main()

@@ -7,20 +7,29 @@ This TUI application includes 40 questions to test your CLI text processing skil
 
 # Installation
 
-You'll need to install `textual` first. See [Textual documentation](https://textual.textualize.io/getting_started/) for more details about installation. After that, you can clone this repository and run the `cli_exercises.py` script. Adjust terminal dimensions as needed. Example instructions shown below, adjust them based on your preferences and OS.
+This app is available on PyPI as [cliexercises](https://pypi.org/project/cliexercises/). Example installation instructions are shown below, adjust them based on your preferences and OS.
 
 ```bash
+# virtual environment
 $ python3 -m venv textual_apps
 $ cd textual_apps
 $ source bin/activate
-$ pip install textual==0.14.0
+$ pip install cliexercises
 
-$ git clone --depth 1 https://github.com/learnbyexample/TUI-apps.git
-$ cd TUI-apps/CLI-Exercises
-$ python cli_exercises.py
+# launch the app
+$ cliexercises
 ```
 
-After pressing **Ctrl+n** twice, you should get a screen similar to the one shown below:
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias cliexercises='/path/to/textual_apps/bin/cliexercises'
+```
+
+As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `cli_exercises.py` file.
+
+Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here's a some sample screenshot:
 
 <p align="center"><img src="./cli_exercises.png" alt="Sample screenshot for CLI exercises" /></p>
 
@@ -55,13 +64,20 @@ After pressing **Ctrl+n** twice, you should get a screen similar to the one show
     * **Delete** or **Ctrl+d** delete character under the cursor
     * **Enter** submit the code for execution
 
-> **Note**  
-> Commands you have typed are automatically saved in `user_progress.json` (only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic). Theme choice is also saved. If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped). If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes. Once you have solved a question, only a different correct solution can override the previously saved command.
-
 > **Warning**  
 > There is no safeguard against the command you are executing. They are treated as if you typed them from a shell session. For example, `ls` will list the contents of the current directory.
 
-## Video demo
+# User progress
+
+Commands you have typed are automatically saved in `user_progress.json` in the same directory as the script. This happens only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic. Theme choice is also saved.
+
+If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped).
+
+If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes.
+
+Once you have solved a question, only a different correct solution can override the previously saved command.
+
+# Video demo
 
 https://user-images.githubusercontent.com/17766317/206649676-a913ad0d-1be7-430d-8978-98517347d86b.mp4
 
