@@ -309,7 +309,8 @@ class PyRegexExercises(App):
                 self.process_user_code()
         elif event.radio_set.name == 'debug':
             self.debug_on = bool(event.radio_set.pressed_index)
-            self.process_user_code()
+            if not self.func_search:
+                self.process_user_code()
         self.user_progress[-2] = self.fmt_idx
         self.user_progress[-3] = self.debug_on
         self.write_progress_file()

@@ -4,9 +4,29 @@ This TUI application is intended to help you practice Python regular expressions
 
 # Installation
 
-To be added after releasing a package.
+This app is available on PyPI as [regexexercises](https://pypi.org/project/regexexercises/). Example installation instructions are shown below, adjust them based on your preferences and OS.
 
-Here's a sample screenshot:
+```bash
+# virtual environment
+$ python3 -m venv textual_apps
+$ cd textual_apps
+$ source bin/activate
+$ pip install regexexercises
+
+# launch the app
+$ regexexercises
+```
+
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias regexexercises='/path/to/textual_apps/bin/regexexercises'
+```
+
+As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `pyregex_exercises.py` file.
+
+Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here's a sample screenshot:
 
 <p align="center"><img src="./pyregex_exercises.png" alt="Sample Python regex exercise" /></p>
 
