@@ -1,0 +1,1657 @@
+{
+    "0": {
+        "question": "Match `is` anywhere in the given input strings.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "Regex is awesome",
+            "Thistle",
+            "This should also match"
+        ],
+        "right column": [
+            "IS",
+            "grep sed awk ls ip",
+            "Th1s should not match"
+        ],
+        "Reference solution": "re.search(r'is', ip)"
+    },
+    "1": {
+        "question": "Match `is` anywhere in the given input strings, irrespective of case.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "Regex is awesome",
+            "THiStLe",
+            "THIS SHOULD ALSO MATCH"
+        ],
+        "right column": [
+            "first",
+            "grep sed awk ls ip",
+            "Th1s should not match"
+        ],
+        "Reference solution": "re.search(r'(?i)is', ip)\nre.search(r'is', ip, flags=re.I)"
+    },
+    "2": {
+        "question": "Filter all elements that do *not* contain `e`.",
+        "fill": "[w for w in ip if ]",
+        "left column": [
+            "['goal', 'new', 'user', 'sit']",
+            "['eat', 'dinner']"
+        ],
+        "right column": [
+            "['goal', 'sit']",
+            "[]"
+        ],
+        "Reference solution": "[w for w in ip if not re.search(r'e', w)]"
+    },
+    "3": {
+        "question": "Replace all occurrences of `5` with `five` for the given strings.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "They ate 5 apples and 5 oranges",
+            "515515",
+            "1) 3) 5) 7)"
+        ],
+        "right column": [
+            "They ate five apples and five oranges",
+            "five1fivefive1five",
+            "1) 3) five) 7)"
+        ],
+        "Reference solution": "re.sub(r'5', 'five', ip)"
+    },
+    "4": {
+        "question": "Replace only the first occurrence of `5` with `five` for the given strings.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "They ate 5 apples and 5 oranges",
+            "515515",
+            "1) 3) 5) 7)"
+        ],
+        "right column": [
+            "They ate five apples and 5 oranges",
+            "five15515",
+            "1) 3) five) 7)"
+        ],
+        "Reference solution": "re.sub(r'5', 'five', ip, count=1)"
+    },
+    "5": {
+        "question": "Replace all occurrences of `note` irrespective of case with `X`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "This note should not be NoTeD"
+        ],
+        "right column": [
+            "This X should not be XD"
+        ],
+        "Reference solution": "re.sub(r'(?i)note', 'X', ip)\nre.sub(r'note', 'X', ip, flags=re.I)"
+    },
+    "6": {
+        "question": "Match lines only if they start with `be`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "be nice",
+            "better?",
+            "best\nview",
+            "nice\nbell"
+        ],
+        "right column": [
+            "\"best!\"",
+            "abetter",
+            "oh no\na bear spotted",
+            "ball\ntell"
+        ],
+        "Reference solution": "re.search(r'(?m)^be', ip)\nre.search(r'^be', ip, flags=re.M)"
+    },
+    "7": {
+        "question": "Change only whole word `red` to `brown`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "bred",
+            "light red.",
+            "reddish leaf",
+            "credible",
+            "red"
+        ],
+        "right column": [
+            "bred",
+            "light brown.",
+            "reddish leaf",
+            "credible",
+            "brown"
+        ],
+        "Reference solution": "re.sub(r'\\bred\\b', 'brown', ip)"
+    },
+    "8": {
+        "question": "Filter all elements that contain `42` surrounded by word characters.",
+        "fill": "[w for w in ip if re.search(r'', w)]",
+        "left column": [
+            "['hi42bye', 'nice1423', 'bad42']",
+            "['cool_42a', '42fake', '_42_']"
+        ],
+        "right column": [
+            "['hi42bye', 'nice1423']",
+            "['cool_42a', '_42_']"
+        ],
+        "Reference solution": "[w for w in ip if re.search(r'\\B42\\B', w)]"
+    },
+    "9": {
+        "question": "Change whole word `mall` to `1234` only if it is at the start of a line.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "(mall) call ball pall\nball fall wall tall\nmall call ball pall\nwall mall ball fall\nmallet wallet malls\nmall:call:ball:pall"
+        ],
+        "right column": [
+            "(mall) call ball pall\nball fall wall tall\n1234 call ball pall\nwall mall ball fall\nmallet wallet malls\n1234:call:ball:pall"
+        ],
+        "Reference solution": "re.sub(r'(?m)^mall\\b', '1234', ip)\nre.sub(r'^mall\\b', '1234', ip, flags=re.M)"
+    },
+    "10": {
+        "question": "Filter all whole elements `12\\nthree` irrespective of case.",
+        "fill": "[e for e in ip if ]",
+        "left column": [
+            "['12\\nthree\\n', '12\\nThree']",
+            "['412\\nthree']",
+            "['12\\nthree\\n4', '12\\nthree']"
+        ],
+        "right column": [
+            "['12\\nThree']",
+            "[]",
+            "['12\\nthree']"
+        ],
+        "Reference solution": "[e for e in ip if re.fullmatch(r'(?i)12\\nthree', e)]\n[e for e in ip if re.fullmatch(r'12\\nthree', e, flags=re.I)]\n[e for e in ip if re.search(r'(?i)\\A12\\nthree\\Z', e)]"
+    },
+    "11": {
+        "question": "Replace `hand` with `X` for all elements that start with `hand` followed by at least one word character.",
+        "fill": "[re.sub(r'', '', w) for w in ip]",
+        "left column": [
+            "['handed', 'hand']",
+            "['handy', 'un-handed']",
+            "['handle', 'hand-2']"
+        ],
+        "right column": [
+            "['Xed', 'hand']",
+            "['Xy', 'un-handed']",
+            "['Xle', 'hand-2']"
+        ],
+        "Reference solution": "[re.sub(r'\\Ahand\\B', 'X', w) for w in ip]"
+    },
+    "12": {
+        "question": "Filter all elements starting with `h`. Additionally, replace `e` with `X` for these filtered elements.",
+        "fill": "[re.sub(r'', '', w) for w in ip if re.search(r'', w)]",
+        "left column": [
+            "['handed', 'hand']",
+            "['handy', 'un-handed']",
+            "['handle', 'hand-2']"
+        ],
+        "right column": [
+            "['handXd', 'hand']",
+            "['handy']",
+            "['handlX', 'hand-2']"
+        ],
+        "Reference solution": "[re.sub(r'e', 'X', w) for w in ip if re.search(r'\\Ah', w)]"
+    },
+    "13": {
+        "question": "Match `to` or `an` anywhere in the given input strings.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "collaborator",
+            "tool",
+            "transistor",
+            "androids"
+        ],
+        "right column": [
+            "tea",
+            "past",
+            "about",
+            "Anvil"
+        ],
+        "Reference solution": "re.search(r'to|an', ip)"
+    },
+    "14": {
+        "question": "Match strings that start with `den` or end with `ly`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "lovely",
+            "2 lonely",
+            "dent"
+        ],
+        "right column": [
+            "1\ndentist",
+            "eden",
+            "fly\n"
+        ],
+        "Reference solution": "re.search(r'\\Aden|ly\\Z', ip)"
+    },
+    "15": {
+        "question": "Match lines that start with `den` or end with `ly`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "lovely",
+            "2 lonely",
+            "1\ndentist",
+            "dent",
+            "fly\nfar"
+        ],
+        "right column": [
+            "eden",
+            "lying",
+            "2 den\n3 ten",
+            "a dentist",
+            "fly low\nand near"
+        ],
+        "Reference solution": "re.search(r'(?m)^den|ly$', ip)\nre.search(r'^den|ly$', ip, flags=re.M)"
+    },
+    "16": {
+        "question": "Match `(9-2)*5` anywhere in the given input strings.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "(9-2)*5+qty/3",
+            "(qty+4)/2-(9-2)*5+pq/4",
+            "3*(9-2)*55"
+        ],
+        "right column": [
+            "9-2)*5",
+            "3-(9-2)*7",
+            "(9-2)*15"
+        ],
+        "Reference solution": "re.search(r'\\(9-2\\)\\*5', ip)"
+    },
+    "17": {
+        "question": "Match `(4)\\|` only at the start or end of given input strings.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "2+(4)\\|",
+            "good\n5.3-(4)\\|",
+            "(4)\\|42 - (4)\\|3",
+            "(4)\\| - 3\nnot bad"
+        ],
+        "right column": [
+            "2+(4)\\|a",
+            "one - (4)\\|\ntwo",
+            "b(4)\\|42 - (4)\\|3",
+            "oops\n(4)\\|42"
+        ],
+        "Reference solution": "re.search(r'\\A\\(4\\)\\\\\\||\\(4\\)\\\\\\|\\Z', ip)"
+    },
+    "18": {
+        "question": "Replace the backspace character `\\b` with a single space character for the given input string.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "123\b456"
+        ],
+        "right column": [
+            "123 456"
+        ],
+        "Reference solution": "re.sub(r'\\x08', ' ', ip)"
+    },
+    "19": {
+        "question": "Replace all occurrences of `\\e` with `e`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "th\\er\\e ar\\e common asp\\ects",
+            " among th\\e alt\\ernations"
+        ],
+        "right column": [
+            "there are common aspects",
+            " among the alternations"
+        ],
+        "Reference solution": "re.sub(r'\\\\e', 'e', ip)"
+    },
+    "20": {
+        "question": "Construct a minimal pattern that satisfies the given sample strings.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "that's so good",
+            "hit the mark",
+            "2+gh*t-10"
+        ],
+        "right column": [
+            "host",
+            "he",
+            "2+gt-h1"
+        ],
+        "Reference solution": "re.search(r'h.t', ip)"
+    },
+    "21": {
+        "question": "For the given single line strings, remove everything from the first occurrence of `i` till the end of the string.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "remove the special meaning of such",
+            "characters while constructing",
+            "input output"
+        ],
+        "right column": [
+            "remove the spec",
+            "characters wh",
+            ""
+        ],
+        "Reference solution": "re.sub(r'i.*', '', ip)"
+    },
+    "22": {
+        "question": "For the given single line strings, replace everything from the first occurrence of `test` (irrespective of case) till the end of the string with `X`, provided `test` isn't at the end of the string.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "this is a Test",
+            "always test your RE for corner cases",
+            "a TEST of skill tests?"
+        ],
+        "right column": [
+            "this is a Test",
+            "always X",
+            "a X"
+        ],
+        "Reference solution": "re.sub(r'(?i)test.+', 'X', ip)\nre.sub(r'test.+', 'X', ip, flags=re.I)"
+    },
+    "23": {
+        "question": "Split the given input strings to get the corresponding output as shown below.",
+        "fill": "re.split(r'', ip)",
+        "left column": [
+            "a+42//5-c",
+            "pressure*3+42/5-14256",
+            "r*42-5/3+42///5-42/53+a"
+        ],
+        "right column": [
+            "['a+', '-c']",
+            "['pressure*3+', '-14256']",
+            "['r*42-5/3+42///5-', '3+a']"
+        ],
+        "Reference solution": "re.split(r'42//?5', ip)"
+    },
+    "24": {
+        "question": "Match `removed` or `reed` or `received` or `refused`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "creed",
+            "removed",
+            "received",
+            "refused",
+            "reedy",
+            "they refused"
+        ],
+        "right column": [
+            "redo",
+            "apple",
+            "roceived",
+            "defused",
+            "resolved",
+            "reel"
+        ],
+        "Reference solution": "re.search(r're(mov|ceiv|fus)?ed', ip)"
+    },
+    "25": {
+        "question": "Match whole words `late` or `later` or `slated`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "don't be late",
+            "see you later today",
+            "slated for tomorrow",
+            "%late.",
+            "plate (later)",
+            "slated"
+        ],
+        "right column": [
+            "slate",
+            "liter",
+            "latent",
+            "plated",
+            "slates",
+            "equilateral"
+        ],
+        "Reference solution": "re.search(r'\\b(later?|slated)\\b', ip)"
+    },
+    "26": {
+        "question": "Match strings starting with `hand` and followed immediately by at most one more character or `le`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "hand",
+            "handy",
+            "hands",
+            "handle"
+        ],
+        "right column": [
+            "unhand",
+            "handled",
+            "handed",
+            "no hands"
+        ],
+        "Reference solution": "re.search(r'\\Ahand(.|le)?\\Z', ip)"
+    },
+    "27": {
+        "question": "Match strings containing at least 6 characters.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "sequoia",
+            "subtle",
+            "exhibit",
+            "so this matches",
+            "12\n345"
+        ],
+        "right column": [
+            "tests",
+            "set",
+            "site",
+            "on",
+            "do\nto"
+        ],
+        "Reference solution": "re.search(r'(?s).{6}', ip)\nre.search(r'.{6}', ip, flags=re.S)"
+    },
+    "28": {
+        "question": "Filter all elements starting with `se` or `ti` and having a maximum of `7` characters.",
+        "fill": "[w for w in ip if ]",
+        "left column": [
+            "['sequoia', 'subtle']",
+            "['a set', 'tip']",
+            "['tin bin', 'set pet let']"
+        ],
+        "right column": [
+            "['sequoia']",
+            "['tip']",
+            "['tin bin']"
+        ],
+        "Reference solution": "[w for w in ip if re.fullmatch(r'(se|ti).{,5}', w)]\n[w for w in ip if re.search(r'\\A(se|ti).{,5}\\Z', w)]"
+    },
+    "29": {
+        "question": "Construct a solution using `re.split()` to get the output as shown below for the given input strings.",
+        "fill": "re.split(r'', ip)",
+        "left column": [
+            "go there  //   \"this // that\"",
+            "a//b // c//d e//f // 4//5",
+            "42// hi//bye//see // carefully"
+        ],
+        "right column": [
+            "['go there', '\"this // that\"']",
+            "['a//b', 'c//d e//f // 4//5']",
+            "['42// hi//bye//see', 'carefully']"
+        ],
+        "Reference solution": "re.split(r' +// +', ip, maxsplit=1)"
+    },
+    "30": {
+        "question": "For the given strings, extract the matching portion from the first `is` to the last `t`.",
+        "fill": "",
+        "left column": [
+            "thistle",
+            "missed hit many times"
+        ],
+        "right column": [
+            "ist",
+            "issed hit many t"
+        ],
+        "Reference solution": "re.search(r'is.*t', ip)[0]\nre.search(r'is.*t', ip).group(0)"
+    },
+    "31": {
+        "question": "Find the starting index of the first occurrence of `is` or `the` or `was` or `to` for the given input strings.",
+        "fill": "",
+        "left column": [
+            "match after the last newline",
+            "and then you want to test",
+            "this is good bye then",
+            "who was there to see?"
+        ],
+        "right column": [
+            "12",
+            "4",
+            "2",
+            "4"
+        ],
+        "Reference solution": "re.search(r'is|the|was|to', ip).start()"
+    },
+    "32": {
+        "question": "Find the starting index of the last occurrence of `is` or `the` or `was` or `to` for the given input strings.",
+        "fill": "",
+        "left column": [
+            "match after the last newline",
+            "and then you want to test",
+            "this is good bye then",
+            "who was there to see?"
+        ],
+        "right column": [
+            "12",
+            "18",
+            "17",
+            "14"
+        ],
+        "Reference solution": "re.search(r'.*(is|the|was|to)', ip).start(1)"
+    },
+    "33": {
+        "question": "The given input strings contain `:` exactly once. Extract all characters after the `:` as output.",
+        "fill": "",
+        "left column": [
+            "fruits:apple, mango, guava",
+            "blueberry:",
+            ":42"
+        ],
+        "right column": [
+            "apple, mango, guava",
+            "",
+            "42"
+        ],
+        "Reference solution": "re.search(r':(.*)', ip)[1]\nre.sub(r'[^:]*:', '', ip)"
+    },
+    "34": {
+        "question": "Replace `cat` with `tiger` and `tiger` with `cat`.",
+        "fill": "",
+        "left column": [
+            "cater tiger cats",
+            "cat cat tiger cat cat"
+        ],
+        "right column": [
+            "tigerer cat tigers",
+            "tiger tiger cat tiger tiger"
+        ],
+        "Reference solution": "re.sub(r'cat|tiger', lambda m: {'cat': 'tiger', 'tiger': 'cat'}[m[0]], ip)"
+    },
+    "35": {
+        "question": "Extract all occurrences of `<` up to the next occurrence of `>`, provided there is at least one character in between `<` and `>`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "a<ap\nple>\n1<> b<bye> 2<>"
+        ],
+        "right column": [
+            "['<ap\\nple>', '<> b<bye>']"
+        ],
+        "Reference solution": "re.findall(r'(?s)<.+?>', ip)\nre.findall(r'<.+?>', ip, flags=re.S)"
+    },
+    "36": {
+        "question": "Find the sum of comma separated integers. For example, sum of `-2` and `5` is `3`. These groups of integers always end with a space character.",
+        "fill": "",
+        "left column": [
+            "-2,5 4,+3 +42,-53 ",
+            "4356246,-357532354 "
+        ],
+        "right column": [
+            "[3, 7, -11]",
+            "[-353176108]"
+        ],
+        "Reference solution": "[int(m[1]) + int(m[2]) for m in re.finditer(r'(.+?),(.+?) ', ip)]"
+    },
+    "37": {
+        "question": "For the given list of strings, change the elements into a tuple of original element and the number of times `t` occurs in that element.",
+        "fill": "",
+        "left column": [
+            "['sequoia', 'attest']",
+            "['tattletale', 'asset']"
+        ],
+        "right column": [
+            "[('sequoia', 0), ('attest', 3)]",
+            "[('tattletale', 4), ('asset', 1)]"
+        ],
+        "Reference solution": "[re.subn(r't', 't', w) for w in ip]"
+    },
+    "38": {
+        "question": "The given input string has fields separated by `:`. Each field contains four uppercase alphabets followed optionally by two digits. Ignore the last field, which is empty. Use `'NA'` to represent missing digits.",
+        "fill": "",
+        "left column": [
+            "TWXA42:JWPA:",
+            "NTED01:"
+        ],
+        "right column": [
+            "[('TWXA', '42'), ('JWPA', 'NA')]",
+            "[('NTED', '01')]"
+        ],
+        "Reference solution": "[m.groups(default='NA') for m in re.finditer(r'(.{4})(..)?:', ip)]"
+    },
+    "39": {
+        "question": "Convert the comma separated strings to corresponding `dict` objects as shown below. Ignore the empty last field.",
+        "fill": "",
+        "left column": [
+            "maths:75,phy:89,",
+            "maths:88,phy:92,"
+        ],
+        "right column": [
+            "{'maths': '75', 'phy': '89'}",
+            "{'maths': '88', 'phy': '92'}"
+        ],
+        "Reference solution": "dict(re.findall(r'(.+?):(.+?),', ip))\n{m[1]:m[2] for m in re.finditer(r'(.+?):(.+?),', ip)}"
+    },
+    "40": {
+        "question": "Match all strings containing `e` or `i` followed by `l` or `n`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "don't\nsurrender",
+            "unicorn",
+            "eel",
+            "silk",
+            "this is\ncool"
+        ],
+        "right column": [
+            "this is\nbad",
+            "door",
+            "empty",
+            "list",
+            "never\ngive up"
+        ],
+        "Reference solution": "re.search(r'(?s)[ei].*[ln]', ip)\nre.search(r'[ei].*[ln]', ip, flags=re.S)"
+    },
+    "41": {
+        "question": "Replace all whole words `reed` or `read` or `red` with `X`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "redo red credible :read: rod reed"
+        ],
+        "right column": [
+            "redo X credible :X: rod X"
+        ],
+        "Reference solution": "re.sub(r'\\bre[ae]?d\\b', 'X', ip)"
+    },
+    "42": {
+        "question": "Change whole words starting with `hand` and ending immediately with `s` or `y` or `le` to `X.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "handsy hand (handy)\nunhand -hands handle\nhanda hand2 handled"
+        ],
+        "right column": [
+            "handsy hand (X)\nunhand -X X\nhanda hand2 handled"
+        ],
+        "Reference solution": "re.sub(r'\\bhand([sy]|le)\\b', 'X', ip)"
+    },
+    "43": {
+        "question": "Extract all hex character sequences, with `0x` optional prefix. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters.",
+        "fill": "",
+        "left column": [
+            "128A foo 0xfe32 34 0xbar",
+            "0XDEADBEEF place 0x0ff1ce bad"
+        ],
+        "right column": [
+            "['128A', '0xfe32', '34']",
+            "['0XDEADBEEF', '0x0ff1ce', 'bad']"
+        ],
+        "Reference solution": "re.findall(r'(?i)\\b(?:0x)?[\\da-f]+\\b', ip)\nre.findall(r'\\b(?:0x)?[\\da-f]+\\b', ip, flags=re.I)"
+    },
+    "44": {
+        "question": "Delete from `(` to the next occurrence of `)` unless they contain parentheses characters in between.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "def factorial()",
+            "c%d(#modulo) - (e+(j/k-3)*4(x))",
+            "Hi there(bye). Nice day(a(b)"
+        ],
+        "right column": [
+            "def factorial",
+            "c%d - (e+*4)",
+            "Hi there. Nice day(a"
+        ],
+        "Reference solution": "re.sub(r'\\([^()]*\\)', '', ip)"
+    },
+    "45": {
+        "question": "Match strings not starting with `e` or `p` or `u`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "surrender unicorn newer _b",
+            "door empty 2good eel",
+            "(end)",
+            "Pest"
+        ],
+        "right column": [
+            "early",
+            "present",
+            "unit: m",
+            "eel"
+        ],
+        "Reference solution": "re.search(r'\\A[^epu]', ip)"
+    },
+    "46": {
+        "question": "Match strings containing `u` or `w` or `ee` or `-`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "p-t",
+            "thank you",
+            "heel",
+            "owe",
+            "-"
+        ],
+        "right column": [
+            "tea",
+            "ear",
+            "cat",
+            "bad",
+            "hello there"
+        ],
+        "Reference solution": "re.search(r'[uw-]|ee', ip)"
+    },
+    "47": {
+        "question": "The given input strings contain fields separated by `,` and fields can be empty too. Replace the last three fields with `WHTSZ323`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "(2),kite,12,,D,C,,",
+            "hi,bye,sun,moon"
+        ],
+        "right column": [
+            "(2),kite,12,,D,WHTSZ323",
+            "hi,WHTSZ323"
+        ],
+        "Reference solution": "re.sub(r'(,[^,]*){3}\\Z', ',WHTSZ323', ip)"
+    },
+    "48": {
+        "question": "Extract whole words starting with `r` or `s` or `t` and having a maximum of `6` word characters.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "sequoia subtle-exhibit tHR33",
+            "asset%sets preset tests",
+            "site present re_do Tea"
+        ],
+        "right column": [
+            "['subtle', 'tHR33']",
+            "['sets', 'tests']",
+            "['site', 're_do']"
+        ],
+        "Reference solution": "re.findall(r'\\b[rst]\\w{,5}\\b', ip)"
+    },
+    "49": {
+        "question": "Split the given strings based on consecutive sequence of digit or whitespace characters.",
+        "fill": "re.split(r'', ip)",
+        "left column": [
+            "lion \t Ink32onion Nice",
+            "**1\t2\n3star 7 77\t**\nform\ffeed"
+        ],
+        "right column": [
+            "['lion', 'Ink', 'onion', 'Nice']",
+            "['**', 'star', '**', 'form', 'feed']"
+        ],
+        "Reference solution": "re.split(r'[\\d\\s]+', ip)"
+    },
+    "50": {
+        "question": "Construct a pattern that splits the given input string to get the output as shown below.",
+        "fill": "re.split(r'', ip)",
+        "left column": [
+            "food:good",
+            "food:good-cool",
+            "one:two-three;four",
+            "42:no-op;10:car-tr:u-ck;SQ49"
+        ],
+        "right column": [
+            "['food:good']",
+            "['food:good-cool']",
+            "['one', 'three', 'four']",
+            "['42', 'op', '10', 'tr:u-ck', 'SQ49']"
+        ],
+        "Reference solution": "re.split(r':[^-]+-([^;]+);', ip)"
+    },
+    "51": {
+        "question": "Delete all occurrences of the sequence `<characters>` where `characters` is one or more non `>` characters and cannot be empty.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "a<ap\nple>\n1<> b<bye> 2<>\nc<cat>"
+        ],
+        "right column": [
+            "a\n1<> b 2<>\nc"
+        ],
+        "Reference solution": "re.sub(r'<[^>]+>', '', ip)"
+    },
+    "52": {
+        "question": "Filter all elements containing any number sequence greater than `624`.",
+        "fill": "",
+        "left column": [
+            "['hi0000432abcd', 'car00625']",
+            "['42_624 0512']",
+            "['624', '3.14 96 2 hi1234bye']"
+        ],
+        "right column": [
+            "['car00625']",
+            "[]",
+            "['3.14 96 2 hi1234bye']"
+        ],
+        "Reference solution": "[e for e in ip if any(int(m[0])>624 for m in re.finditer(r'\\d+', e))]"
+    },
+    "53": {
+        "question": "By default, the `str.split()` method will split on whitespace and remove empty strings from the result. Which `re` module function would you use to replicate this functionality?",
+        "fill": "",
+        "left column": [
+            "  so  pole\t\t\t\n\nlit in \n\n\n  to"
+        ],
+        "right column": [
+            "['so', 'pole', 'lit', 'in', 'to']"
+        ],
+        "Reference solution": "re.findall(r'\\S+', ip)"
+    },
+    "54": {
+        "question": "Convert the given input string to the output list as shown below.",
+        "fill": "",
+        "left column": [
+            "p_42 hi^\t\n^-ice==cat\nto"
+        ],
+        "right column": [
+            "['p_42', 'hi', 'ice', 'cat', 'to']"
+        ],
+        "Reference solution": "re.split(r'\\W+', ip)\nre.findall(r'\\w+', ip)"
+    },
+    "55": {
+        "question": "Match strings whose first non-whitespace character is not a `#` character. Any string made up of only whitespace characters should not be matched.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "sure",
+            "\t\napple #42",
+            "no#1"
+        ],
+        "right column": [
+            "#oops",
+            "\t\n",
+            "    #comment"
+        ],
+        "Reference solution": "re.search(r'\\A\\s*[^#\\s]', ip)\nre.search(r'\\A\\s*+[^#]', ip) # Python3.11+"
+    },
+    "56": {
+        "question": "Match integer numbers greater than or equal to `100` where these numbers can optionally have leading zeros.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "314 12",
+            "apple,00984",
+            "1234:42::001",
+            "0501 035 154 12 26 98234"
+        ],
+        "right column": [
+            "['314']",
+            "['00984']",
+            "['1234']",
+            "['0501', '154', '98234']"
+        ],
+        "Reference solution": "re.findall(r'0*[1-9]\\d{2,}', ip)\nre.findall(r'0*+\\d{3,}', ip) # Python3.11+"
+    },
+    "57": {
+        "question": "Filter all whole elements with optional whitespaces at the start followed by three to five non-digit characters. Whitespaces at the start should not be part of the calculation for non-digit characters.",
+        "fill": "",
+        "left column": [
+            "['\\t \\ncat', 'goal']",
+            "[' oh', 'he-he', 'goal2']",
+            "['ok ', 'sparrow']"
+        ],
+        "right column": [
+            "['\\t \\ncat', 'goal']",
+            "['he-he']",
+            "['ok ']"
+        ],
+        "Reference solution": "[e for e in ip if re.fullmatch(r'\\s*[^\\d\\s]\\D{2,4}', e)]\n[e for e in ip if re.fullmatch(r'\\s*+\\D{3,5}', e)] # Python3.11+"
+    },
+    "58": {
+        "question": "Replace the space character that occurs after a word ending with `a` or `r` with a newline character.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "area not a _a2_ roar took 22 a;"
+        ],
+        "right column": [
+            "area\nnot a\n_a2_ roar\ntook 22 a;"
+        ],
+        "Reference solution": "re.sub(r'([ar]) ', r'\\1\\n', ip)"
+    },
+    "59": {
+        "question": "Swap words that are separated by a comma.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "good,bad (42,24)",
+            "report_log,power_report"
+        ],
+        "right column": [
+            "bad,good (24,42)",
+            "power_report,report_log"
+        ],
+        "Reference solution": "re.sub(r'(\\w+),(\\w+)', r'\\2,\\1', ip)"
+    },
+    "60": {
+        "question": "Add `[]` around words starting with `s` and containing `e` and `t` in any order.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "sequoia sUBtLe exhibit",
+            "asset sets2 tests si_te"
+        ],
+        "right column": [
+            "sequoia [sUBtLe] exhibit",
+            "asset [sets2] tests [si_te]"
+        ],
+        "Reference solution": "re.sub(r'\\bs\\w*(e\\w*t|t\\w*e)\\w*', r'[\\g<0>]', ip)"
+    },
+    "61": {
+        "question": "Change `[digits]` to `(digits0)`. For example, `[10]` should be changed to `(100)`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "hi [apple] [5] [ball] [0]",
+            "[20] pens",
+            "(3) pencils [3.14]"
+        ],
+        "right column": [
+            "hi [apple] (50) [ball] (00)",
+            "(200) pens",
+            "(3) pencils [3.14]"
+        ],
+        "Reference solution": "re.sub(r'\\[(\\d+)]', r'(\\g<1>0)', ip)\nre.sub(r'\\[(\\d+)]', r'(\\1\\060)', ip)"
+    },
+    "62": {
+        "question": "Replace all whole words with `X` that start and end with the same word character (irrespective of case). Single character word should get replaced with `X` too, as it satisfies the stated condition.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "oreo not a _a2_ Roar took 22"
+        ],
+        "right column": [
+            "X not X X X took X"
+        ],
+        "Reference solution": "re.sub(r'(?i)\\b(\\w)(\\w*\\1)?\\b', 'X', ip)\nre.sub(r'(?i)\\b(\\w|(\\w)\\w*\\2)\\b', 'X', ip)"
+    },
+    "63": {
+        "question": "Convert the given markdown anchors to hyperlinks as shown below.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "# <a name=\"regex\"></a>Regex",
+            "## <a name=\"tip-1\"></a>Tip 1"
+        ],
+        "right column": [
+            "[Regex](#regex)",
+            "[Tip 1](#tip-1)"
+        ],
+        "Reference solution": "re.sub(r'[^\"]+\"([^\"]+)\"></a>(.+)', r'[\\2](#\\1)', ip)"
+    },
+    "64": {
+        "question": "Duplicate the first field and add it as the last field. Consider comma as the field separator and fields other than the first field could be empty too.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "fork,42,nice,3.14",
+            "good,food",
+            "2",
+            "(a^b),#hi#,,"
+        ],
+        "right column": [
+            "fork,42,nice,3.14,fork",
+            "good,food,good",
+            "2,2",
+            "(a^b),#hi#,,,(a^b)"
+        ],
+        "Reference solution": "re.sub(r'\\A([^,]+),?.*', r'\\g<0>,\\1', ip)"
+    },
+    "65": {
+        "question": "Match strings with words that have at least two occurrences of consecutive repeated word characters. For example, words like `stillness` and `Committee` should be matched but not words like `root` or `readable` or `rotational`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "oppressed abandon accommodation",
+            "committed apparition innkeeper",
+            "occasionally afforded",
+            "depended successfully succeeded"
+        ],
+        "right column": [
+            "abandoned building",
+            "horror apparition",
+            "afforded luxury",
+            "cleanliness"
+        ],
+        "Reference solution": "re.search(r'(\\w*(\\w)\\2){2}', ip)\nre.search(r'(\\w)\\1\\w*(\\w)\\2', ip)"
+    },
+    "66": {
+        "question": "Replace all consecutive occurrences of duplicate words with a single copy. Consider the words to be separated by a single space character only.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "aa a a a 42 f_1 f_1 f_13.14 a"
+        ],
+        "right column": [
+            "aa a 42 f_1 f_13.14 a"
+        ],
+        "Reference solution": "re.sub(r'\\b(\\w+)( \\1)+\\b', r'\\1', ip)"
+    },
+    "67": {
+        "question": "For the given input strings, replace all occurrences of digit sequences with only the unique non-repeating sequence. For example, `232323` should be changed to `23` and `897897` should be changed to `897`. If there no repeats (for example `1234`) or if the repeats end prematurely (for example `12121`), it should not be changed.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "1234 2323 453545354535",
+            "9339 11 60260260"
+        ],
+        "right column": [
+            "1234 23 4535",
+            "9339 1 60260260"
+        ],
+        "Reference solution": "re.sub(r'\\b(\\d+)\\1+\\b', r'\\1', ip)"
+    },
+    "68": {
+        "question": "Replace sequences made up of words separated by `:` or `.` by the first word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "wow:Good:2_two.five: hi-2",
+            "bye kite.777:water."
+        ],
+        "right column": [
+            "wow hi-2",
+            "bye kite"
+        ],
+        "Reference solution": "re.sub(r'(\\w+)[:.](\\w+[:.])+', r'\\1', ip)"
+    },
+    "69": {
+        "question": "Replace sequences made up of words separated by `:` or `.` by the last word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "wow:Good:2_two.five: hi-2",
+            "bye kite.777:water."
+        ],
+        "right column": [
+            "five hi-2",
+            "bye water"
+        ],
+        "Reference solution": "re.sub(r'((\\w+)[:.])+', r'\\2', ip)"
+    },
+    "70": {
+        "question": "Split the given input string on one or more repeated sequence of `cat`.",
+        "fill": "re.split(r'', ip)",
+        "left column": [
+            "firecatlioncatcatcatbearcatcatparrot"
+        ],
+        "right column": [
+            "['fire', 'lion', 'bear', 'parrot']"
+        ],
+        "Reference solution": "re.split(r'(?:cat)+', ip)"
+    },
+    "71": {
+        "question": "For the given input string, find all occurrences of digit sequences with at least one repeating sequence. For example, `232323` and `897897`. If the repeats end prematurely, for example `12121`, it should not be matched.",
+        "fill": "",
+        "left column": [
+            "1234 2323 453545354535",
+            "9339 11 60260260"
+        ],
+        "right column": [
+            "['2323', '453545354535']",
+            "['11']"
+        ],
+        "Reference solution": "[m[0] for m in re.finditer(r'\\b(\\d+)\\1+\\b', ip)]"
+    },
+    "72": {
+        "question": "Convert the comma separated strings to corresponding `dict` objects as shown below. The keys are `maths` and `phy` for the two fields in the input strings.",
+        "fill": "",
+        "left column": [
+            "75,89",
+            "88,92"
+        ],
+        "right column": [
+            "{'maths': '75', 'phy': '89'}",
+            "{'maths': '88', 'phy': '92'}"
+        ],
+        "Reference solution": "re.search(r'(?P<maths>[^,]+),(?P<phy>[^,]+)', ip).groupdict()"
+    },
+    "73": {
+        "question": "Surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "Tiger-imp goat ANT",
+            "2_eagle ant important"
+        ],
+        "right column": [
+            "(Tiger)-() (goat) (ANT)",
+            "(2_eagle) () (important)"
+        ],
+        "Reference solution": "re.sub(r'\\b(?:imp|ant|(\\w+))\\b', r'(\\1)', ip)"
+    },
+    "74": {
+        "question": "Match entire strings that are made up of a sequence of lowercase alphabets followed by `-` followed by digits. Such strings can be optionally surrounded by both `{{` and `}}`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "{{apple-150}}",
+            "grape-87",
+            "{{i-5}}",
+            "fig-42"
+        ],
+        "right column": [
+            "{{mango-100}} 2",
+            "{{Apple-150}}",
+            "{{cherry-200",
+            "2-42"
+        ],
+        "Reference solution": "re.fullmatch(r'({{)?[a-z]+-\\d+(?(1)}})', ip)\nre.search(r'\\A({{)?[a-z]+-\\d+(?(1)}})\\Z', ip)"
+    },
+    "75": {
+        "question": "The given input strings have sequences made up of words separated by `:` or `.` and such sequences will end when `:` or `.` is not followed by a word character. For all such sequences, display only the last word followed by `-` followed by the first word.",
+        "fill": "",
+        "left column": [
+            "wow:Good:2_two.five:",
+            "hi-2 bye kite.777:water."
+        ],
+        "right column": [
+            "['five-wow']",
+            "['water-kite']"
+        ],
+        "Reference solution": "[f'{m[2]}-{m[1]}' for m in re.finditer(r'(\\w+)[:.](?:(\\w+)[:.])+', ip)]\n[m.expand(r'\\2-\\1') for m in re.finditer(r'(\\w+)[:.](?:(\\w+)[:.])+', ip)]"
+    },
+    "76": {
+        "question": "Replace all whole words with `X` unless it is preceded by `(` character.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "(apple) guava berry)",
+            "apple (mango) (grape"
+        ],
+        "right column": [
+            "(apple) X X)",
+            "X (mango) (grape"
+        ],
+        "Reference solution": "re.sub(r'(?<!\\()\\b\\w+', 'X', ip)"
+    },
+    "77": {
+        "question": "Replace all whole words with `X` unless it is followed by `)` character.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "(apple) guava berry)",
+            "apple (mango) (grape"
+        ],
+        "right column": [
+            "(apple) X berry)",
+            "X (mango) (X"
+        ],
+        "Reference solution": "re.sub(r'\\w+\\b(?!\\))', 'X', ip)"
+    },
+    "78": {
+        "question": "Replace all whole words with `X` unless it is preceded by `(` or followed by `)` characters.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "(apple) guava berry)",
+            "apple (mango) (grape"
+        ],
+        "right column": [
+            "(apple) X berry)",
+            "X (mango) (grape"
+        ],
+        "Reference solution": "re.sub(r'(?<!\\()\\b\\w+\\b(?!\\))', 'X', ip)"
+    },
+    "79": {
+        "question": "Extract all whole words that do not end with `e` or `n`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "a_t Row on urn e",
+            "noted dust n",
+            "a2-e.i)o|u",
+            "* cool tool. sunny"
+        ],
+        "right column": [
+            "['a_t', 'Row']",
+            "['noted', 'dust']",
+            "['a2', 'i', 'o', 'u']",
+            "['cool', 'tool', 'sunny']"
+        ],
+        "Reference solution": "re.findall(r'\\w+\\b(?<![en])', ip)"
+    },
+    "80": {
+        "question": "Extract all whole words that do not start with `a` or `d` or `n`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "at row2 on urn _",
+            "e Note dust n"
+        ],
+        "right column": [
+            "['row2', 'on', 'urn', '_']",
+            "['e', 'Note']"
+        ],
+        "Reference solution": "re.findall(r'(?![adn])\\b\\w+', ip)"
+    },
+    "81": {
+        "question": "Extract all whole words only if they are followed by `:` or `,` or `-`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "Poke,on=-=so_good:ink.",
+            "to/is(vast)ever2-sit"
+        ],
+        "right column": [
+            "['Poke', 'so_good']",
+            "['ever2']"
+        ],
+        "Reference solution": "re.findall(r'\\w+(?=[:,-])', ip)"
+    },
+    "82": {
+        "question": "Extract all whole words only if they are preceded by `=` or `/` or `-`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "Poke,on=-=so_good:ink.",
+            "to/is(vast)ever2-sit"
+        ],
+        "right column": [
+            "['so_good']",
+            "['is', 'sit']"
+        ],
+        "Reference solution": "re.findall(r'(?<=[=/-])\\w+', ip)"
+    },
+    "83": {
+        "question": "Extract all whole words only if they are preceded by `=` or `:` and followed by `:` or `.`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "Poke,on=-=so_good:ink.at=to,",
+            "to/is(vast)ever2-sit:ant"
+        ],
+        "right column": [
+            "['so_good', 'ink']",
+            "[]"
+        ],
+        "Reference solution": "re.findall(r'(?<=[=:])\\w+(?=[:.])', ip)"
+    },
+    "84": {
+        "question": "Extract all whole words only if they are preceded by `=` or `:` or `.` or `(` or `-` and not followed by `.` or `/`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "Poke(on/-=so_good:ink.at=to,",
+            "to/is(vast)ever2-sit:ant"
+        ],
+        "right column": [
+            "['so_good', 'at', 'to']",
+            "['vast', 'sit', 'ant']"
+        ],
+        "Reference solution": "re.findall(r'(?<=[=:.(-])\\w+\\b(?![./])', ip)"
+    },
+    "85": {
+        "question": "Remove the leading and trailing whitespaces from all the individual fields where `,` is the field separator.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            " hi  ,bye ,cool \t",
+            "hello,nice   ice  , 42 ,2",
+            "1, ,   stall   small"
+        ],
+        "right column": [
+            "hi,bye,cool",
+            "hello,nice   ice,42,2",
+            "1,,stall   small"
+        ],
+        "Reference solution": "re.sub(r'(?<![^,])\\s+|\\s+(?![^,])', '', ip)"
+    },
+    "86": {
+        "question": "Replace all occurrences of `par` with `(par)` as long as whole word `par` isn't present later in the string.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "apartment parking spot",
+            "parse and par and sparse",
+            "par not but this par",
+            "_par2 spark parpar_"
+        ],
+        "right column": [
+            "a(par)tment (par)king spot",
+            "parse and (par) and s(par)se",
+            "par not but this (par)",
+            "_(par)2 s(par)k (par)(par)_"
+        ],
+        "Reference solution": "re.sub(r'par(?!.*\\bpar\\b)', '(\\g<0>)', ip)"
+    },
+    "87": {
+        "question": "Replace all occurrences of `par` with `(par)` as long as `par` is present later in the string.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "apartment parking spot",
+            "parse and par and sparse",
+            "par not but this par",
+            "_par2 spark parpar_"
+        ],
+        "right column": [
+            "a(par)tment parking spot",
+            "(par)se and (par) and sparse",
+            "(par) not but this par",
+            "_(par)2 s(par)k (par)par_"
+        ],
+        "Reference solution": "re.sub(r'par(?=.*par)', '(\\g<0>)', ip)"
+    },
+    "88": {
+        "question": "Match strings starting with `s` and containing `e` and `t` in any order.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "subtle",
+            "sets",
+            "site",
+            "so this matches"
+        ],
+        "right column": [
+            "two sets",
+            "exhibits",
+            "stop",
+            "tested"
+        ],
+        "Reference solution": "re.search(r'\\As(?=.*e)(?=.*t)', ip)\nre.search(r'\\As.*(e.*t|t.*e)', ip)"
+    },
+    "89": {
+        "question": "Match strings that satisfy all of these rules:\n\n* at least two alphabets\n* at least 3 digits\n* doesn't end with a whitespace character",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "F2H3u%9",
+            "A $B C1234",
+            "xyz123",
+            "_1a2b3c4d5_"
+        ],
+        "right column": [
+            "hunter2",
+            "*X3Yz3.14\t",
+            "321a(#)",
+            "r2_d2_hi"
+        ],
+        "Reference solution": "re.search(r'\\A(?=(.*[a-zA-Z]){2})(?=(.*\\d){3})(?!.+\\s\\Z)', ip)\nre.search(r'(?i)\\A(?=(.*[a-z]){2})(?=(.*\\d){3})(?!.+\\s\\Z)', ip)"
+    },
+    "90": {
+        "question": "For the given strings, surround all whole words with `{}` except for whole words `par` and `cat` and `apple`.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "part; cat {super}",
+            "rest_42 par scatter",
+            "apple spar Cat"
+        ],
+        "right column": [
+            "{part}; cat {{super}}",
+            "{rest_42} par {scatter}",
+            "apple {spar} {Cat}"
+        ],
+        "Reference solution": "re.sub(r'\\b(?!(?:par|cat|apple)\\b)\\w+', r'{\\g<0>}', ip)"
+    },
+    "91": {
+        "question": "Extract integer portion of floating-point numbers for the given string. Integers and numbers ending with `.` but no further digits should not be considered.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "12 ab32.4 go 5 2. 46.42 5"
+        ],
+        "right column": [
+            "['32', '46']"
+        ],
+        "Reference solution": "re.findall(r'\\d+(?=\\.\\d)', ip)"
+    },
+    "92": {
+        "question": "For the given input strings, extract all overlapping two character sequences.",
+        "fill": "",
+        "left column": [
+            "apple",
+            "1.2-3:4"
+        ],
+        "right column": [
+            "['ap', 'pp', 'pl', 'le']",
+            "['1.', '.2', '2-', '-3', '3:', ':4']"
+        ],
+        "Reference solution": "[m[1] for m in re.finditer(r'(?=(..))', ip)]\n[m[0]+m[1] for m in re.finditer(r'.(?=(.))', ip)]"
+    },
+    "93": {
+        "question": "The given input strings contain fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "42:cat",
+            "twelve:a2b",
+            "we:be:he:0:a:b:bother",
+            "apple:banana-42:cherry:",
+            "dragon:unicorn:centaur"
+        ],
+        "right column": [
+            "42",
+            "twelve:a2b",
+            "we:be:he:0:a:b",
+            "apple:banana-42:cherry",
+            "dragon:unicorn:centaur"
+        ],
+        "Reference solution": "re.sub(r'(\\d.*):.*', r'\\1', ip)"
+    },
+    "94": {
+        "question": "Extract all whole words unless they are preceded by `:` or `<=>` or `----` or `#`.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "::very--at<=>row|in.a_b",
+            "#b2c=>lion----east"
+        ],
+        "right column": [
+            "['at', 'in', 'a_b']",
+            "['lion']"
+        ],
+        "Reference solution": "re.findall(r'(?<![:#])(?<!<=>)(?<!-{4})\\b\\w+', ip)"
+    },
+    "95": {
+        "question": "Match strings if it contains `qty` followed by `price` but not if there is any **whitespace** character or the string `error` between them.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "23,qty,price,42",
+            "42\nqty-6,apple-56,price-234,error",
+            "(qtyprice) (hi-there)"
+        ],
+        "right column": [
+            "qty price,oh",
+            "3.14,\nqty,6,errors,9,price,3",
+            "4,price,3.14,qty,4"
+        ],
+        "Reference solution": "re.search(r'qty((?!\\s|error).)*price', ip)"
+    },
+    "96": {
+        "question": "The given input string has comma separated fields and some of them can occur more than once. For the duplicated fields, retain only the rightmost one. Assume that there are no empty fields.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "cat,2425,42,5,cat,6,6,6,61,42,4,425,4"
+        ],
+        "right column": [
+            "2425,5,cat,6,61,42,425,4"
+        ],
+        "Reference solution": "re.sub(r'(?<![^,])([^,]+),(?=.*(?<![^,])\\1(?![^,]))', '', ip)"
+    },
+    "97": {
+        "question": "Surround two character sequences with `{}` as long as word characters aren't present on either side of the sequence. Hint: `\\b..\\b` will not work.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "I have 12, he has 2!"
+        ],
+        "right column": [
+            "I have {12}, {he} has {2!}"
+        ],
+        "Reference solution": "re.sub(r'(?<!\\w)..(?!\\w)', '{\\g<0>}', ip)"
+    },
+    "98": {
+        "question": "For the given input strings, match all of these three conditions:\n\n* `This` case sensitively\n* `nice` and `cool` case insensitively",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "This is nice and Cool",
+            "nice,cool,This",
+            "so nice and cool This?"
+        ],
+        "right column": [
+            "Nice and not cool this",
+            "This is not cool",
+            "not nice"
+        ],
+        "Reference solution": "re.search(r'(?i)(?=.*nice)(?=.*cool).*(?-i:This)', ip)\nre.search(r'(?=.*nice)(?=.*cool).*(?-i:This)', ip, flags=re.I)"
+    },
+    "99": {
+        "question": "For the given input strings, match if the string begins with `Th` and also contains a line that starts with `There`.",
+        "fill": "re.search(r'', ip)",
+        "left column": [
+            "There there\nHave a cookie",
+            "This is a mess\nYeah?\nThereeeee"
+        ],
+        "right column": [
+            "Oh\nThere goes the fun",
+            "This is not\ngood\nno There"
+        ],
+        "Reference solution": "re.search(r'\\A(?=Th)(?ms:.*^There)', ip)\nre.search(r'\\A(?=Th).*^There', ip, flags=re.M|re.S)"
+    },
+    "100": {
+        "question": "Extract all consecutive word characters made up of ASCII characters only.",
+        "fill": "re.findall(r'', ip)",
+        "left column": [
+            "2fox:\u03b1\u03bb\u03b5_eagle_\u03c0\u03bf\u03cd:good f\u03bf\u03bfd\uff10\uff11",
+            "happy learning!"
+        ],
+        "right column": [
+            "['2fox', '_eagle_', 'good', 'f', 'd']",
+            "['happy', 'learning']"
+        ],
+        "Reference solution": "re.findall(r'(?a)\\w+', ip)\nre.findall(r'\\w+', ip, flags=re.A)\nre.findall(r'[a-zA-Z0-9_]+', ip)"
+    },
+    "101": {
+        "question": "Delete from `start` if it is at the beginning of a line up to the next occurrence of the `end` at the end of a line. Match these markers case insensitively.",
+        "fill": "re.sub(r'', '', ip)",
+        "left column": [
+            "good start\nstart working on that\nproject you always wanted\nto, do not let it end\nhi there\nstart and end the end\n42\nStart and try to\nfinish the End\nbye"
+        ],
+        "right column": [
+            "good start\n\nhi there\n\n42\n\nbye"
+        ],
+        "Reference solution": "re.sub(r'(?ims)^start.*?end$', '', ip)\nre.sub(r'^start.*?end$', '', ip, flags=re.I|re.M|re.S)"
+    },
+    "102": {
+        "question": "Replace sequences made up of words separated by `:` or `.` by the first word of the sequence and the separator. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "fill": "regex.sub(r'', '', ip)",
+        "left column": [
+            "wow:Good:2_two.five:",
+            "hi-2 bye kite.777:water."
+        ],
+        "right column": [
+            "wow:",
+            "hi-2 bye kite."
+        ],
+        "Reference solution": "regex.sub(r'(\\w+[:.])(?1)+', r'\\1', ip)"
+    },
+    "103": {
+        "question": "The given input strings contain fields separated by `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field.",
+        "fill": "regex.sub(r'', '', ip)",
+        "left column": [
+            "42:cat",
+            "twelve:a2b",
+            "we:be:he:0:a:b:bother",
+            "apple:banana-42:cherry:",
+            "dragon:unicorn:centaur"
+        ],
+        "right column": [
+            "42",
+            "twelve:a2b",
+            "we:be:he:0:a:b",
+            "apple:banana-42:cherry",
+            "dragon:unicorn:centaur"
+        ],
+        "Reference solution": "regex.sub(r'\\d.*\\K:.*', '', ip)"
+    },
+    "104": {
+        "question": "Extract all whole words unless they are preceded by `:` or `<=>` or `----` or `#`.",
+        "fill": "regex.findall(r'', ip)",
+        "left column": [
+            "::very--at<=>row|in.a_b",
+            "#b2c=>lion----east"
+        ],
+        "right column": [
+            "['at', 'in', 'a_b']",
+            "['lion']"
+        ],
+        "Reference solution": "regex.findall(r'(?<![:#]|<=>|-{4})\\b\\w+', ip)"
+    },
+    "105": {
+        "question": "The given input strings have fields separated by the `:` character. Extract field contents only if the previous field contains a digit character.",
+        "fill": "regex.findall(r'', ip)",
+        "left column": [
+            "vast:a2b2:ride:in:awe:42",
+            "good:b2b:3list:end"
+        ],
+        "right column": [
+            "['ride']",
+            "['3list', 'end']"
+        ],
+        "Reference solution": "regex.findall(r'(?<=\\d[^:]*:)[^:]+', ip)"
+    },
+    "106": {
+        "question": "The given input strings have fields separated by the `:` character. Assume that each string has a minimum of two fields and cannot have empty fields. Extract all fields, but stop if a field with a digit character is found.",
+        "fill": "regex.findall(r'', ip)",
+        "left column": [
+            "vast:a2b2:ride:in:awe:42",
+            "um:no:low:3e:s4w:seer",
+            "oh100:apple:banana:fig",
+            "Dragon:Fae:Wizard-Healer"
+        ],
+        "right column": [
+            "['vast']",
+            "['um', 'no', 'low']",
+            "[]",
+            "['Dragon', 'Fae', 'Wizard-Healer']"
+        ],
+        "Reference solution": "regex.findall(r'\\G([^\\d:]+)(?::|\\Z)', ip)"
+    },
+    "107": {
+        "question": "For the given input strings, extract `if` followed by any number of nested parentheses. Assume that there will be only one such pattern per input string.",
+        "fill": "",
+        "left column": [
+            "a if(3-(k*3)/12-(r+2/3))fi(((i*3)+2))",
+            "if(()+while if(a(b)c(d(e(f)1)2)3)"
+        ],
+        "right column": [
+            "if(3-(k*3)/12-(r+2/3))",
+            "if(a(b)c(d(e(f)1)2)3)"
+        ],
+        "Reference solution": "regex.search(r'if(\\((?:[^()]++|(?1))++\\))', ip)[0]"
+    },
+    "108": {
+        "question": "Extract all whole words for the given input strings, unless they contain `a` or `t` or `y`.",
+        "fill": "regex.findall(r'', ip)",
+        "left column": [
+            "match after the last word",
+            "12 new_line character A2",
+            "and then you want to test"
+        ],
+        "right column": [
+            "['word']",
+            "['12', 'new_line', 'A2']",
+            "[]"
+        ],
+        "Reference solution": "regex.findall(r'(?V1)\\b[\\w--[aty]]+\\b', ip)"
+    },
+    "109": {
+        "question": "Delete the punctuation characters for the given strings.",
+        "fill": "regex.sub(r'', '', ip)",
+        "left column": [
+            "\"Hi\", there!",
+            "How *are* you? All fine here.",
+            "apple\u00a1\u00a7banana\u00ab\u00b6\u00b7cherry\u00bb\u00bfmango"
+        ],
+        "right column": [
+            "Hi there",
+            "How are you All fine here",
+            "applebananacherrymango"
+        ],
+        "Reference solution": "regex.sub(r'\\p{P}+', '', ip)\nregex.sub(r'[[:punct:]]+', '', ip)"
+    },
+    "110": {
+        "question": "Change all `,` to `|` other than those inside double quotes.",
+        "fill": "regex.sub(r'', '', ip)",
+        "left column": [
+            "1,\"cat,12,34\",nice,two,\"dog,5\""
+        ],
+        "right column": [
+            "1|\"cat,12,34\"|nice|two|\"dog,5\""
+        ],
+        "Reference solution": "regex.sub(r'\"[^\"]++\"(*SKIP)(*F)|,', '|', ip)"
+    },
+    "111": {
+        "question": "For the given input strings, construct a word that is made up of the last characters of all the words in the input. Use the last character of the last word as the first character, last character of the last but one word as the second character and so on.",
+        "fill": "",
+        "left column": [
+            "knack tic pi roar what",
+            ":42;rod;t2t2;car--"
+        ],
+        "right column": [
+            "trick",
+            "r2d2"
+        ],
+        "Reference solution": "''.join(regex.findall(r'(?r)\\w\\b', ip))"
+    },
+    "112": {
+        "question": "Replicate `str.rpartition()` functionality with regular expressions. Split into three parts based on the last match of sequences of digits, which is `777` and `12` for the given input strings.",
+        "fill": "",
+        "left column": [
+            "hi123bye42see777sea",
+            "12apples"
+        ],
+        "right column": [
+            "['hi123bye42see', '777', 'sea']",
+            "['', '12', 'apples']"
+        ],
+        "Reference solution": "regex.split(r'.*\\K(?<!\\d)(\\d+)', ip)\nregex.split(r'(?:.*\\D)?\\K(\\d+)', ip)\nre.split(r'(\\d+)(?!.*\\d)', ip)"
+    },
+    "113": {
+        "question": "Match strings if they are exactly the same as `cat` or there is exactly one character difference. Ignore case differences.",
+        "fill": "regex.fullmatch(r'', ip)",
+        "left column": [
+            "CaT",
+            "ca.",
+            "ca#",
+            "c#t",
+            "(at"
+        ],
+        "right column": [
+            "scat",
+            "at",
+            "act",
+            "2a1",
+            "cats"
+        ],
+        "Reference solution": "regex.fullmatch(r'(?i)(cat){s<=1}', ip)"
+    },
+    "114": {
+        "question": "The given input strings have fields separated by the `:` character. Extract all fields only after a field containing a digit character is found. Assume that each string has a minimum of two fields and cannot have empty fields.",
+        "fill": "regex.findall(r'', ip)",
+        "left column": [
+            "vast:a2b2:ride:in:awe:42",
+            "um:no:low:3e:s4w:seer",
+            "oh100:apple:banana:fig",
+            "Dragon:Fae:Wizard-Healer"
+        ],
+        "right column": [
+            "['ride', 'in', 'awe', '42']",
+            "['s4w', 'seer']",
+            "['apple', 'banana', 'fig']",
+            "[]"
+        ],
+        "Reference solution": "regex.findall(r'(?:\\d[^:]*|\\G):\\K[^:]+', ip)"
+    }
+}

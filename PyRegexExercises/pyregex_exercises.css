@@ -1,0 +1,78 @@
+.container {
+    height: auto;
+    align: center middle;
+}
+
+#code {
+    height: auto;
+    border: solid green;
+}
+
+#input {
+    padding: 0 1 0 1;
+    margin: 0 1 0 1;
+    border: none;
+    background: silver;
+}
+
+.radio {
+    layout: horizontal;
+    border: none;
+    width: 50%;
+    margin: 0 2 0 2;
+}
+
+#question {
+    width: 100%;
+    margin: 0 1 1 1;
+}
+
+#solution {
+    width: 100%;
+    margin: 0 1 1 1;
+}
+
+#columns {
+    height: auto;
+    align: center middle;
+    border: solid brown;
+}
+
+.list_title {
+    text-align: center;
+    color: gray;
+}
+
+.list_item {
+    border-top: solid gray;
+    padding: 0 1 0 1;
+}
+
+.list {
+    height: auto;
+    margin: 0 1 0 1;
+    width: 50%;
+    color: black;
+}
+
+.table {
+    height: auto;
+    align: center middle;
+}
+
+.error {
+    min-height: 0;
+    height: auto;
+    width: 100%;
+    color: red;
+}
+
+Button:focus {
+    text-style: bold;
+}
+
+.buttons {
+    max-height: 1;
+    border: none;
+    width: 50%;
+}
