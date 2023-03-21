@@ -55,11 +55,6 @@
     color: black;
 }
 
-.table {
-    height: auto;
-    align: center middle;
-}
-
 .error {
     min-height: 0;
     height: auto;

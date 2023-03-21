@@ -62,13 +62,14 @@ class PyRegexExercises(App):
         self.error_types = (SyntaxError, TypeError, ValueError,
                             NameError, AttributeError, IndexError,
                             re.error, regex._regex_core.error)
-        self.eval_func = (self.ip_op, self.search)
         self.input_bg_color = 'gray'
         self.input_error_color = 'ansi_red'
         self.item_color = 'gray'
         self.item_solved_color = 'green'
         self.item_failed_color = 'red'
         self.debug_color = 'orange'
+
+        self.eval_func = (self.ip_op, self.search)
         self.fmt_func = (str, repr)
         self.fmt_idx = self.user_progress.get(-2, 0)
         self.debug_on = self.user_progress.get(-3, False)
@@ -167,16 +168,16 @@ class PyRegexExercises(App):
                     ip = eval(ip)
                 op = str(eval(self.i_user_code.value))
                 if op == self.right_col[idx]:
-                    self.l_right_col[idx].update(f(op))
                     label.styles.color = self.item_solved_color
+                    self.l_right_col[idx].update(f(op))
                     self.l_right_col[idx].styles.color = self.item_solved_color
                 else:
                     label.styles.color = self.item_failed_color
                     self.l_right_col[idx].styles.color = self.item_failed_color
                     solved = False
                     if self.debug_on:
-                        self.l_right_col[idx].styles.color = self.debug_color
                         self.l_right_col[idx].update(f(op))
+                        self.l_right_col[idx].styles.color = self.debug_color
                     else:
                         self.l_right_col[idx].update(f(self.right_col[idx]))
         except self.error_types as e:
@@ -276,8 +277,8 @@ class PyRegexExercises(App):
             self.set_question()
 
     def show_solution(self):
-        panel = Panel(self.ref_solution, title='Reference Solution')
-        self.l_ref_solution.update(panel)
+        self.l_ref_solution.update(
+            Panel(self.ref_solution, title='Reference Solution'))
 
     def action_solution(self):
         self.show_solution()

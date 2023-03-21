@@ -34,6 +34,10 @@ Adjust the terminal dimensions for the widgets to appear properly, for example 8
 
 See [app_guide.md](./app_guide.md)
 
+# Video demo
+
+You can view a demo video about this app on youtube: [https://youtu.be/0oXPeF8HutQ](https://youtu.be/0oXPeF8HutQ)
+
 # Ebook
 
 See my [Understanding Python re(gex)?](https://github.com/learnbyexample/py_regular_expressions) ebook to learn regular expressions with hundreds of examples and exercises.
