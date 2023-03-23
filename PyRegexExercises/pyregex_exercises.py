@@ -1,6 +1,6 @@
 from textual.app import App
 from textual.binding import Binding
-from textual.containers import Horizontal, Vertical
+from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.widgets import Footer, Label, Input, MarkdownViewer, Button
 from textual.widgets import RadioButton, RadioSet, ContentSwitcher
 from rich.panel import Panel
@@ -29,14 +29,14 @@ class PyRegexExercises(App):
     def __init__(self):
         super().__init__()
 
-        with open('questions.json') as f:
+        with open('questions.json', encoding='UTF-8') as f:
             self.questions = tuple(json.load(f).values())
         self.q_idx = 0
         self.q_max_idx = len(self.questions) - 1
 
         self.progress_file = 'user_progress.json'
         try:
-            with open(self.progress_file) as f:
+            with open(self.progress_file, encoding='UTF-8') as f:
                 self.user_progress = {int(k): v for k,v in json.load(f).items()}
         except FileNotFoundError:
             self.user_progress = {}
@@ -79,7 +79,7 @@ class PyRegexExercises(App):
         self.rb_debug = (RadioButton('expected'), RadioButton('actual'))
         self.rb_debug[self.debug_on].value = True
 
-        with open('app_guide.md') as f:
+        with open('app_guide.md', encoding='UTF-8') as f:
             self.m_view = MarkdownViewer(f.read(), show_table_of_contents=False)
 
         self.b_tabs = (Button('App Guide', name='guide', classes='buttons'),
@@ -92,7 +92,7 @@ class PyRegexExercises(App):
             for button in self.b_tabs:
                 yield button
         with ContentSwitcher(initial='exercises') as self.cs_tabs:  
-            with Vertical(id='exercises') as self.v_exercises:
+            with VerticalScroll(id='exercises') as self.v_exercises:
                 yield self.v_code
                 with Horizontal(classes='container'):
                     with RadioSet(name='repr', classes='radio'):
@@ -263,7 +263,7 @@ class PyRegexExercises(App):
         self.write_progress_file()
 
     def write_progress_file(self):
-        with open(self.progress_file, 'w') as f:
+        with open(self.progress_file, 'w', encoding='UTF-8') as f:
             json.dump(self.user_progress, f, indent=4)
 
     def action_previous(self):

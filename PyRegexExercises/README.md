@@ -36,7 +36,7 @@ See [app_guide.md](./app_guide.md)
 
 # Video demo
 
-You can view a demo video about this app on youtube: [https://youtu.be/0oXPeF8HutQ](https://youtu.be/0oXPeF8HutQ)
+You can view a demo video about this app on Youtube: [https://youtu.be/0oXPeF8HutQ](https://youtu.be/0oXPeF8HutQ)
 
 # Ebook
 
