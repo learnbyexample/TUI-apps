@@ -13,11 +13,11 @@ import json
 import re
 from functools import partial
 from math import factorial
+import os
 from pathlib import Path
 
 ERROR_TYPES = (re.error, SyntaxError, TypeError, ValueError,
                NameError, AttributeError, IndexError)
-APP_DIR = Path(__file__).parent.resolve()
 
 class CommentHighlighter(Highlighter):
     def highlight(self, text):
@@ -33,14 +33,14 @@ class ShowMarkdown(Screen):
     def __init__(self, md_file):
         super().__init__()
         self.md_file = md_file
+        self.v_container = Vertical()
 
     def compose(self):
-        self.v_container = Vertical()
         yield self.v_container
         yield Footer()
 
     def on_mount(self):
-        with open(self.md_file) as f:
+        with open(self.md_file, encoding='UTF-8') as f:
             md = f.read()
         self.m_view = MarkdownViewer(md, show_table_of_contents=False)
         self.v_container.mount(self.m_view)
@@ -65,7 +65,7 @@ class Examples(Screen):
     def on_mount(self):
         self.load_examples()
 
-    async def on_input_submitted(self, event):
+    def on_input_submitted(self, event):
         idx = int(event.input.name)
         input_block = self.input_collection[idx]
         for unit in input_block:
@@ -85,7 +85,7 @@ class Examples(Screen):
         self.v_code_block = []
         self.input_collection = []
         comment_highlighter = CommentHighlighter()
-        with open(APP_DIR.joinpath('examples.json')) as f:
+        with open('examples.json', encoding='UTF-8') as f:
             md = iter(json.load(f).values())
         idx = 0
         for info in md:
@@ -134,7 +134,7 @@ class Playground(Screen):
         self.l_compile_error = Label('')
         self.l_action_error = Label('')
 
-        self.ip_file = APP_DIR.joinpath('ip.txt')
+        self.ip_file = 'ip.txt'
         self.read_data()
         self.l_input = Label(classes='playground_ip_op')
         self.ip_panel = partial(Panel, title='ip', title_align='center')
@@ -222,7 +222,7 @@ class Playground(Screen):
             self.action_guide()
 
     def read_data(self):
-        with open(self.ip_file) as f:
+        with open(self.ip_file, encoding='UTF-8') as f:
             self.data = f.read()
 
     def action_guide(self):
@@ -240,8 +240,8 @@ class Playground(Screen):
 
 class PyRegexPlayground(App):
     SCREENS = {'playground': Playground(),
-               'guide': ShowMarkdown(APP_DIR.joinpath('app_guide.md')),
-               'cheatsheet': ShowMarkdown(APP_DIR.joinpath('cheatsheet.md')),
+               'guide': ShowMarkdown('app_guide.md'),
+               'cheatsheet': ShowMarkdown('cheatsheet.md'),
                'examples': Examples()}
     CSS_PATH = 'pyregex_playground.css'
     BINDINGS = [('ctrl+t', 'toggle_theme', 'Theme'),
@@ -255,6 +255,7 @@ class PyRegexPlayground(App):
         self.app.dark ^= True
 
 def main():
+    os.chdir(Path(__file__).parent.resolve())
     app = PyRegexPlayground()
     app.run()
 

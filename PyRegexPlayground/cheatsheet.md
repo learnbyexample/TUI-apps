@@ -21,7 +21,6 @@ The cheatsheet and examples presented in this app are based on the contents of m
 | `\b` | restricts the match to the start/end of words |
 |  | word characters: alphabets, digits, underscore |
 | `\B` | matches wherever `\b` doesn't match |
-| | |
 
 `^`, `$` and `\` are metacharacters in the above table, as these characters have special meaning. Prefix a `\` character to remove the special meaning and match such characters literally. For example, `\^` will match a `^` character instead of acting as an anchor.
 
@@ -35,7 +34,6 @@ The cheatsheet and examples presented in this app are based on the contents of m
 | | `a(b\|c)d` is same as `abd\|acd` |
 | `(?:pat)` | non-capturing group |
 | `(?P<name>pat)` | named capture group |
-| | |
 
 ### Quantifiers
 
@@ -50,7 +48,6 @@ The cheatsheet and examples presented in this app are based on the contents of m
 | `{n}` | Match exactly `n` times |
 | `pat1.*pat2` | any number of characters between `pat1` and `pat2` |
 | `pat1.*pat2\|pat2.*pat1` | match both `pat1` and `pat2` in any order |
-| | |
 
 The above table is for greedy quantifiers. Greedy here means that these quantifiers will match as much as possible that'll also honor the overall RE. Appending a `?` to greedy quantifiers makes them **non-greedy**, i.e. match as *minimally* as possible. Appending a `+` to greedy quantifiers makes them **possessive**, which prevents backtracking. You can also use `(?>pat)` *atomic grouping* to safeguard from backtracking. Quantifiers can be applied to literal characters, groups, backreferences and character classes.
 
@@ -69,7 +66,6 @@ The above table is for greedy quantifiers. Greedy here means that these quantifi
 | `\W` | Match non-word character, same as `[^a-zA-Z0-9_]` or `[^\w]` |
 | `\s` | Match whitespace character, same as `[\ \t\n\r\f\v]` |
 | `\S` | Match non-whitespace character, same as `[^\ \t\n\r\f\v]` or `[^\s]` |
-| | |
 
 ### Lookarounds
 
@@ -83,7 +79,6 @@ The above table is for greedy quantifiers. Greedy here means that these quantifi
 | `(?!pat1)(?=pat2)` | multiple assertions can be specified in any order |
 |  | as they mark a matching location without consuming characters |
 | `((?!pat).)*` | Negate a grouping, similar to negated character class |
-| | |
 
 ### Flags
 
@@ -106,7 +101,6 @@ The above table is for greedy quantifiers. Greedy here means that these quantifi
 | `(?flags-flags:pat)` | apply and negate particular flags only for this `pat` |
 | `(?flags)` | apply flags for whole RE, can be used only at start of RE |
 |  |  anchors if any, should be specified after `(?flags)` |
-| | |
 
 ### Working with matched portions
 
@@ -131,7 +125,6 @@ The above table is for greedy quantifiers. Greedy here means that these quantifi
 |  | refer as `\g<name>` in replacement section |
 | `groupdict()` | method applied on a `re.Match` object |
 |  | gives named capture group portions as a `dict` |
-| | |
 
 >**Note:** `\0` and `\100` onwards are considered as octal values, hence cannot be used as backreferences.
 
@@ -158,7 +151,6 @@ The above table is for greedy quantifiers. Greedy here means that these quantifi
 | | portion matched by pattern outside group won't be in output |
 | `re.finditer` | iterator with `re.Match` object for each match |
 | `re.subn` | gives tuple of modified string and number of substitutions |
-| | |
 
 The function definitions are given below:
 

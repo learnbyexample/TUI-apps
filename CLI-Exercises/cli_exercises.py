@@ -25,7 +25,7 @@ class CLIExercisesApp(App):
     def __init__(self):
         super().__init__()
 
-        with open('questions.json') as f:
+        with open('questions.json', encoding='ascii') as f:
             self.questions = tuple(json.load(f).values())
         self.q_idx = 0
         self.q_max_idx = len(self.questions) - 1
@@ -41,7 +41,7 @@ class CLIExercisesApp(App):
 
         self.progress_file = 'user_progress.json'
         try:
-            with open(self.progress_file) as f:
+            with open(self.progress_file, encoding='ascii') as f:
                 self.user_progress = {int(k): v for k,v in json.load(f).items()}
         except FileNotFoundError:
             self.user_progress = {}
@@ -66,7 +66,7 @@ class CLIExercisesApp(App):
         self.dark = self.user_progress.get(-1, False)
         self.set_quest_ip_op()
 
-    async def on_input_submitted(self, message):
+    def on_input_submitted(self, message):
         self.process_user_cmd()
 
     def process_user_cmd(self):
@@ -116,14 +116,14 @@ class CLIExercisesApp(App):
                              self.questions[self.q_idx]['question']))
 
         ip_file = self.questions[self.q_idx]['ip_file']
-        with open(ip_file) as f:
+        with open(ip_file, encoding='ascii') as f:
             ip_txt = f.read()
         self.sample_input.update(Panel(ip_txt,
                                        title=ip_file,
                                        title_align='center'))
 
         op_file = f"expected_output/{self.questions[self.q_idx]['op_file']}"
-        with open(op_file) as f:
+        with open(op_file, encoding='ascii') as f:
             self.op_txt = f.read()
         self.expected_output.update(Panel(self.op_txt,
                                           title='Expected output',
@@ -155,7 +155,7 @@ class CLIExercisesApp(App):
         self.write_progress_file()
 
     def write_progress_file(self):
-        with open(self.progress_file, 'w') as f:
+        with open(self.progress_file, 'w', encoding='ascii') as f:
             json.dump(self.user_progress, f, indent=4)
 
     def action_show_answer(self):
