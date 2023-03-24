@@ -17,6 +17,9 @@ $ pip install regexexercises
 $ regexexercises
 ```
 
+> **Note**  
+> If you are on Windows, using the [Windows Terminal](https://en.wikipedia.org/wiki/Windows_Terminal) is recommended. See [this issue](https://github.com/learnbyexample/TUI-apps/issues/3#issuecomment-1481488042) for Virtual Environment commands and other details.
+
 To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
 
 ```bash
