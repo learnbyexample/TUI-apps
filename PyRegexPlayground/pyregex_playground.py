@@ -134,6 +134,7 @@ class Playground(Screen):
         self.l_compile_error = Label('')
         self.l_action_error = Label('')
 
+        os.chdir(Path(__file__).parent.resolve())
         self.ip_file = 'ip.txt'
         self.read_data()
         self.l_input = Label(classes='playground_ip_op')
@@ -178,7 +179,7 @@ class Playground(Screen):
     def on_mount(self):
         self.i_compile.focus()
 
-    async def on_input_submitted(self, event):
+    def on_input_submitted(self, event):
         self.l_compile_error.remove()
         ip = self.data
         try:
