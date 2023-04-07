@@ -12,8 +12,10 @@ from functools import partial
 import os
 from pathlib import Path
 
+SCRIPT_DIR = Path(__file__).parent.resolve()
+
 class CLIExercisesApp(App):
-    CSS_PATH = 'cli_exercises.css'
+    CSS_PATH = SCRIPT_DIR.joinpath('cli_exercises.css')
     BINDINGS = [
         Binding('ctrl+s', 'show_answer', 'Solution', show=True),
         Binding('ctrl+p', 'previous', 'Prev', show=True),
@@ -25,7 +27,7 @@ class CLIExercisesApp(App):
     def __init__(self):
         super().__init__()
 
-        with open('questions.json', encoding='ascii') as f:
+        with open(SCRIPT_DIR.joinpath('questions.json'), encoding='ascii') as f:
             self.questions = tuple(json.load(f).values())
         self.q_idx = 0
         self.q_max_idx = len(self.questions) - 1
@@ -39,7 +41,7 @@ class CLIExercisesApp(App):
         self.user_cmd_output = Label(id='user_cmd_output')
         self.op_panel = partial(Panel, title='Output', title_align='left')
 
-        self.progress_file = 'user_progress.json'
+        self.progress_file = SCRIPT_DIR.joinpath('user_progress.json')
         try:
             with open(self.progress_file, encoding='ascii') as f:
                 self.user_progress = {int(k): v for k,v in json.load(f).items()}
@@ -179,7 +181,7 @@ class CLIExercisesApp(App):
 
 
 def main():
-    os.chdir(Path(__file__).parent.resolve())
+    os.chdir(SCRIPT_DIR.joinpath('sample_input'))
     app = CLIExercisesApp()
     app.run()
 
