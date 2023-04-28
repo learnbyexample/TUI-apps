@@ -1,0 +1,787 @@
+{
+    "1": {
+        "question": "Display lines containing `an` from the `sample.txt` input file.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "banana\nmango\n",
+        "ref_solution": [
+            "grep 'an' sample.txt",
+            "rg -N 'an' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "2": {
+        "question": "Display lines containing `do` as a whole word from the `sample.txt` input file.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\n",
+        "ref_solution": [
+            "grep -w 'do' sample.txt",
+            "rg -Nw 'do' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "3": {
+        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n* `he` matched irrespective of case\n* either `World` or `Hi` matched case sensitively",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\nHi there\n",
+        "ref_solution": [
+            "grep -i 'he' sample.txt | grep -e 'World' -e 'Hi'",
+            "grep -i 'he' sample.txt | grep -E 'World|Hi'",
+            "rg -i 'he' sample.txt | rg -e 'World' -e 'Hi'",
+            "rg -i 'he' sample.txt | rg 'World|Hi'"
+        ],
+        "sort_op": false
+    },
+    "4": {
+        "question": "Display lines from `code.txt` containing `fruit[0]` literally.",
+        "ip_file": [
+            "code.txt"
+        ],
+        "op_file": "fruit[0] = 'apple'\n",
+        "ref_solution": [
+            "grep -F 'fruit[0]' code.txt",
+            "rg -NF 'fruit[0]' code.txt"
+        ],
+        "sort_op": false
+    },
+    "5": {
+        "question": "Display only the first two matching lines containing `t` from the `sample.txt` input file.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hi there\nJust do-it\n",
+        "ref_solution": [
+            "grep -m2 't' sample.txt",
+            "rg -Nm2 't' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "6": {
+        "question": "Display only the first three matching lines that do *not* contain `he` from the `sample.txt` input file.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\n\nHow are you\n",
+        "ref_solution": [
+            "grep -m3 -v 'he' sample.txt",
+            "rg -m3 -Nv 'he' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "7": {
+        "question": "Display lines from `sample.txt` that contain `do` along with line number prefix.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "6:Just do-it\n13:Much ado about nothing\n",
+        "ref_solution": [
+            "grep -n 'do' sample.txt",
+            "rg -n 'do' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "8": {
+        "question": "For the input file `sample.txt`, count the number of times the string `he` is present, irrespective of case.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "5\n",
+        "ref_solution": [
+            "grep -io 'he' sample.txt | wc -l",
+            "rg -ico 'he' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "9": {
+        "question": "For the input file `sample.txt`, count the number of empty lines.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "4\n",
+        "ref_solution": [
+            "grep -cx '' sample.txt",
+            "rg -cx '' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "10": {
+        "question": "For the input files `sample.txt` and `code.txt`, display matching lines based on the search terms (one per line) present in the `terms.txt` file. Results should be prefixed with the corresponding input filename.",
+        "ip_file": [
+            "terms.txt",
+            "sample.txt",
+            "code.txt"
+        ],
+        "op_file": "sample.txt:How are you\nsample.txt:mango\nsample.txt:Much ado about nothing\nsample.txt:Adios amigo\ncode.txt:fruit[0] = 'apple'\n",
+        "ref_solution": [
+            "grep -Ff terms.txt sample.txt code.txt",
+            "rg --no-heading -NFf terms.txt sample.txt code.txt"
+        ],
+        "sort_op": true
+    },
+    "11": {
+        "question": "For the input file `sample.txt`, display lines containing `amigo` prefixed by the input filename as well as the line number.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "sample.txt:15:Adios amigo\n",
+        "ref_solution": [
+            "grep -Hn 'amigo' sample.txt",
+            "rg --no-heading -Hn 'amigo' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "12": {
+        "question": "For the input files `sample.txt` and `code.txt`, display only the filename if it contains `apple`.",
+        "ip_file": [
+            "sample.txt",
+            "code.txt"
+        ],
+        "op_file": "code.txt\n",
+        "ref_solution": [
+            "grep -l 'apple' sample.txt code.txt",
+            "rg -l 'apple' sample.txt code.txt"
+        ],
+        "sort_op": true
+    },
+    "13": {
+        "question": "For the input files `sample.txt` and `code.txt`, display only whole matching lines based on the search terms (one per line) present in the `lines.txt` file. Results should be prefixed with the corresponding input filename as well as the line number.",
+        "ip_file": [
+            "lines.txt",
+            "sample.txt",
+            "code.txt"
+        ],
+        "op_file": "sample.txt:9:banana\ncode.txt:1:fruit = []\n",
+        "ref_solution": [
+            "grep -Fnxf lines.txt sample.txt code.txt",
+            "rg --no-heading -Fnxf lines.txt sample.txt code.txt"
+        ],
+        "sort_op": true
+    },
+    "14": {
+        "question": "For the input files `sample.txt` and `code.txt`, count the number of lines that do *not* match any of the search terms (one per line) present in the `terms.txt` file.",
+        "ip_file": [
+            "terms.txt",
+            "sample.txt",
+            "code.txt"
+        ],
+        "op_file": "sample.txt:11\ncode.txt:3\n",
+        "ref_solution": [
+            "grep -vcFf terms.txt sample.txt code.txt",
+            "rg -vcFf terms.txt sample.txt code.txt"
+        ],
+        "sort_op": true
+    },
+    "15": {
+        "question": "Count the total number of lines containing `banana` in the input files `sample.txt` and `code.txt`.",
+        "ip_file": [
+            "sample.txt",
+            "code.txt"
+        ],
+        "op_file": "2\n",
+        "ref_solution": [
+            "cat sample.txt code.txt | grep -c 'banana'",
+            "cat sample.txt code.txt | rg -c 'banana'"
+        ],
+        "sort_op": false
+    },
+    "16": {
+        "question": "For the input file `patterns.txt`, extract from `(` to the next occurrence of `)` unless they contain parentheses characters in between.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "(division)\n(#modulo)\n(9-2)\n()\n(j/k-3)\n(greeting)\n(b)\n",
+        "ref_solution": [
+            "grep -o '([^()]*)' patterns.txt",
+            "rg -No '\\([^()]*\\)' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "17": {
+        "question": "For the input file `patterns.txt`, match all lines that start with `den` or end with `ly`",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "2 lonely\ndent\nlovely\n",
+        "ref_solution": [
+            "grep -E '^den|ly$' patterns.txt",
+            "rg -N '^den|ly$' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "18": {
+        "question": "For the input file `patterns.txt`, extract all whole words containing `42` surrounded by word characters on both sides.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "Hi42Bye\nnice1423\ncool_42a\n_42_\n",
+        "ref_solution": [
+            "grep -oE '\\w+42\\w+' patterns.txt",
+            "rg -oN '\\w+42\\w+' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "19": {
+        "question": "For the input file `patterns.txt`, match all lines containing `car` but not as a whole word.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "scar\ncare\na huge discarded pile of books\nscare\npart cart mart\n",
+        "ref_solution": [
+            "grep -E '\\Bcar|car\\B' patterns.txt",
+            "rg -N '\\Bcar|car\\B' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "20": {
+        "question": "Count the total number of times the whole words `removed` or `rested` or `received` or `replied` or `refused` or `retired` are present in the `patterns.txt` file.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "9\n",
+        "ref_solution": [
+            "grep -owE 're(ceiv|mov|pli|fus|tir|st)ed' patterns.txt | wc -l",
+            "rg -cow 're(ceiv|mov|pli|fus|tir|st)ed' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "21": {
+        "question": "For the input file `patterns.txt`, match lines starting with `s` and containing `e` and `t` in any order.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "sets tests\nsite cite kite bite\nsubtle sequoia\n",
+        "ref_solution": [
+            "grep -E '^s.*(e.*t|t.*e)' patterns.txt",
+            "rg -N '^s.*(e.*t|t.*e)' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "22": {
+        "question": "From the input file `patterns.txt`, extract all whole lines having the same first and last word character.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "sets tests\nNot a pip DOWN\ny\n1 dentist 1\n_42_\n",
+        "ref_solution": [
+            "grep -xE '\\w|(\\w).*\\1' patterns.txt",
+            "rg -xNP '\\w|(\\w).*\\1' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "23": {
+        "question": "For the input file `patterns.txt`, match all lines containing `*[5]` literally.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "(9-2)*[5]\n",
+        "ref_solution": [
+            "grep -F '*[5]' patterns.txt",
+            "rg -NF '*[5]' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "24": {
+        "question": "For the input file `patterns.txt`, display all lines starting with `hand` and ending immediately with `s` or `y` or `le` or no further characters.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "handle\nhandy\nhands\nhand\n",
+        "ref_solution": [
+            "grep -xE 'hand([sy]|le)?' patterns.txt",
+            "rg -xN 'hand([sy]|le)?' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "25": {
+        "question": "For the input files `patterns.txt`, display matching lines based on the patterns (one per line) present in the `regex_terms.txt` file.",
+        "ip_file": [
+            "regex_terms.txt",
+            "patterns.txt"
+        ],
+        "op_file": "Hi42Bye nice1423 bad42\nfly away\ndef factorial()\nhand \n",
+        "ref_solution": [
+            "grep -f regex_terms.txt patterns.txt",
+            "rg -Nf regex_terms.txt patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "26": {
+        "question": "For the input file `patterns.txt`, match all lines starting with `[5]`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "[5]*3\n",
+        "ref_solution": [
+            "grep '^\\[5]' patterns.txt",
+            "rg -N '^\\[5]' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "27": {
+        "question": "From the input file `patterns.txt`, extract all hexadecimal sequences with a minimum of four characters. Match `0x` as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "0XdeadBEEF\nbad42\n0x0ff1ce\n",
+        "ref_solution": [
+            "grep -iowE '(0x)?[0-9a-f]{4,}' patterns.txt",
+            "rg -Niow '(0x)?[0-9a-f]{4,}' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "28": {
+        "question": "From the input file `patterns.txt`, extract from `-` till the end of the line, provided the characters after the hyphen are all word characters only.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "-handy\n-icy\n",
+        "ref_solution": [
+            "grep -o -- '-\\w*$' patterns.txt",
+            "rg -No -- '-\\w*$' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "29": {
+        "question": "For the input file `patterns.txt`, count the total number of lines containing `e` or `i` followed by `l` or `n` and vice versa.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "18\n",
+        "ref_solution": [
+            "grep -cE '[ei].*[ln]|[ln].*[ei]' patterns.txt",
+            "rg -c '[ei].*[ln]|[ln].*[ei]' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "30": {
+        "question": "For the input file `patterns.txt`, match lines starting with `4` or `-` or `u` or `sub` or `care`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "care\n4*5]\n-handy\nsubtle sequoia\nunhand\n",
+        "ref_solution": [
+            "grep -E '^([4u-]|sub|care)' patterns.txt",
+            "rg -N '^([4u-]|sub|care)' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "31": {
+        "question": "For the input file `sample.txt`, filter lines containing `do` and also display the line that comes after such a matching line.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\nBelieve it\n--\nMuch ado about nothing\nHe he he\n",
+        "ref_solution": [
+            "grep -A1 'do' sample.txt",
+            "rg -NA1 'do' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "32": {
+        "question": "For the input file `sample.txt`, filter lines containing `o` followed by zero or more characters and then `m` or `r`. Also, display the line that comes before such a matching line.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\n--\nHi there\nHow are you\n--\nHe he he\nAdios amigo\n",
+        "ref_solution": [
+            "grep -B1 'o.*[mr]' sample.txt",
+            "rg -NB1 'o.*[mr]' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "33": {
+        "question": "For the input file `sample.txt`, filter lines containing `pay` and also display the line that comes before and after such a matching line.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "banana\npapaya\nmango\n",
+        "ref_solution": [
+            "grep -C1 'pay' sample.txt",
+            "rg -NC1 'pay' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "34": {
+        "question": "For the input file `sample.txt`, filter lines containing `lie` and also display the line that comes before and two lines after such a matching line.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\nBelieve it\n\nbanana\n",
+        "ref_solution": [
+            "grep -B1 -A2 'lie' sample.txt",
+            "rg -N -B1 -A2 'lie' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "35": {
+        "question": "For the input file `sample.txt`, filter lines containing `are` or `he` as whole words as well as the line that comes before such a matching line. There should be no separator between the groups of matching lines in the output.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hi there\nHow are you\nMuch ado about nothing\nHe he he\n",
+        "ref_solution": [
+            "grep --no-group-separator -B1 -wE 'are|he' sample.txt",
+            "rg --no-context-separator -B1 -wN 'are|he' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "36": {
+        "question": "For the input file `sample.txt`, filter lines containing `pay` or `the` as well as the line that comes after/before such a matching line. Show `=====` as the separator between the groups of matching lines in the output.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "\nHi there\nHow are you\n=====\nbanana\npapaya\nmango\n",
+        "ref_solution": [
+            "grep --group-separator='=====' -EC1 'pay|the' sample.txt",
+            "rg --context-separator '=====' -NC1 'pay|the' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "37": {
+        "question": "The input file `sample.txt` has an empty line between group of lines. Change it to `------` between the groups.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\n------\nHi there\nHow are you\n------\nJust do-it\nBelieve it\n------\nbanana\npapaya\nmango\n------\nMuch ado about nothing\nHe he he\nAdios amigo\n",
+        "ref_solution": [
+            "grep --group-separator='------' -A0 '.' sample.txt",
+            "rg --passthru -N '^$' -r '------' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "38": {
+        "question": "Search recursively and display the lines containing `ello`. Output should not have filename prefix. Hidden files should also be searched but ignore links.",
+        "ip_file": [],
+        "op_file": "    print(\"Hello, Python!\")\necho \"Hello, Bash!\"\nyellow\nHello World\nyellow\n",
+        "ref_solution": [
+            "grep -rh 'ello'",
+            "rg --no-heading --hidden -IN 'ello'"
+        ],
+        "sort_op": true
+    },
+    "39": {
+        "question": "Search recursively and list the names of files containing `blue` or `on` or a double quote character. Match all of these terms only at the end of a line. Hidden files should also be searched but ignore links.",
+        "ip_file": [],
+        "op_file": "projects/shell/hello.sh\npatterns.txt\ncolors_1\ncolors_2.txt\nbackups/dot_files/.inputrc\nbackups/color list.txt\n",
+        "ref_solution": [
+            "grep -rlE '(blue|on|\")$'",
+            "rg -l --hidden '(blue|on|\")$'"
+        ],
+        "sort_op": true
+    },
+    "40": {
+        "question": "Search recursively and list the names of files containing `blue`, but do not search within the `backups` directory. Hidden files should also be searched but ignore links.",
+        "ip_file": [],
+        "op_file": ".hidden\ncolors_1\ncolors_2.txt\n",
+        "ref_solution": [
+            "grep -rl --exclude-dir='backups' 'blue'",
+            "rg -l --hidden -g '!backups' 'blue'"
+        ],
+        "sort_op": true
+    },
+    "41": {
+        "question": "Search recursively within the `backups` directory and list the names of files containing `red`. Hidden files and symbolic links found in this directory should be searched as well.",
+        "ip_file": [],
+        "op_file": "backups/color list.txt\nbackups/text/pat.txt\n",
+        "ref_solution": [
+            "grep -Rl 'red' backups",
+            "rg -Ll --hidden 'red' backups"
+        ],
+        "sort_op": true
+    },
+    "42": {
+        "question": "Search recursively and list the names of files that do *not* contain `greeting` or `blue` or `are`. Hidden files and symbolic links should be searched as well.",
+        "ip_file": [],
+        "op_file": "projects/shell/hello.sh\nsubstitute.sh\nlines.txt\npcre.txt\nbackups/dot_files/.bash_aliases\nbackups/dot_files/.inputrc\nregex_terms.txt\ncode.txt\n",
+        "ref_solution": [
+            "grep -RLE 'greeting|blue|are'",
+            "rg -L --files-without-match --hidden 'greeting|blue|are'"
+        ],
+        "sort_op": true
+    },
+    "43": {
+        "question": "Search for files containing `red` or `ello` recursively, but do not list the file if it also contains `greeting`. Hidden files should also be searched but ignore links.",
+        "ip_file": [],
+        "op_file": "projects/shell/hello.sh\ncolors_1\nsample.txt\ncolors_2.txt\nbackups/color list.txt\n",
+        "ref_solution": [
+            "grep -rlEZ 'red|ello' | xargs -r0 grep -L 'greeting'",
+            "rg -l0 --hidden 'red|ello' | xargs -r0 grep --files-without-match 'greeting'"
+        ],
+        "sort_op": true
+    },
+    "44": {
+        "question": "Search recursively only within filenames ending with `.txt` and display the names of files containing `red`. Hidden files and symbolic links should be searched as well.",
+        "ip_file": [],
+        "op_file": "patterns.txt\ncolors_2.txt\nbackups/color list.txt\nbackups/text/pat.txt\n",
+        "ref_solution": [
+            "grep -Rl --include='*.txt' 'red'",
+            "rg -lL --hidden -t 'txt' 'red'"
+        ],
+        "sort_op": true
+    },
+    "45": {
+        "question": "Search recursively only within filenames ending with `.txt` but not if the name has a space character. Display the names of files containing `red`. Hidden files and symbolic links should be searched as well.",
+        "ip_file": [],
+        "op_file": "patterns.txt\ncolors_2.txt\nbackups/text/pat.txt\n",
+        "ref_solution": [
+            "grep -Rl --include='*.txt' --exclude='* *' 'red'",
+            "rg -lL --hidden -t 'txt' -g '!* *' 'red'"
+        ],
+        "sort_op": true
+    },
+    "46": {
+        "question": "Use a combination of `find` and `grep` commands to display lines containing `greeting` only for symbolic links.",
+        "ip_file": [],
+        "op_file": "./backups/text/pat.txt:Hi there(greeting). Nice day(a(b)\n./hello.py:def greeting():\n./hello.py:greeting()\n",
+        "ref_solution": [
+            "find -type l -exec grep 'greeting' {} +",
+            "find -type l -exec rg -N --no-heading 'greeting' {} +"
+        ],
+        "sort_op": true
+    },
+    "47": {
+        "question": "Search recursively and list the names of files that contain `Hello` or `blue`. Hidden files and symbolic links should be searched as well. Do not search within `python` or `backups` directories.",
+        "ip_file": [],
+        "op_file": "projects/shell/hello.sh\n.hidden\ncolors_1\nsample.txt\ncolors_2.txt\nhello.py\n",
+        "ref_solution": [
+            "grep -RlE --exclude-dir='python' --exclude-dir='backups' 'Hello|blue'",
+            "grep -RlE --exclude-dir={python,backups} 'Hello|blue'",
+            "rg --hidden -lL -g '!{python,backups}' 'Hello|blue'"
+        ],
+        "sort_op": true
+    },
+    "48": {
+        "question": "Search recursively only within filenames ending with `.txt` and count the total number of lines containing `car` or `blue` or a digit character. Hidden files and symbolic links should be searched as well.",
+        "ip_file": [],
+        "op_file": "61\n",
+        "ref_solution": [
+            "grep -RE --include='*.txt' 'car|blue|[0-9]' | wc -l",
+            "rg --hidden -L -t 'txt' 'car|blue|\\d' | wc -l"
+        ],
+        "sort_op": false
+    },
+    "49": {
+        "question": "Display lines containing `Hello` or `red` only from files in the current hierarchy, i.e. don't search recursively. Hidden files and symbolic links should be searched as well.",
+        "ip_file": [],
+        "op_file": "colors_2.txt:red\nhello.py:    print(\"Hello, Python!\")\npatterns.txt:refused reed redo received\npatterns.txt:refused refused and retired\nsample.txt:Hello World\n",
+        "ref_solution": [
+            "grep -d skip 'Hello\\|red' *",
+            "rg --hidden --no-heading -NL -g '!*/*' 'Hello|red'",
+            "rg --hidden --no-heading -NL --max-depth 1 'Hello|red'"
+        ],
+        "sort_op": true
+    },
+    "50": {
+        "question": "Search recursively for files containing `blue` as well as `yellow` anywhere in the file, but do not list the file if it also contains `teal`. Ignore links and assume that hidden files won't match.",
+        "ip_file": [],
+        "op_file": "colors_2.txt\n",
+        "ref_solution": [
+            "grep -rlZ 'blue' | xargs -r0 grep -lZ 'yellow' | xargs -r0 grep -L 'teal'",
+            "rg -l0 'blue' | xargs -r0 rg -l0 'yellow' | xargs -r0 rg --files-without-match 'teal'"
+        ],
+        "sort_op": true
+    },
+    "51": {
+        "question": "For the input file `sample.txt`, extract from the first occurrence of `Just` to the last occurrence of `it`. These terms can occur across different lines. Perform additional transformation to convert ASCII NUL characters, if any, to the newline character.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\nBelieve it\n",
+        "ref_solution": [
+            "grep -oz 'Just.*it' sample.txt | tr '\\0' '\\n'",
+            "rg -oUN '(?s)Just.*it' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "52": {
+        "question": "For the input file `nul_separated`, use the ASCII NUL character as the *line* separator and display lines starting with `a`. Perform additional transformation to convert ASCII NUL characters, if any, to the newline character.",
+        "ip_file": [
+            "nul_separated"
+        ],
+        "op_file": "apple\nfig\nmango\nicecream\n",
+        "ref_solution": [
+            "grep -z '^a' nul_separated | tr '\\0' '\\n'",
+            "rg --null-data '^a' nul_separated | tr '\\0' '\\n'"
+        ],
+        "sort_op": false
+    },
+    "53": {
+        "question": "For the input file `sample.txt`, display lines containing `he` prefixed with the byte location of the matching lines.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "13:Hi there\n102:He he he\n",
+        "ref_solution": [
+            "grep -b 'he' sample.txt",
+            "rg -bN 'he' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "54": {
+        "question": "From the `sample.txt` input file, extract from the start of a line to the first occurrence of `he`.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hi the\nHe he\n",
+        "ref_solution": [
+            "grep -oP '^.*?he' sample.txt",
+            "rg -oN '^.*?he' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "55": {
+        "question": "For the input file `terms.txt`, display line that do *not* contain a digit character.",
+        "ip_file": [
+            "terms.txt"
+        ],
+        "op_file": "are\nnot\ngo\n",
+        "ref_solution": [
+            "grep -vP '\\d' terms.txt",
+            "rg -vN '\\d' terms.txt"
+        ],
+        "sort_op": false
+    },
+    "56": {
+        "question": "From the `pcre.txt` input file, extract consecutive repeated occurrences of `abc` followed by `a` provided that the final `a` isn't part of `abc`. For example, `abcabcadef` should give `abcabca` as the output and `abcabcabcd` shouldn't match.",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "abcabcabca\n",
+        "ref_solution": [
+            "grep -oP '(abc)++a' pcre.txt",
+            "grep -oP '(?>(abc)+)a' pcre.txt",
+            "rg -oNP '(abc)++a' pcre.txt",
+            "rg -oNP '(?>(abc)+)a' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "57": {
+        "question": "From the `pcre.txt` input file, extract from `S:` followed by a digit character to the very next occurrence of `E:` followed by two or more digits. For example, `S:12 E:5 fig S:4 and E:123` should give `S:4 and E:123` as the output and `S:1 - E:2` shouldn't match.",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "S:4 and E:123\nS:42 E:43\nS:100 & E:10\n",
+        "ref_solution": [
+            "grep -oP '(?>S:\\d.*?E:)\\d{2,}' pcre.txt",
+            "rg -oNP '(?>S:\\d.*?E:)\\d{2,}' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "58": {
+        "question": "From the `sample.txt` input file, extract all sequences made up of lowercase letters except those that start with `a` or `h` or `i` or `t`. Such sequences should not be surrounded by other word characters.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "you\ndo\nbanana\npapaya\nmango\nnothing\n",
+        "ref_solution": [
+            "grep -woP '(?![ahit])[a-z]+' sample.txt",
+            "rg -woPN '(?![ahit])[a-z]+' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "59": {
+        "question": "From the `sample.txt` input file, extract all sequences made up of lowercase letters except those that end with letters from `g` to `z`. Such sequences should not be surrounded by other word characters.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "there\nare\nbanana\npapaya\nhe\nhe\n",
+        "ref_solution": [
+            "grep -woP '[a-z]+(?<![g-z])' sample.txt",
+            "grep -wo '[a-z]*[a-f]' sample.txt",
+            "rg -woPN '[a-z]+(?<![g-z])' sample.txt",
+            "rg -woN '[a-z]*[a-f]' sample.txt"
+        ],
+        "sort_op": false
+    },
+    "60": {
+        "question": "From the `pcre.txt` input file, extract integer portion of floating-point numbers. Integers and numbers ending with `.` and no further digits should not be considered. For example, output for `ab32.4` should be `32` and numbers like `2.` and `456` should not be matched.",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "32\n46\n",
+        "ref_solution": [
+            "grep -oP '\\d+(?=\\.\\d)' pcre.txt",
+            "rg -oN '(\\d+)\\.\\d' -r '$1' pcre.txt",
+            "rg -oNP '\\d+(?=\\.\\d)' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "61": {
+        "question": "For the input file `pcre.txt`, filter lines that satisfy all of these rules:\n\n* at least 2 alphabets\n* at least 3 digits\n* at least 1 special character among `%` or `*` or `#` or `$`\n* should *not* contain `Yz` or `if`",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "F2H3u#9\nA $ C1234\n",
+        "ref_solution": [
+            "grep -P '^(?=(.*[a-zA-Z]){2})(?=(.*\\d){3})(?!.*(if|Yz)).*[%*#$]' pcre.txt",
+            "rg -NP '^(?=(.*[a-zA-Z]){2})(?=(.*\\d){3})(?!.*(if|Yz)).*[%*#$]' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "62": {
+        "question": "From the `pcre.txt` input file, extract from the second field to the second last field from rows having at least two columns considering `;` as the delimiter. For example, `b;c` should be extracted from `a;b;c;d` and a line containing less than two `;` characters shouldn't produce any output.",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "in;awe;b2b;3list\nbe;he;0;a;b\n",
+        "ref_solution": [
+            "grep -oP ';\\K.+(?=;)' pcre.txt",
+            "rg -oN ';(.+);' -r '$1' pcre.txt",
+            "rg -oPN ';\\K.+(?=;)' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "63": {
+        "question": "For the input file `pcre.txt`, match lines if it contains `qty` followed by `price` but not if there is any **whitespace** character or the string `error` between them.",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "23,qty,price,42\n(qtyprice) (hi-there)\n42\\nqty-6,apple-56,price-234,error\n",
+        "ref_solution": [
+            "grep -P 'qty((?!\\s|error).)*price' pcre.txt",
+            "rg -NP 'qty((?!\\s|error).)*price' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "64": {
+        "question": "From the `pcre.txt` input file, extract `if` followed by content within any number of nested parentheses.",
+        "ip_file": [
+            "pcre.txt"
+        ],
+        "op_file": "if(3-(k*3+4)/12-(r+2/3))\nif(a(b)c(d(e(f)1)2)3)\n",
+        "ref_solution": [
+            "grep -oP 'if(\\((?:[^()]++|(?1))++\\))' pcre.txt",
+            "rg -oPN 'if(\\((?:[^()]++|(?1))++\\))' pcre.txt"
+        ],
+        "sort_op": false
+    },
+    "65": {
+        "question": "From the `patterns.txt` input file, extract from `car` at the start of a line to the very next occurrence of `book` or `lie` in the file. Perform additional transformation to convert ASCII NUL characters, if any, to the newline character.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "care\n4*5]\na huge discarded pile of book\ncar\neden\nrested replie\n",
+        "ref_solution": [
+            "grep -zoP '(?ms)^car.*?(book|lie)' patterns.txt | tr '\\0' '\\n'",
+            "rg -NUo '(?s)^car.*?(book|lie)' patterns.txt"
+        ],
+        "sort_op": false
+    },
+    "66": {
+        "question": "From the `patterns.txt` input file, extract all whole words if a line also contains `car`. But, any word occupying the first five characters in the line shouldn't be part of the output. For example, `no scar` shouldn't produce any output since both words have all/some characters within the first five characters in the line. `part cart mart` should produce `cart` and `mart` as output. `two sets tests` would fail the `car` condition, and thus shouldn't produce any output.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "tar\nfar\nCart\ndiscarded\npile\nof\nbooks\ncart\nmart\n",
+        "ref_solution": [
+            "grep 'car' patterns.txt | grep -woP '^.{1,5}(*SKIP)(*F)|\\w+'",
+            "rg 'car' patterns.txt | rg -woP '^.{1,5}(*SKIP)(*F)|\\w+'"
+        ],
+        "sort_op": false
+    }
+}

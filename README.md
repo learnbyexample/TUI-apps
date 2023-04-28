@@ -8,6 +8,7 @@ Repository for Terminal User Interface (TUI) apps. Mostly for fun (ex: games), l
 * [Linux CLI Text Processing Exercises](./CLI-Exercises) — test your CLI text processing skills
 * [Python re(gex)? playground](./PyRegexPlayground) — interactive playground for Python Regular Expressions
 * [Python re(gex)? exercises](./PyRegexExercises) — 100+ exercises for Python regular expressions
+* [Grep Exercises](./GrepExercises) — 50+ exercises for `GNU grep` (or alternate implementations like `ripgrep`)
 
 # Acknowledgements
 

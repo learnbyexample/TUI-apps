@@ -1,0 +1,53 @@
+#question {
+    border: blank;
+    padding: 0 1 0 1;
+    width: 100%;
+}
+
+#cmd_output {
+    min-height: 1;
+    width: 100%;
+}
+
+#solution {
+    width: 100%;
+    padding: 0 1 0 1;
+    border: round black;
+}
+
+.container {
+    height: auto;
+    align: center middle;
+}
+
+.ip_op_container {
+    height: auto;
+    width: 1fr;
+}
+
+#tree {
+    width: 45%;
+    padding: 1;
+}
+
+#viewfile {
+    border: round brown;
+    border-title-align: center;
+}
+
+.ip_op {
+    width: 100%;
+    border: round brown;
+    border-title-align: center;
+}
+
+Button:focus {
+    text-style: bold;
+}
+
+.buttons {
+    max-height: 1;
+    border: none;
+    width: 1fr;
+}
+

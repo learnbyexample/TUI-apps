@@ -1,0 +1,4 @@
+fruit = []
+fruit[0] = 'apple'
+def fruit():
+    print('banana')

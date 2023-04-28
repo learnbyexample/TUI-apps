@@ -1,0 +1,4 @@
+are
+not
+go
+fruit[0]
