@@ -28,11 +28,16 @@ class GrepExercisesApp(App):
     def __init__(self):
         super().__init__()
 
+        Path('backups/text').mkdir(exist_ok=True)
         links = [Path('hello.py'), Path('backups/text/pat.txt')]
         targets = [Path('projects/python/hello.py'), Path('../../patterns.txt')]
         for link, target in zip(links, targets):
             if not link.is_file():
                 link.symlink_to(target)
+        for path in Path('.').rglob('*.pyc'):
+            path.unlink()
+        for path in Path('.').rglob('__pycache__'):
+            path.rmdir()
 
         self.l_question = Label(id='question')
         with open(SCRIPT_DIR.joinpath('questions.json'), encoding='ascii') as f:
@@ -181,7 +186,7 @@ class GrepExercisesApp(App):
         self.process_user_cmd()
 
     def trim(self, text):
-        if text and text[-1] == '\n':
+        if text.endswith('\n'):
             text = text[:-1]
         return text
 

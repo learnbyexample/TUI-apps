@@ -7,7 +7,25 @@ This TUI application includes 50+ questions meant to be solved using `GNU grep` 
 
 # Installation
 
-TODO: PyPI package
+This app is available on PyPI as [grepexercises](https://pypi.org/project/grepexercises/). Example installation instructions are shown below, adjust them based on your preferences and OS.
+
+```bash
+# virtual environment
+$ python3 -m venv textual_apps
+$ cd textual_apps
+$ source bin/activate
+$ pip install grepexercises
+
+# launch the app
+$ grepexercises
+```
+
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias grepexercises='/path/to/textual_apps/bin/grepexercises'
+```
 
 As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `grep_exercises.py` file.
 
