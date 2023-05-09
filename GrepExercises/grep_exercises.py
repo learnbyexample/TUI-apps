@@ -221,7 +221,7 @@ class GrepExercisesApp(App):
         path = event.path
         with open(path, encoding='ascii') as f:
             self.l_viewfile.update(self.trim(f.read()))
-            self.l_viewfile.border_title = path
+            self.l_viewfile.border_title = str(path)
 
     def l_ref_solution_clear(self):
         self.l_ref_solution.update('')

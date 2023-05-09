@@ -202,7 +202,7 @@
         "sort_op": false
     },
     "17": {
-        "question": "For the input file `patterns.txt`, match all lines that start with `den` or end with `ly`",
+        "question": "For the input file `patterns.txt`, match all lines that start with `den` or end with `ly`.",
         "ip_file": [
             "patterns.txt"
         ],
@@ -268,7 +268,9 @@
         ],
         "op_file": "sets tests\nNot a pip DOWN\ny\n1 dentist 1\n_42_\n",
         "ref_solution": [
+            "grep -xE '(\\w)(.*\\1)?' patterns.txt",
             "grep -xE '\\w|(\\w).*\\1' patterns.txt",
+            "rg -xNP '(\\w)(.*\\1)?' patterns.txt",
             "rg -xNP '\\w|(\\w).*\\1' patterns.txt"
         ],
         "sort_op": false
@@ -341,7 +343,9 @@
         ],
         "op_file": "-handy\n-icy\n",
         "ref_solution": [
+            "grep -o '\\-\\w*$' patterns.txt",
             "grep -o -- '-\\w*$' patterns.txt",
+            "rg -No '\\-\\w*$' patterns.txt",
             "rg -No -- '-\\w*$' patterns.txt"
         ],
         "sort_op": false
@@ -550,7 +554,6 @@
         "op_file": "projects/shell/hello.sh\n.hidden\ncolors_1\nsample.txt\ncolors_2.txt\nhello.py\n",
         "ref_solution": [
             "grep -RlE --exclude-dir='python' --exclude-dir='backups' 'Hello|blue'",
-            "grep -RlE --exclude-dir={python,backups} 'Hello|blue'",
             "rg --hidden -lL -g '!{python,backups}' 'Hello|blue'"
         ],
         "sort_op": true
@@ -571,7 +574,7 @@
         "op_file": "colors_2.txt:red\nhello.py:    print(\"Hello, Python!\")\npatterns.txt:refused reed redo received\npatterns.txt:refused refused and retired\nsample.txt:Hello World\n",
         "ref_solution": [
             "grep -d skip 'Hello\\|red' *",
-            "rg --hidden --no-heading -NL -g '!*/*' 'Hello|red'",
+            "rg --hidden --no-heading -NL -g '!*/' 'Hello|red'",
             "rg --hidden --no-heading -NL --max-depth 1 'Hello|red'"
         ],
         "sort_op": true
