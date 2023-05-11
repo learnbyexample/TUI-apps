@@ -35,57 +35,13 @@ Adjust the terminal dimensions for the widgets to appear properly, for example 8
 
 # Guide
 
-* Press **Ctrl+p** and **Ctrl+n** to navigate the questions list.
-    * You can also click them using mouse from the footer.
-* Type the command in the box below the question. Cursor focus is meant to be always within this box.
-* Press **Enter** to execute the command.
-    * `/bin/sh` is the shell used. So, features like `echo {1..3}` (brace expansion) won't work.
-    * Output would be displayed below the command box.
-    * If the output matches the expected results, the command box will turn *green* and a reference solution will also be shown.
-    * Issues due to errors and timeout (about `2` seconds) will be displayed in *red*.
-* Contents of the input file and expected output are shown at the bottom of the screen.
-    * You might have to scroll (using mouse or the scrollbar) for longer files.
-* Press **Ctrl+s** to show the reference solution if you are unable to solve an exercise.
-* Press **Ctrl+t** to toggle between light and dark themes.
-* Press **Ctrl+q** or **Ctrl+c** to quit the app.
-* Navigating and editing in the command box:
-    * Use mouse click to position the cursor anywhere you like
-    * **←** move left by one character
-    * **→** move right by one character
-    * **Home** or **Ctrl+a** move to the start of the line
-    * **End** or **Ctrl+e** move to the end of the line
-    * **Ctrl+←** move to the start of the current/previous word
-    * **Ctrl+→** move to the start of the next word
-    * **Ctrl+w** delete till the start of the current/previous word
-    * **Ctrl+f** delete till the start of the next word
-    * **Ctrl+u** delete till the start of the line
-    * **Ctrl+k** delete till the end of the line
-    * **Backspace** or **Ctrl+h** delete character to the left of the cursor
-    * **Delete** or **Ctrl+d** delete character under the cursor
-    * **Enter** submit the code for execution
-
-> **Warning**  
-> There is no safeguard against the command you are executing. They are treated as if you typed them from a shell session. For example, `ls` will list the contents of the current directory.
-
-# User progress
-
-Commands you have typed are automatically saved in `user_progress.json` in the same directory as the script. This happens only when you press **Enter** to execute a command — navigating to another question and closing the app won't trigger the save logic. Theme choice is also saved.
-
-If you close the application and open it again, the first unsolved question will be displayed (i.e. already solved questions are skipped).
-
-If you use **Ctrl+s**, the solution *won't* be saved in `user_progress.json` — you'll have to navigate to another question and back (or close and open the app) to be considered for saving the changes.
-
-Once you have solved a question, only a different correct solution can override the previously saved command.
+See [app_guide.md](./app_guide.md)
 
 # Video demo
 
 https://user-images.githubusercontent.com/17766317/206649676-a913ad0d-1be7-430d-8978-98517347d86b.mp4
 
 You can also view the [demo video on youtube](https://youtu.be/0ggfQzXeYJg).
-
-# Ebooks
-
-Exercises used in this application are based on [my programming ebooks](https://learnbyexample.github.io/books/).
 
 # License
 

@@ -1,3 +1,0 @@
-[Reg Exp](#reg-exp)
-[Sub calls](#sub-calls)
-[dot meta x](#dot-meta-x)
