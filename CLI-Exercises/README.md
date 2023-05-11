@@ -29,7 +29,7 @@ alias cliexercises='/path/to/textual_apps/bin/cliexercises'
 
 As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `cli_exercises.py` file.
 
-Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here's a some sample screenshot:
+Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here's a sample screenshot:
 
 <p align="center"><img src="./cli_exercises.png" alt="Sample screenshot for CLI exercises" /></p>
 
