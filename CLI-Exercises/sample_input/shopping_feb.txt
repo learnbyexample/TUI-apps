@@ -1,0 +1,4 @@
+banana  15
+fig     100
+pen     2
+soap    1

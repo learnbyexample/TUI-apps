@@ -1,6 +1,6 @@
 # Linux CLI Text Processing Exercises
 
-This TUI application includes 40 questions to test your CLI text processing skills.
+This TUI application includes 60+ questions to test your CLI text processing skills.
 
 > **Note**  
 > This application is intended for exercises based on Linux CLI tools. You might still be able to solve the exercises on other platforms, but I'm not sure if it works.

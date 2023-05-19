@@ -1,6 +1,6 @@
 ### Linux CLI Text Processing Exercises
 
-This TUI application includes 40 questions to test your CLI text processing skills. These problems have been adapted from my [Computing from the Command Line](https://github.com/learnbyexample/cli-computing) ebook.
+This TUI application includes 60+ questions to test your CLI text processing skills. These problems have been adapted from my [Command Line](https://learnbyexample.github.io/books/) ebooks.
 
 ### Input command box
 
@@ -64,7 +64,7 @@ Using **Ctrl+s** *won't* trigger the save logic — you'll have to type and exec
 
 Once you have solved a question, only a different correct solution can override the previously saved command.
 
-### Computing from the Command Line
+### Ebooks
 
-The exercise questions in this app have been adapted from my ebook: [https://github.com/learnbyexample/cli-computing](https://github.com/learnbyexample/cli-computing)
+The exercise questions in this app have been adapted from my CLI ebooks: [https://learnbyexample.github.io/books/](https://learnbyexample.github.io/books/)
 

@@ -1,0 +1,4 @@
+apple   10
+banana  20
+soap    3
+tshirt  3
