@@ -3,7 +3,6 @@ from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.widgets import Footer, Label, Input, MarkdownViewer, Button
 from textual.widgets import RadioButton, RadioSet, ContentSwitcher
-from rich.panel import Panel
 from rich.markdown import Markdown
 
 import json
@@ -50,14 +49,15 @@ class PyRegexExercises(App):
         placeholder = 'Add your solution here. Use ip to represent the input.'
         self.i_user_code = Input(placeholder=placeholder, id='input')
         self.v_code = Vertical(self.l_question, self.i_user_code, id='code')
-        self.l_code_error = Label('')
+        self.l_code_error = Label()
 
         self.v_left_col = Vertical(classes='list')
         self.v_right_col = Vertical(classes='list')
         self.h_columns = Horizontal(self.v_left_col, self.v_right_col,
                                     id='columns')
 
-        self.l_ref_solution = Label('', id='solution')
+        self.l_ref_solution = Label(id='solution', markup=False)
+        self.l_ref_solution.border_title = 'Reference Solution'
 
         self.error_types = (SyntaxError, TypeError, ValueError,
                             NameError, AttributeError, IndexError,
@@ -123,7 +123,7 @@ class PyRegexExercises(App):
         self.save_progress()
 
     def process_user_code(self):
-        self.l_ref_solution.update('')
+        self.l_ref_solution_clear()
         self.solved = self.eval_func[self.func_search]()
         if self.solved:
             self.i_user_code.styles.background = self.item_solved_color
@@ -149,8 +149,8 @@ class PyRegexExercises(App):
                     label.styles.color = self.item_failed_color
                     solved = False
         except self.error_types as e:
-            t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
-            self.l_code_error = Label(t, classes='error')
+            self.l_code_error = Label(str(e), classes='error', markup=False)
+            self.l_code_error.border_title = str(type(e).__name__)
             self.v_code.mount(self.l_code_error)
             self.i_user_code.styles.background = self.input_error_color
             solved = False
@@ -181,8 +181,8 @@ class PyRegexExercises(App):
                     else:
                         self.l_right_col[idx].update(f(self.right_col[idx]))
         except self.error_types as e:
-            t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
-            self.l_code_error = Label(t, classes='error')
+            self.l_code_error = Label(str(e), classes='error', markup=False)
+            self.l_code_error.border_title = str(type(e).__name__)
             self.v_code.mount(self.l_code_error)
             self.i_user_code.styles.background = self.input_error_color
             solved = False
@@ -190,7 +190,7 @@ class PyRegexExercises(App):
 
     def set_question(self):
         self.v_exercises.scroll_home(animate=False)
-        self.l_ref_solution.update('')
+        self.l_ref_solution_clear()
 
         self.l_code_error.remove()
         self.v_left_col.remove()
@@ -276,9 +276,13 @@ class PyRegexExercises(App):
             self.q_idx += 1
             self.set_question()
 
+    def l_ref_solution_clear(self):
+        self.l_ref_solution.update('')
+        self.l_ref_solution.styles.border = ('none', 'gray')
+
     def show_solution(self):
-        self.l_ref_solution.update(
-            Panel(self.ref_solution, title='Reference Solution'))
+        self.l_ref_solution.update(self.ref_solution)
+        self.l_ref_solution.styles.border = ('round', 'gray')
 
     def action_solution(self):
         self.show_solution()

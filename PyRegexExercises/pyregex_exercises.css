@@ -18,7 +18,7 @@
 .radio {
     layout: horizontal;
     border: none;
-    width: 50%;
+    width: 1fr;
     margin: 0 2 0 2;
 }
 
@@ -29,7 +29,9 @@
 
 #solution {
     width: 100%;
-    margin: 0 1 1 1;
+    padding: 0 1 0 1;
+    border: round gray;
+    border-title-align: center;
 }
 
 #columns {
@@ -51,7 +53,7 @@
 .list {
     height: auto;
     margin: 0 1 0 1;
-    width: 50%;
+    width: 1fr;
     color: black;
 }
 
@@ -60,6 +62,8 @@
     height: auto;
     width: 100%;
     color: red;
+    padding: 0 1 0 1;
+    border: round red;
 }
 
 Button:focus {
@@ -69,5 +73,5 @@ Button:focus {
 .buttons {
     max-height: 1;
     border: none;
-    width: 50%;
+    width: 1fr;
 }
