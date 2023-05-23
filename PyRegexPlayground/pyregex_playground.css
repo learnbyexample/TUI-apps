@@ -13,6 +13,7 @@
 
 .code_container {
     height: auto;
+    width: 100%;
     border: solid brown;
 }
 
@@ -29,6 +30,7 @@
     border: none;
     background: lightgray;
     width: 100%;
+    color: black;
 }
 
 .examples_md {
@@ -49,15 +51,20 @@
     border: none;
 }
 
-.playground_error {
+.error {
     min-height: 0;
     height: auto;
     width: 100%;
     color: red;
+    padding: 0 1 0 1;
+    border: round red;
 }
 
 .playground_ip_op {
     width: 100%;
+    padding: 0 1 0 1;
+    border: round gray;
+    border-title-align: center;
 }
 
 Button:focus {

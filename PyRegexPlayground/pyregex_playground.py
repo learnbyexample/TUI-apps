@@ -3,7 +3,6 @@ from textual.binding import Binding
 from textual.containers import Horizontal, Vertical
 from textual.widgets import Footer, Label, Input, MarkdownViewer, Button
 from textual.screen import Screen
-from rich.panel import Panel
 from rich.text import Text
 from rich.pretty import Pretty
 from rich.highlighter import Highlighter
@@ -75,10 +74,13 @@ class Examples(Screen):
                     exec(''.join(ip.value for ip in i_setup))
                 op = eval(i_expr.value)
                 l_op.update(Pretty(op))
+                l_op.styles.border = ('none', 'red')
+                l_op.styles.color = 'black'
             except ERROR_TYPES as e:
-                t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
-                l_op.update(t)
+                l_op.update(str(e))
+                l_op.styles.border = ('round', 'red')
                 l_op.styles.color = 'red'
+                l_op.border_title = str(type(e).__name__)
 
     def load_examples(self):
         self.v_examples = Vertical(classes='container')
@@ -102,7 +104,7 @@ class Examples(Screen):
                 t = [Input(value=line, classes='examples_ip',
                            highlighter=comment_highlighter, name=str(idx))
                      for line in lines]
-                l_op = Label(Pretty(op), classes='examples_op')
+                l_op = Label(Pretty(op), classes='examples_op', markup=False)
                 t.append(l_op)
                 self.input_collection[idx].append(t)
                 self.v_code_block[idx].mount(*t)
@@ -121,8 +123,8 @@ class Playground(Screen):
                 Binding('f1', 'guide', 'App Guide', show=False),
                 Binding('f2', 'cheatsheet', 'Cheatsheet', show=False),
                 Binding('f3', 'examples', 'Interactive Examples', show=False),
-                ('up', 'focus_previous', 'Focus previous'),
-                ('down', 'focus_next', 'Focus next'),
+                Binding('up', 'focus_previous', 'Focus previous', show=False),
+                Binding('down', 'focus_next', 'Focus next', show=False),
                ]
 
     def __init__(self):
@@ -131,19 +133,18 @@ class Playground(Screen):
         self.l_compile = Label('Compile', classes='playground_name')
         self.l_action = Label('Action', classes='playground_name')
 
-        self.l_compile_error = Label('')
-        self.l_action_error = Label('')
+        self.l_compile_error = Label()
+        self.l_action_error = Label()
 
         os.chdir(Path(__file__).parent.resolve())
         self.ip_file = 'ip.txt'
         self.read_data()
-        self.l_input = Label(classes='playground_ip_op')
-        self.ip_panel = partial(Panel, title='ip', title_align='center')
-        self.l_input.update(self.ip_panel(self.data))
+        self.l_input = Label(classes='playground_ip_op', markup=False)
+        self.l_input.border_title = 'ip'
+        self.l_input.update(self.data)
 
-        self.l_output = Label(classes='playground_ip_op')
-        self.op_panel = partial(Panel, title='Output', title_align='center')
-        self.l_output.update(self.op_panel(''))
+        self.l_output = Label(classes='playground_ip_op', markup=False)
+        self.l_output.border_title = 'Output'
 
         self.code_bg_color = 'silver'
         self.error_color = 'ansi_red'
@@ -186,15 +187,15 @@ class Playground(Screen):
             self.i_compile.styles.background = self.code_bg_color
             pat = eval(self.i_compile.value)
         except ERROR_TYPES as e:
-            t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
-            self.l_compile_error = Label(t, classes='playground_error')
+            self.l_compile_error = Label(str(e), classes='error', markup=False)
+            self.l_compile_error.border_title = str(type(e).__name__)
             self.v_compile.mount(self.l_compile_error)
             self.i_compile.styles.background = self.error_color
         else:
             op = Text(ip)
             for m in pat.finditer(ip):
                 op.stylize('bold red', *m.span())
-            self.l_input.update(self.ip_panel(op))
+            self.l_input.update(op)
 
         self.l_action_error.remove()
         try:
@@ -204,14 +205,14 @@ class Playground(Screen):
             else:
                 op = ''
         except ERROR_TYPES as e:
-            t = Panel(f'{e}', title=f'{type(e).__name__}', title_align='left')
-            self.l_action_error = Label(t, classes='playground_error')
+            self.l_action_error = Label(str(e), classes='error', markup=False)
+            self.l_action_error.border_title = str(type(e).__name__)
             self.v_action.mount(self.l_action_error)
             self.i_action.styles.background = self.error_color
         else:
             if type(op) != str:
                 op = Pretty(op)
-            self.l_output.update(self.op_panel(op))
+            self.l_output.update(op)
 
     def on_button_pressed(self, event):
         button_label = str(event.button.label)
@@ -237,7 +238,7 @@ class Playground(Screen):
 
     def action_update_ip(self):
         self.read_data()
-        self.l_input.update(self.ip_panel(self.data))
+        self.l_input.update(self.data)
 
 class PyRegexPlayground(App):
     SCREENS = {'playground': Playground(),
