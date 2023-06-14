@@ -1,0 +1,698 @@
+{
+    "1": {
+        "question": "For the input file `text.txt`, replace only the first occurrence of `an` in each line with `in`.",
+        "ip_file": [
+            "text.txt"
+        ],
+        "op_file": "cin ran want plant\nfin fit mine lane\n",
+        "ref_solution": [
+            "sed 's/an/in/' text.txt"
+        ]
+    },
+    "2": {
+        "question": "For the input file `text.txt`, replace all occurrences of `an` with `in`.",
+        "ip_file": [
+            "text.txt"
+        ],
+        "op_file": "cin rin wint plint\nfin fit mine line\n",
+        "ref_solution": [
+            "sed 's/an/in/g' text.txt"
+        ]
+    },
+    "3": {
+        "question": "Replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F` for the input file `hex.txt`.",
+        "ip_file": [
+            "hex.txt"
+        ],
+        "op_file": "start: 0x50, func1: 0x50\nend: 0x7F, func2: 0xB0\nrestart: 0x5010, func3: 0x7F\n",
+        "ref_solution": [
+            "sed 's/0xA0/0x50/g; s/0xFF/0x7F/g' hex.txt"
+        ]
+    },
+    "4": {
+        "question": "For the input file `addr.txt`, change all lowercase vowels to uppercase.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "HEllO WOrld\nHOw ArE yOU\nThIs gAmE Is gOOd\nTOdAy Is sUnny\n12345\nYOU ArE fUnny\n",
+        "ref_solution": [
+            "sed 'y/aeiou/AEIOU/' addr.txt",
+            "sed 's/[aeiou]/\\u&/g' addr.txt"
+        ]
+    },
+    "5": {
+        "question": "For the input file `addr.txt`, display except the third line.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\nHow are you\nToday is sunny\n12345\nYou are funny\n",
+        "ref_solution": [
+            "sed '3d' addr.txt"
+        ]
+    },
+    "6": {
+        "question": "Display only the fourth, fifth, sixth and seventh lines from the `sample.txt` file.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "How are you\n\nJust do-it\nBelieve it\n",
+        "ref_solution": [
+            "sed -n '4,7p' sample.txt"
+        ]
+    },
+    "7": {
+        "question": "For the input file `addr.txt`, replace all occurrences of `are` with `are not` and `is` with `is not` only from the fourth line till the end of file. Also, only the lines that were changed should be displayed in the output.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Today is not sunny\nYou are not funny\n",
+        "ref_solution": [
+            "sed -n '4,$ {s/are/are not/gp; s/is/is not/gp}' addr.txt"
+        ]
+    },
+    "8": {
+        "question": "For the input file `sample.txt`, display only the lines numbered 2nd, 4th, 7th, 9th, 12th, 14th and so on.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "\nHow are you\nBelieve it\nbanana\n\nHe he he\n",
+        "ref_solution": [
+            "sed -n 'n; p; n; n; p; n' sample.txt",
+            "sed -n '2~5{p; n; n; p}' sample.txt"
+        ]
+    },
+    "9": {
+        "question": "For the input file `addr.txt`, display all lines from the start of the file till the first occurrence of `is`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\nHow are you\nThis game is good\n",
+        "ref_solution": [
+            "sed '/is/q' addr.txt"
+        ]
+    },
+    "10": {
+        "question": "For the input file `addr.txt`, display all lines that contain `is` but not `good`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Today is sunny\n",
+        "ref_solution": [
+            "sed -n '/is/{/good/!p}' addr.txt"
+        ]
+    },
+    "11": {
+        "question": "For the input file `purchases.txt`, join groups of three lines with a `-` character as the separator. The last such group might have less than three lines available.",
+        "ip_file": [
+            "purchases.txt"
+        ],
+        "op_file": "coffee-tea-washing powder\ncoffee-toothpaste-tea\nsoap-tea\n",
+        "ref_solution": [
+            "sed 'N; $!N; y/\\n/-/' purchases.txt",
+            "sed 'N; $!N; s/\\n/-/g' purchases.txt"
+        ]
+    },
+    "12": {
+        "question": "For the input file `addr.txt`, add line numbers in the format as shown below.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "1\nHello World\n2\nHow are you\n3\nThis game is good\n4\nToday is sunny\n5\n12345\n6\nYou are funny\n",
+        "ref_solution": [
+            "sed '=' addr.txt"
+        ]
+    },
+    "13": {
+        "question": "For the input file `addr.txt`, print all lines that contain `are` and the line that comes after, if any.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "How are you\nThis game is good\nYou are funny\n",
+        "ref_solution": [
+            "sed -n '/are/,+1 p' addr.txt"
+        ]
+    },
+    "14": {
+        "question": "For the input file `patterns.txt`, display lines numbered 1, 16, 31, 46, etc but not if the line contains a space character.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "scar\nscare\nunhand\n",
+        "ref_solution": [
+            "sed -n '1~15 {/ /!p}' patterns.txt"
+        ]
+    },
+    "15": {
+        "question": "For the input file `sample.txt`, display from the start of the file till the first occurrence of `are`, excluding the matching line.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\n\nHi there\n",
+        "ref_solution": [
+            "sed '/are/Q' sample.txt"
+        ]
+    },
+    "16": {
+        "question": "For the input file `sample.txt`, display from the last occurrence of `do` till the end of the file.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Much ado about nothing\nHe he he\nAdios amigo\n",
+        "ref_solution": [
+            "tac sample.txt | sed '/do/q' | tac"
+        ]
+    },
+    "17": {
+        "question": "For the input file `sample.txt`, display from the 9th line till a line containing `go`.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "banana\npapaya\nmango\n",
+        "ref_solution": [
+            "sed -n '9,/go/p' sample.txt"
+        ]
+    },
+    "18": {
+        "question": "For the input file `sample.txt`, display from a line containing `it` till the next line number that is divisible by 3.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\nBelieve it\n\nbanana\n",
+        "ref_solution": [
+            "sed -n '/it/,~3p' sample.txt"
+        ]
+    },
+    "19": {
+        "question": "Display only the odd numbered lines from `addr.txt`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\nThis game is good\n12345\n",
+        "ref_solution": [
+            "sed -n 'p; n' addr.txt",
+            "sed -n '1~2p' addr.txt"
+        ]
+    },
+    "20": {
+        "question": "For the input file `patterns.txt`, display all lines that start with `den` or end with `ly`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "2 lonely\ndent\nlovely\n",
+        "ref_solution": [
+            "sed -nE '/^den|ly$/p' patterns.txt"
+        ]
+    },
+    "21": {
+        "question": "For the input file `patterns.txt`, replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "Hi[42]Bye nice1[42]3 bad42\neqn2 = pressure*3+42/5-1[42]56\ncool_[42]a 42fake\n_[42]_\n",
+        "ref_solution": [
+            "sed -n 's/\\B42\\B/[&]/gp' patterns.txt"
+        ]
+    },
+    "22": {
+        "question": "For the input file `patterns.txt`, add `[]` around words starting with `s` and containing `e` and `t` in any order. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "[sets] tests Sauerkraut\n[site] cite kite bite [store_2]\n[subtle] sequoia\na [set]\n",
+        "ref_solution": [
+            "sed -nE 's/\\bs\\w*(e\\w*t|t\\w*e)\\w*/[&]/gp' patterns.txt"
+        ]
+    },
+    "23": {
+        "question": "From the input file `patterns.txt`, display lines having the same first and last word character.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "Not a pip DOWN\ny\n1 dentist 1\n_42_\n",
+        "ref_solution": [
+            "sed -nE '/^(\\w)(.*\\1)?$/p' patterns.txt",
+            "sed -nE '/^(\\w|(\\w).*\\2)$/p' patterns.txt"
+        ]
+    },
+    "24": {
+        "question": "For the input file `patterns.txt`, display lines containing `*[5]` literally.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "(9-2)*[5]\n",
+        "ref_solution": [
+            "sed -n '/\\*\\[5]/p' patterns.txt"
+        ]
+    },
+    "25": {
+        "question": "For the input file `patterns.txt`, display all lines starting with `hand` and ending immediately with `s` or `y` or `le` or no further characters.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "handle\nhandy\nhands\nhand\n",
+        "ref_solution": [
+            "sed -nE '/^hand([sy]|le)?$/p' patterns.txt"
+        ]
+    },
+    "26": {
+        "question": "For the input file `patterns.txt`, replace `42//5` or `42/5` with `8`. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "eqn3 = r*42-5/3+42///5-83+a\neqn1 = a+8-c\neqn2 = pressure*3+8-14256\n",
+        "ref_solution": [
+            "sed -nE 's#42//?5#8#gp' patterns.txt"
+        ]
+    },
+    "27": {
+        "question": "For the input file `patterns.txt`, delete from `(` till the next `)`. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "a/b + c%d\n*[5]\ndef factorial\n12- *4)\nHi there. Nice day\n",
+        "ref_solution": [
+            "sed -n 's/([^)]*)//gp' patterns.txt"
+        ]
+    },
+    "28": {
+        "question": "For the input file `patterns.txt`, delete from `(` till the next `)` but not if there is a `(` character in between. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "a/b + c%d\n*[5]\ndef factorial\n12- (e+*4)\nHi there. Nice day(a\n",
+        "ref_solution": [
+            "sed -n 's/([^()]*)//gp' patterns.txt"
+        ]
+    },
+    "29": {
+        "question": "For the input file `anchors.txt`, convert markdown anchors to corresponding hyperlinks as shown below.",
+        "ip_file": [
+            "anchors.txt"
+        ],
+        "op_file": "[Reg Exp](#reg-exp)\n[Sub calls](#sub-calls)\n[dot meta x](#dot-meta-x)\n",
+        "ref_solution": [
+            "sed -E 's|[^\"]+\"([^\"]+)\"></a>(.+)|[\\2](#\\1)|' anchors.txt"
+        ]
+    },
+    "30": {
+        "question": "For the input file `patterns.txt`, replace the space character that occurs after a word ending with `a` or `r` with a newline character, only if the line also contains an uppercase letter. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "par\ncar\ntar\nfar\nCart\nNot a\npip DOWN\n",
+        "ref_solution": [
+            "sed -nE '/[A-Z]/ s/([ar])\\b /\\1\\n/gp' patterns.txt"
+        ]
+    },
+    "31": {
+        "question": "For the input file `f1.txt`, surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them.",
+        "ip_file": [
+            "f1.txt"
+        ],
+        "op_file": "(tiger) () (goat)\n(eagle) () (important)\n(Apple):(FIG):(banana2)\n()-(imp_42)-()-()-(_ant)\n",
+        "ref_solution": [
+            "sed -E 's/\\b(imp|ant|(\\w+))\\b/(\\2)/g' f1.txt"
+        ]
+    },
+    "32": {
+        "question": "For the input file `patterns.txt`, display lines containing `car` but not as a whole word.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "scar\ncare\na huge discarded pile of books\nscare\npart cart mart\n",
+        "ref_solution": [
+            "sed -nE '/\\Bcar|car\\B/p' patterns.txt"
+        ]
+    },
+    "33": {
+        "question": "For the input file `patterns.txt`, display lines starting with `4` or `-` or `u` or `sub` or `care`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "care\n4*5]\n-handy\nsubtle sequoia\nunhand\n",
+        "ref_solution": [
+            "sed -nE '/^([4u-]|sub|care)/p' patterns.txt"
+        ]
+    },
+    "34": {
+        "question": "For the input file `f2.txt`, replace all occurrences of digit sequences with only the unique non-repeating sequence. For example, `232323` should be changed to `23` and `897897` should be changed to `897`. If there are no repeats (for example `1234`) or if the repeats end prematurely (for example `12121`), it should not be changed.",
+        "ip_file": [
+            "f2.txt"
+        ],
+        "op_file": "1234 23 4535\n9339 1 60260260\n2:334\n",
+        "ref_solution": [
+            "sed -E 's/\\b([0-9]+)\\1+\\b/\\1/g' f2.txt"
+        ]
+    },
+    "35": {
+        "question": "For the input file `f3.txt`, replace sequences made up of words separated by `:` or `.` by the first word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "ip_file": [
+            "f3.txt"
+        ],
+        "op_file": "wow hi-2 bye\nkite apple\n",
+        "ref_solution": [
+            "sed -E 's/(\\w+)[:.](\\w+[:.])+/\\1/g' f3.txt"
+        ]
+    },
+    "36": {
+        "question": "For the input file `f3.txt`, replace sequences made up of words separated by `:` or `.` by the last word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "ip_file": [
+            "f3.txt"
+        ],
+        "op_file": "five hi-2 bye\nwater fig\n",
+        "ref_solution": [
+            "sed -E 's/((\\w+)[:.])+/\\2/g' f3.txt"
+        ]
+    },
+    "37": {
+        "question": "For the input file `f4.txt`, replace all whole words with `X` unless it is preceded by a `(` character.",
+        "ip_file": [
+            "f4.txt"
+        ],
+        "op_file": "X (apple) X) X\n(mango) (grape\n",
+        "ref_solution": [
+            "sed -E 's/(^|[^(])\\b\\w+/\\1X/g' f4.txt"
+        ]
+    },
+    "38": {
+        "question": "For the input file `f5.txt`, surround whole words with `[]` only if they are followed by `:` or `,` or `-`.",
+        "ip_file": [
+            "f5.txt"
+        ],
+        "op_file": "[Poke],on=-=[so_good]:ink\nto/is(vast)[ever2]-sit\n[apple],[banana]:[fig]-grape\n",
+        "ref_solution": [
+            "sed -E 's/(\\w+)([:,-])/[\\1]\\2/g' f5.txt"
+        ]
+    },
+    "39": {
+        "question": "The `fields.txt` file has fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field.",
+        "ip_file": [
+            "fields.txt"
+        ],
+        "op_file": "42\ntwelve:a2b\nwe:be:he:0:a:b\napple:banana-42:cherry\ndragon:unicorn:centaur\n",
+        "ref_solution": [
+            "sed -E 's/([0-9].*):.*/\\1/' fields.txt",
+            "sed -E '/[0-9].*:/ s/:[^:]*$//' fields.txt"
+        ]
+    },
+    "40": {
+        "question": "For the input file `para.txt`, remove all groups of lines marked with a line beginning with `start` and a line ending with `end`. Match both these markers case insensitively.",
+        "ip_file": [
+            "para.txt"
+        ],
+        "op_file": "good start\nhi there\nbye\n",
+        "ref_solution": [
+            "sed '/^start/I,/end$/I d' para.txt"
+        ]
+    },
+    "41": {
+        "question": "The `headers.txt` file contains one header per line, starting with one or more `#` characters followed by one or more whitespace characters and then some words. Convert such lines to the corresponding output as shown below.",
+        "ip_file": [
+            "headers.txt"
+        ],
+        "op_file": "regular-expressions\nsubexpression-calls\nthe-dot-meta-character\n",
+        "ref_solution": [
+            "sed -E 's/^#+\\s+(.+)/\\L\\1/; y/ /-/' headers.txt"
+        ]
+    },
+    "42": {
+        "question": "The `f6.txt` file has fields separated by the `,` character and the field values can be empty as well. Replace only the third field with `42`.",
+        "ip_file": [
+            "f6.txt"
+        ],
+        "op_file": "lion,,42,road,neon\n,,42,\na,b,42,d,e,f\n",
+        "ref_solution": [
+            "sed 's/[^,]*/42/3' f6.txt"
+        ]
+    },
+    "43": {
+        "question": "For the input file `text.txt`, replace all occurrences of `an` with `in` except the first match of each line.",
+        "ip_file": [
+            "text.txt"
+        ],
+        "op_file": "can rin wint plint\nfan fit mine line\n",
+        "ref_solution": [
+            "sed 's/an/in/2g' text.txt"
+        ]
+    },
+    "44": {
+        "question": "For the input file `addr.txt`, replace all input lines with the number of characters in those lines. `wc -L` is one of the ways to get the length of a line. Assume that the input file doesn't have single/double quote characters or multi-width characters.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "11\n11\n17\n14\n5\n13\n",
+        "ref_solution": [
+            "sed 's/.*/echo \"&\" | wc -L/e' addr.txt"
+        ]
+    },
+    "45": {
+        "question": "For the input file `para.txt`, assume that it'll always have lines in multiples of 4. Use `sed` commands such that there are 4 lines at a time in the pattern space. Then, delete from `start` till `end` provided `start` is matched only at the start of a line. Also, match these two keywords case insensitively.",
+        "ip_file": [
+            "para.txt"
+        ],
+        "op_file": "good start\n\nhi there\n\nbye\n",
+        "ref_solution": [
+            "sed -E 'N;N;N; s/^start(\\s|\\S)*end//Im' para.txt"
+        ]
+    },
+    "46": {
+        "question": "For the input file `patterns.txt`, replace the last but second `ar` with `X`. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "par car tX far Cart\npXt cart mart\n",
+        "ref_solution": [
+            "sed -nE 's/(.*)ar((.*ar){2})/\\1X\\2/p' patterns.txt"
+        ]
+    },
+    "47": {
+        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n* `he` matched irrespective of case\n* either `World` or `Hi` matched case sensitively",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\nHi there\n",
+        "ref_solution": [
+            "sed -nE '/he/I{/World|Hi/p}' sample.txt"
+        ]
+    },
+    "48": {
+        "question": "For the input file `patterns.txt`, surround all hexadecimal sequences with a minimum of four characters with `[]`. Match `0x` as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "\"should not match [0XdeadBEEF]\"\nHi42Bye nice1423 [bad42]\ntook 0xbad 22 [0x0ff1ce]\neqn2 = pressure*3+42/5-[14256]\n",
+        "ref_solution": [
+            "sed -nE 's/\\b(0x)?[0-9a-f]{4,}\\b/[&]/Igp' patterns.txt",
+            "sed -nE 's/\\b(0x)?[[:xdigit:]]{4,}\\b/[&]/Igp' patterns.txt"
+        ]
+    },
+    "49": {
+        "question": "Print only the third line, if any, from these input files: `addr.txt`, `para.txt` and `copyright.txt`",
+        "ip_file": [
+            "addr.txt",
+            "para.txt",
+            "copyright.txt"
+        ],
+        "op_file": "This game is good\nproject you always wanted\nbla bla bla\n",
+        "ref_solution": [
+            "sed -sn '3p' addr.txt para.txt copyright.txt"
+        ]
+    },
+    "50": {
+        "question": "For the input file `hex.txt`, use content from `replace.txt` to perform search and replace operations. Each line in `replace.txt` starts with the search term, followed by a space and then followed by the replace term. Assume that these terms do not contain any `sed` metacharacters.",
+        "ip_file": [
+            "replace.txt",
+            "hex.txt"
+        ],
+        "op_file": "start: 0x5000, func1: 0x5000\nend: 0x7000, func2: 0x6000\nrestart: 0x500010, func3: 0x7F\n",
+        "ref_solution": [
+            "sed -E 's|(.+) (.+)|s/\\1/\\2/g|' replace.txt | sed -f- hex.txt"
+        ]
+    },
+    "51": {
+        "question": "For the input file `nul_separated`, use the ASCII NUL character as the *line* separator and display lines containing `fig`. Also, change NUL characters in the output to the newline character.",
+        "ip_file": [
+            "nul_separated"
+        ],
+        "op_file": "apple\nfig\nmango\nicecream\n",
+        "ref_solution": [
+            "sed -zn '/fig/p' nul_separated | tr '\\0' '\\n'"
+        ]
+    },
+    "52": {
+        "question": "For the input file `addr.txt`, change a newline character that comes before `H` or `1` to `.` followed by a space character. Assume that the input file doesn't have ASCII NUL characters.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World. How are you\nThis game is good\nToday is sunny. 12345\nYou are funny\n",
+        "ref_solution": [
+            "sed -zE 's/\\n([H1])/. \\1/g' addr.txt"
+        ]
+    },
+    "53": {
+        "question": "For the input file `addr.txt`, display the third line surrounded by `-----`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "-----\nThis game is good\n-----\n",
+        "ref_solution": [
+            "sed -n -e '3 {i-----' -e 'p; a-----' -e '}' addr.txt"
+        ]
+    },
+    "54": {
+        "question": "For the input file `addr.txt`, replace all lines starting from a line containing `you` till the end of file with a blank line followed by `Have a nice day`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\n\nHave a nice day\n",
+        "ref_solution": [
+            "sed '/you/,$ c\\\\nHave a nice day' addr.txt"
+        ]
+    },
+    "55": {
+        "question": "For the input file `addr.txt`, replace even numbered lines with `---`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\n---\nThis game is good\n---\n12345\n---\n",
+        "ref_solution": [
+            "sed 'n; c---' addr.txt"
+        ]
+    },
+    "56": {
+        "question": "For the input file `addr.txt`, replace from the third to fifth lines with the second to fourth lines from `para.txt`.",
+        "ip_file": [
+            "para.txt",
+            "addr.txt"
+        ],
+        "op_file": "Hello World\nHow are you\nStart working on that\nproject you always wanted\nto, do not let it end\nYou are funny\n",
+        "ref_solution": [
+            "sed -n '2,4p' para.txt | sed -e '5r /dev/stdin' -e '3,5d' addr.txt"
+        ]
+    },
+    "57": {
+        "question": "Add one line from `hex.txt` after every two lines of `copyright.txt`.",
+        "ip_file": [
+            "hex.txt",
+            "copyright.txt"
+        ],
+        "op_file": "bla bla 2015 bla\nblah 2018 blah\nstart: 0xA0, func1: 0xA0\nbla bla bla\ncopyright: 2018\nend: 0xFF, func2: 0xB0\n",
+        "ref_solution": [
+            "sed 'n; R hex.txt' copyright.txt"
+        ]
+    },
+    "58": {
+        "question": "For every line of the input file `hex.txt`, insert `---` before the line and append one line from `replace.txt` as shown below.",
+        "ip_file": [
+            "hex.txt",
+            "replace.txt"
+        ],
+        "op_file": "---\nstart: 0xA0, func1: 0xA0\n0xA0 0x5000\n---\nend: 0xFF, func2: 0xB0\n0xB0 0x6000\n---\nrestart: 0xA010, func3: 0x7F\n0xFF 0x7000\n",
+        "ref_solution": [
+            "sed -e 'R replace.txt' -e 'i---' hex.txt"
+        ]
+    },
+    "59": {
+        "question": "Insert the contents of `hex.txt` before a line matching `0x6000` of the input file `replace.txt`.",
+        "ip_file": [
+            "hex.txt",
+            "replace.txt"
+        ],
+        "op_file": "0xA0 0x5000\nstart: 0xA0, func1: 0xA0\nend: 0xFF, func2: 0xB0\nrestart: 0xA010, func3: 0x7F\n0xB0 0x6000\n0xFF 0x7000\n",
+        "ref_solution": [
+            "sed '/0x6000/e cat hex.txt' replace.txt"
+        ]
+    },
+    "60": {
+        "question": "For the input file `addr.txt`, replace lines containing `are` with contents of `hex.txt`.",
+        "ip_file": [
+            "addr.txt",
+            "hex.txt"
+        ],
+        "op_file": "Hello World\nstart: 0xA0, func1: 0xA0\nend: 0xFF, func2: 0xB0\nrestart: 0xA010, func3: 0x7F\nThis game is good\nToday is sunny\n12345\nstart: 0xA0, func1: 0xA0\nend: 0xFF, func2: 0xB0\nrestart: 0xA010, func3: 0x7F\n",
+        "ref_solution": [
+            "sed -e '/are/r hex.txt' -e '//d' addr.txt"
+        ]
+    },
+    "61": {
+        "question": "For the input file `addr.txt`:\n\n* if a line contains `e`, surround all consecutive repeated characters with `{}` as well as uppercase those characters\n* else, if a line contains `u`, surround all uppercase letters in that line with `[]`",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "He{LL}o World\nHow are you\nThis game is g{OO}d\n[T]oday is sunny\n12345\nYou are fu{NN}y\n",
+        "ref_solution": [
+            "sed -E '/e/ {s/(.)\\1/{\\U&}/g; b}; /u/ s/[A-Z]/[&]/g' addr.txt"
+        ]
+    },
+    "62": {
+        "question": "The `nums.txt` file uses a space character as the field separator. The first field of some lines has one or more numbers separated by the `-` character. Surround such numbers in the first field with `[]` as shown below.",
+        "ip_file": [
+            "nums.txt"
+        ],
+        "op_file": "[123]-[87]-[593] 42-3 fig\napple 42-42-42 1000 banana 4-3\n[53783]-[0913] hi 3 4-2\n[1000] guava mango\n",
+        "ref_solution": [
+            "sed -E ':a s/^((\\[[0-9]+\\]-)*)?([0-9]+)/\\1[\\3]/; ta' nums.txt"
+        ]
+    },
+    "63": {
+        "question": "The `blocks.txt` file uses `%=%=` to separate group of lines. Display the first such group.",
+        "ip_file": [
+            "blocks.txt"
+        ],
+        "op_file": "%=%=\napple\nbanana\n",
+        "ref_solution": [
+            "sed ':a n; /%=%=/Q; ba' blocks.txt"
+        ]
+    },
+    "64": {
+        "question": "The `blocks.txt` file uses `%=%=` to separate group of lines. Display the last such group.",
+        "ip_file": [
+            "blocks.txt"
+        ],
+        "op_file": "%=%=\nhi\nhello there\nbye\n",
+        "ref_solution": [
+            "tac blocks.txt | sed '/%=%=/q' | tac"
+        ]
+    },
+    "65": {
+        "question": "The `code.txt` file has code snippets that are surrounded by whole lines containing `%%Code: python%%` and `%%end%%`. The end of such snippets is always followed by an empty line. Assume that there will always be at least one line of code between the markers. Delete all such code snippets as well as the empty line that follows.",
+        "ip_file": [
+            "code.txt"
+        ],
+        "op_file": "H1: Introduction\n\nREPL is a good way to learn\nPython for beginners.\n\nH2: String methods\n\nPython comes loaded with\nawesome methods.\nEnjoy learning Python.\n\n",
+        "ref_solution": [
+            "sed '/^%%Code: python%%$/,/^%%end%%$/{//N; d}' code.txt"
+        ]
+    },
+    "66": {
+        "question": "The `code.txt` file has code snippets that are surrounded by whole lines containing `%%Code: python%%` and `%%end%%`. Display the lines between such markers only for the first block.",
+        "ip_file": [
+            "code.txt"
+        ],
+        "op_file": ">>> 3 + 7\n10\n>>> 22 / 7\n3.142857142857143\n>>> 22 // 7\n3\n",
+        "ref_solution": [
+            "sed -n '/^%%Code: python%%$/,/^%%end%%$/{//!p; /^%%end%%$/q}' code.txt"
+        ]
+    },
+    "67": {
+        "question": "For the input file `broken.txt`, display lines between the markers `top` and `bottom`. If the ending marker isn't found, those lines shouldn't be part of the output.",
+        "ip_file": [
+            "broken.txt"
+        ],
+        "op_file": "3.14\n1234567890\n",
+        "ref_solution": [
+            "tac broken.txt | sed -n '/bottom/,/top/ {//!p}' | tac"
+        ]
+    },
+    "68": {
+        "question": "For the input file `addr.txt`, replace the lines occurring between the markers `How` and `12345` with the contents of the file `hex.txt`.",
+        "ip_file": [
+            "addr.txt",
+            "hex.txt"
+        ],
+        "op_file": "Hello World\nHow are you\nstart: 0xA0, func1: 0xA0\nend: 0xFF, func2: 0xB0\nrestart: 0xA010, func3: 0x7F\n12345\nYou are funny\n",
+        "ref_solution": [
+            "sed -e '/How/r hex.txt' -e '//,/12345/{//!d}' addr.txt"
+        ]
+    }
+}

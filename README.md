@@ -5,10 +5,11 @@ Repository for Terminal User Interface (TUI) apps. Mostly for fun (ex: games), l
 # List of apps
 
 * [Square Tic Tac Toe](./SquareTicTacToe) — form a square with 4 corners
-* [Linux CLI Text Processing Exercises](./CLI-Exercises) — test your CLI text processing skills
+* [Linux CLI Text Processing Exercises](./CLI-Exercises) — 60+ exercises for CLI text processing
 * [Python re(gex)? playground](./PyRegexPlayground) — interactive playground for Python Regular Expressions
 * [Python re(gex)? exercises](./PyRegexExercises) — 100+ exercises for Python regular expressions
 * [Grep Exercises](./GrepExercises) — 50+ exercises for `GNU grep` (or alternate implementations like `ripgrep`)
+* [Sed Exercises](./SedExercises) — 50+ exercises for `GNU sed`
 
 # Acknowledgements
 

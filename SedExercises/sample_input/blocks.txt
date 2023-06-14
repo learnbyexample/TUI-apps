@@ -1,0 +1,14 @@
+%=%=
+apple
+banana
+%=%=
+3.14
+42
+1000
+%=%=
+brown
+green
+%=%=
+hi
+hello there
+bye
