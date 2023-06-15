@@ -7,7 +7,25 @@ This TUI application includes 50+ questions meant to be solved using `GNU sed`. 
 
 # Installation
 
-TODO: PyPI package
+This app is available on PyPI as [sedexercises](https://pypi.org/project/sedexercises/). Example installation instructions are shown below, adjust them based on your preferences and OS.
+
+```bash
+# virtual environment
+$ python3 -m venv textual_apps
+$ cd textual_apps
+$ source bin/activate
+$ pip install sedexercises
+
+# launch the app
+$ sedexercises
+```
+
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias sedexercises='/path/to/textual_apps/bin/sedexercises'
+```
 
 As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `sed_exercises.py` file.
 
