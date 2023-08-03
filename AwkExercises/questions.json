@@ -1,0 +1,907 @@
+{
+    "1": {
+        "question": "For the input file `addr.txt`, display all lines containing `is`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "This game is good\nToday is sunny\n",
+        "ref_solution": [
+            "awk '/is/' addr.txt"
+        ]
+    },
+    "2": {
+        "question": "For the input file `addr.txt`, display the first field of lines *not* containing `y`. Consider space as the field separator for this file.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello\nThis\n12345\n",
+        "ref_solution": [
+            "awk '!/y/{print $1}' addr.txt"
+        ]
+    },
+    "3": {
+        "question": "For the input file `addr.txt`, display all lines containing no more than 2 fields.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\n12345\n",
+        "ref_solution": [
+            "awk 'NF<3' addr.txt"
+        ]
+    },
+    "4": {
+        "question": "For the input file `patterns.txt`, display all lines containing `is` in the second field. Consider space as the field separator.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "1 dentist 1\n",
+        "ref_solution": [
+            "awk '$2 ~ /is/' patterns.txt"
+        ]
+    },
+    "5": {
+        "question": "For each line of the input file `addr.txt`, replace the first occurrence of `o` with `0`.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hell0 World\nH0w are you\nThis game is g0od\nT0day is sunny\n12345\nY0u are funny\n",
+        "ref_solution": [
+            "awk '{sub(/o/, \"0\")} 1' addr.txt"
+        ]
+    },
+    "6": {
+        "question": "For the input file `table.txt`, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "-923.16\n",
+        "ref_solution": [
+            "awk 'BEGIN{p = 1} {p *= $NF} END{print p}' table.txt"
+        ]
+    },
+    "7": {
+        "question": "For the input file `addr.txt`, append `.` to all the input lines.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World.\nHow are you.\nThis game is good.\nToday is sunny.\n12345.\nYou are funny.\n",
+        "ref_solution": [
+            "awk '{print $0 \".\"}' addr.txt",
+            "awk '{$0 = $0 \".\"} 1' addr.txt"
+        ]
+    },
+    "8": {
+        "question": "For the input file `hex.txt`, replace all occurrences of `0xA0` with `0x50` and `0xFF` with `0x7F`.",
+        "ip_file": [
+            "hex.txt"
+        ],
+        "op_file": "start: 0x50, func1: 0x50\nend: 0x7F, func2: 0xB0\nrestart: 0x5010, func3: 0x7F\n",
+        "ref_solution": [
+            "awk '{gsub(/0xA0/, \"0x50\"); gsub(/0xFF/, \"0x7F\")} 1' hex.txt"
+        ]
+    },
+    "9": {
+        "question": "For the input file `patterns.txt`, display all lines that start with `den` or end with `ly`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "2 lonely\ndent\nlovely\n",
+        "ref_solution": [
+            "awk '/^den|ly$/' patterns.txt"
+        ]
+    },
+    "10": {
+        "question": "For the input file `patterns.txt`, replace all occurrences of `42` with `[42]` unless it is at the edge of a word. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "Hi[42]Bye nice1[42]3 bad42\neqn2 = pressure*3+42/5-1[42]56\ncool_[42]a 42fake\n_[42]_\n",
+        "ref_solution": [
+            "awk 'gsub(/\\B42\\B/, \"[&]\")' patterns.txt"
+        ]
+    },
+    "11": {
+        "question": "For the input file `patterns.txt`, add `[]` around words starting with `s` and containing `e` and `t` in any order. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "[sets] tests Sauerkraut\n[site] cite kite bite [store_2]\n[subtle] sequoia\na [set]\n",
+        "ref_solution": [
+            "awk 'gsub(/\\<s\\w*(e\\w*t|t\\w*e)\\w*/, \"[&]\")' patterns.txt"
+        ]
+    },
+    "12": {
+        "question": "For the input file `patterns.txt`, replace the space character that occurs after a word ending with `a` or `r` with a newline character, only if the line also contains an uppercase letter. Display only the modified lines.\n\nFor example, `A car park` should get converted to `A car` and `park` separated by a newline. But `car far tar` shouldn't be matched as there's no uppercase letter in this line.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "par\ncar\ntar\nfar\nCart\nNot a\npip DOWN\n",
+        "ref_solution": [
+            "awk '/[A-Z]/ && /[ar]\\> /{print gensub(/([ar])\\> /, \"\\\\1\\n\", \"g\")}' patterns.txt"
+        ]
+    },
+    "13": {
+        "question": "For the input file `patterns.txt`, replace all occurrences of `*[5]` with `2`. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "(9-2)2\n",
+        "ref_solution": [
+            "awk 'gsub(/\\*\\[5]/, \"2\")' patterns.txt"
+        ]
+    },
+    "14": {
+        "question": "For the input file `patterns.txt`, display all lines starting with `hand` and ending immediately with `s` or `y` or `le` or no further characters. For example, `handed` shouldn't be matched even though it starts with `hand`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "handle\nhandy\nhands\nhand\n",
+        "ref_solution": [
+            "awk '/^hand([sy]|le)?$/' patterns.txt"
+        ]
+    },
+    "15": {
+        "question": "For the input file `patterns.txt`, replace `42//5` or `42/5` with `8`. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "eqn3 = r*42-5/3+42///5-83+a\neqn1 = a+8-c\neqn2 = pressure*3+8-14256\n",
+        "ref_solution": [
+            "awk 'gsub(\"42//?5\", \"8\")' patterns.txt"
+        ]
+    },
+    "16": {
+        "question": "For the input file `patterns.txt`, delete from `(` till the next `)`. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "a/b + c%d\n*[5]\ndef factorial\n12- *4)\nHi there. Nice day\n",
+        "ref_solution": [
+            "awk 'gsub(/\\([^)]*)/, \"\")' patterns.txt"
+        ]
+    },
+    "17": {
+        "question": "For the input file `patterns.txt`, delete from `(` till the next `)` but not if there is a `(` character in between. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "a/b + c%d\n*[5]\ndef factorial\n12- (e+*4)\nHi there. Nice day(a\n",
+        "ref_solution": [
+            "awk 'gsub(/\\([^()]*)/, \"\")' patterns.txt"
+        ]
+    },
+    "18": {
+        "question": "For the input file `anchors.txt`, convert markdown anchors to corresponding hyperlinks as shown below.",
+        "ip_file": [
+            "anchors.txt"
+        ],
+        "op_file": "[Reg Exp](#reg-exp)\n[Sub calls](#sub-calls)\n[dot meta x](#dot-meta-x)\n",
+        "ref_solution": [
+            "awk '{print gensub(/<a name=\"([^\"]+)\"><\\/a>(.+)/, \"[\\\\2](#\\\\1)\", 1)}' anchors.txt"
+        ]
+    },
+    "19": {
+        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n* `to` or `he` matched irrespective of case\n* `World` or `No` matched case sensitively",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\nNo doubt you like it too\n",
+        "ref_solution": [
+            "awk 'tolower($0) ~ /to|he/ && /World|No/' sample.txt"
+        ]
+    },
+    "20": {
+        "question": "The input file `f2.txt` has fields separated by `,` and field values cannot be empty. Replace the third field with `42`.",
+        "ip_file": [
+            "f2.txt"
+        ],
+        "op_file": "lion,ant,42,neon\n_;3%,.,42,:\n\"apple\",banana,42,guava\n",
+        "ref_solution": [
+            "awk '{print gensub(/[^,]+/, \"42\", 3)}' f2.txt"
+        ]
+    },
+    "21": {
+        "question": "For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar` and replace the last but second `ar` with `X`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "par car tX far Cart\npXt cart mart\n",
+        "ref_solution": [
+            "awk 'BEGIN{r = @/(.*)ar((.*ar){2})/} $0~r{print gensub(r, \"\\\\1X\\\\2\", 1)}' patterns.txt"
+        ]
+    },
+    "22": {
+        "question": "For the input file `f1.txt`, surround all whole words with `()`. Additionally, if the whole word is `imp` or `ant`, delete them.",
+        "ip_file": [
+            "f1.txt"
+        ],
+        "op_file": "(tiger) () (goat)\n(eagle) () (important)\n(Apple):(FIG):(banana2)\n()-(imp_42)-()-()-(_ant)\n",
+        "ref_solution": [
+            "awk '{print gensub(/\\<(imp|ant|(\\w+))\\>/, \"(\\\\2)\", \"g\")}' f1.txt"
+        ]
+    },
+    "23": {
+        "question": "For the input file `patterns.txt`, display lines containing `car` but not as a whole word. For example, `scared-cat` and `car care` should match but not `far car park`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "scar\ncare\na huge discarded pile of books\nscare\npart cart mart\n",
+        "ref_solution": [
+            "awk '/\\Bcar|car\\B/' patterns.txt"
+        ]
+    },
+    "24": {
+        "question": "For the input file `patterns.txt`, display lines starting with `4` or `-` or `u` or `sub` or `care`.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "care\n4*5]\n-handy\nsubtle sequoia\nunhand\n",
+        "ref_solution": [
+            "awk '/^([4u-]|sub|care)/' patterns.txt"
+        ]
+    },
+    "25": {
+        "question": "For the input file `f3.txt`, replace sequences made up of words separated by `:` or `.` by the first word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "ip_file": [
+            "f3.txt"
+        ],
+        "op_file": "wow hi-2 bye\nkite apple\n",
+        "ref_solution": [
+            "awk '{print gensub(/(\\w+)[:.](\\w+[:.])+/, \"\\\\1\", \"g\")}' f3.txt"
+        ]
+    },
+    "26": {
+        "question": "For the input file `f3.txt`, replace sequences made up of words separated by `:` or `.` by the last word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
+        "ip_file": [
+            "f3.txt"
+        ],
+        "op_file": "five hi-2 bye\nwater fig\n",
+        "ref_solution": [
+            "awk '{print gensub(/((\\w+)[:.])+/, \"\\\\2\", \"g\")}' f3.txt"
+        ]
+    },
+    "27": {
+        "question": "For the input file `f4.txt`, replace all whole words with `X` unless it is preceded by a `(` character.",
+        "ip_file": [
+            "f4.txt"
+        ],
+        "op_file": "X (apple) X) X\n(mango) (grape\n",
+        "ref_solution": [
+            "awk '{print gensub(/(^|[^(])\\<\\w+/, \"\\\\1X\", \"g\")}' f4.txt"
+        ]
+    },
+    "28": {
+        "question": "For the input file `f5.txt`, surround whole words with `[]` only if they are followed by `:` or `,` or `-`.",
+        "ip_file": [
+            "f5.txt"
+        ],
+        "op_file": "[Poke],on=-=[so_good]:ink\nto/is(vast)[ever2]-sit\n[apple],[banana]:[fig]-grape\n",
+        "ref_solution": [
+            "awk '{print gensub(/(\\w+)([:,-])/, \"[\\\\1]\\\\2\", \"g\")}' f5.txt"
+        ]
+    },
+    "29": {
+        "question": "The `fields.txt` file has fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field.",
+        "ip_file": [
+            "fields.txt"
+        ],
+        "op_file": "42\ntwelve:a2b\nwe:be:he:0:a:b\napple:banana-42:cherry\ndragon:unicorn:centaur\n",
+        "ref_solution": [
+            "awk '{print gensub(/([0-9].*):.*/, \"\\\\1\", 1)}' fields.txt",
+            "awk '/[0-9].*:/{sub(/:[^:]*$/, \"\")} 1' fields.txt"
+        ]
+    },
+    "30": {
+        "question": "For the input file `patterns.txt`, surround all hexadecimal sequences with a minimum of four characters with `[]`. Match `0x` as an optional prefix, but shouldn't be counted for determining the length. Match the characters case insensitively, and the sequences shouldn't be surrounded by other word characters. Display only the modified lines.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "\"should not match [0XdeadBEEF]\"\nHi42Bye nice1423 [bad42]\ntook 0xbad 22 [0x0ff1ce]\neqn2 = pressure*3+42/5-[14256]\n",
+        "ref_solution": [
+            "awk -v IGNORECASE=1 'gsub(/\\<(0x)?[0-9a-f]{4,}\\>/, \"[&]\")' patterns.txt",
+            "awk 'gsub(/\\<(0[xX])?[[:xdigit:]]{4,}\\>/, \"[&]\")' patterns.txt"
+        ]
+    },
+    "31": {
+        "question": "For the input file `brackets.txt`, extract only the contents between `()` or `)(` from each input line. Assume that `()` characters will be present only once every line.",
+        "ip_file": [
+            "brackets.txt"
+        ],
+        "op_file": "ice\nalmond-pista\nyoyo\n",
+        "ref_solution": [
+            "awk -F'[()]' '{print $2}' brackets.txt"
+        ]
+    },
+    "32": {
+        "question": "For the input file `scores.csv`, extract `Name` and `Physics` fields in the format shown below.",
+        "ip_file": [
+            "scores.csv"
+        ],
+        "op_file": "Name:Physics\nBlue:46\nLin:83\nEr:79\nCy:98\nOrt:72\nIth:100\n",
+        "ref_solution": [
+            "awk -F, -v OFS=: '{print $1, $3}' scores.csv",
+            "awk -F, '{print $1 \":\" $3}' scores.csv"
+        ]
+    },
+    "33": {
+        "question": "For the input file `scores.csv`, display names of those who've scored above `70` in Maths.",
+        "ip_file": [
+            "scores.csv"
+        ],
+        "op_file": "Lin\nCy\nIth\n",
+        "ref_solution": [
+            "awk -F, '+$2>70{print $1}' scores.csv"
+        ]
+    },
+    "34": {
+        "question": "Display the number of word characters for each line of `f6.txt`. Word definition here is same as used in regular expressions.",
+        "ip_file": [
+            "f6.txt"
+        ],
+        "op_file": "7\n0\n12\n0\n",
+        "ref_solution": [
+            "awk -F'\\\\w' '{print NF ? NF-1 : 0}' f6.txt",
+            "awk '{print gsub(/\\w/, \"\")}' f6.txt"
+        ]
+    },
+    "35": {
+        "question": "For the input file `quoted.txt`, extract the first and third sequence of characters surrounded by double quotes and display them in the format shown below. Solution shouldn't use substitution functions.",
+        "ip_file": [
+            "quoted.txt"
+        ],
+        "op_file": "\"grape\",\"guava\"\n\"a 1\",\"c-2\"\n",
+        "ref_solution": [
+            "awk -v FPAT='\"[^\"]+\"' -v OFS=, '{print $1, $3}' quoted.txt"
+        ]
+    },
+    "36": {
+        "question": "For the input file `varying_fields.txt`, construct a solution to get the output shown below. Solution shouldn't use substitution functions.",
+        "ip_file": [
+            "varying_fields.txt"
+        ],
+        "op_file": "hi,bye,to\n1,2,5\n",
+        "ref_solution": [
+            "awk -F, -v OFS=, '{$3=$NF; NF=3} 1' varying_fields.txt"
+        ]
+    },
+    "37": {
+        "question": "Transform the given input file `fw.txt` to get the output as shown below. If a field is empty (i.e. contains only space characters), replace it with `NA`.",
+        "ip_file": [
+            "fw.txt"
+        ],
+        "op_file": "1.3,rs,0.134563\n3.8,NA,6\n5.2,ye,8.2387\n4.2,kt,45.1\n",
+        "ref_solution": [
+            "awk -v FIELDWIDTHS='3 2:2 3:2 2:*' -v OFS=, '$2==\"  \"{$2=\"NA\"} {print $1, $2, $4}' fw.txt"
+        ]
+    },
+    "38": {
+        "question": "Display only the third and eighth characters from each line of `table.txt`.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "or\nuk\nlb\n",
+        "ref_solution": [
+            "awk -F '' -v OFS= '{print $3, $8}' table.txt",
+            "awk '{print substr($0, 3, 1) substr($0, 8, 1)}' table.txt"
+        ]
+    },
+    "39": {
+        "question": "The `fields.txt` file has fields separated by the `:` character. Delete `:` and the last field if there is a digit character anywhere before the last field. Solution shouldn't use substitution functions.",
+        "ip_file": [
+            "fields.txt"
+        ],
+        "op_file": "42\ntwelve:a2b\nwe:be:he:0:a:b\napple:banana-42:cherry\ndragon:unicorn:centaur\n",
+        "ref_solution": [
+            "awk -F: -v OFS=: '/[0-9].*:/{NF--} 1' fields.txt"
+        ]
+    },
+    "40": {
+        "question": "For the input file `f7.txt`, retain up to the first three fields. `^` is the input field separator. Use `,` as the output field separator.",
+        "ip_file": [
+            "f7.txt"
+        ],
+        "op_file": "sit,eat,very\napple:42,fig:100\n1,,3\n",
+        "ref_solution": [
+            "awk -F'^' -v OFS=, '{NF = NF>2 ? 3 : NF} 1' f7.txt"
+        ]
+    },
+    "41": {
+        "question": "The `f8.txt` file uses `cat` as the field separator (irrespective of case). Use space as the output field separator and add `42` as the last field.",
+        "ip_file": [
+            "f8.txt"
+        ],
+        "op_file": "apple fig 12345 banana 42\n  42\n(dragon) (unicorn) 42\n",
+        "ref_solution": [
+            "awk -F'cat' -v IGNORECASE=1 '{$(NF+1)=42} 1' f8.txt"
+        ]
+    },
+    "42": {
+        "question": "For the input file `sample.txt`, filter lines containing 6 or more lowercase vowels.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "No doubt you like it too\nMuch ado about nothing\n",
+        "ref_solution": [
+            "awk -F'[aeiou]' 'NF>6' sample.txt"
+        ]
+    },
+    "43": {
+        "question": "The input file `concat.txt` has contents of various files preceded by a line starting with `###`. Replace such sequence of characters with an incrementing integer value (starting with `1`) in the format shown below.",
+        "ip_file": [
+            "concat.txt"
+        ],
+        "op_file": "1) addr.txt\nHow are you\nThis game is good\nToday is sunny\n2) broken.txt\ntop\n1234567890\nbottom\n3) sample.txt\nJust do-it\nBelieve it\n4) mixed_fs.txt\npink blue white yellow\ncar,mat,ball,basket\n",
+        "ref_solution": [
+            "awk '$1==\"###\"{$1 = ++c \")\"} 1' concat.txt"
+        ]
+    },
+    "44": {
+        "question": "The input file `jumbled.txt` consists of words separated by various delimiters. Display all words that contain `an` or `at` or `in` or `it`, one per line.",
+        "ip_file": [
+            "jumbled.txt"
+        ],
+        "op_file": "overcoats\nfurrowing\nwavering\njoint\nintuition\ntitanic\n",
+        "ref_solution": [
+            "awk -v RS='\\\\W+' '/[ai][nt]/' jumbled.txt"
+        ]
+    },
+    "45": {
+        "question": "For the input file `f9.txt`, join all input lines with the `,` character. Make sure that there's no `,` at end of the line and that there's a newline character at the end of the line. In other words, emulate `paste -sd,` with `awk`.",
+        "ip_file": [
+            "f9.txt"
+        ],
+        "op_file": "apple fig,42,100,a b c\n",
+        "ref_solution": [
+            "awk -v ORS= 'NR>1{print \",\"} 1; END{print \"\\n\"}' f9.txt"
+        ]
+    },
+    "46": {
+        "question": "For the input file `scores.csv`, add another column named **GP** which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.",
+        "ip_file": [
+            "scores.csv"
+        ],
+        "op_file": "Name,Maths,Physics,Chemistry,GP\nBlue,67,46,99,69.75\nLin,78,83,80,79.75\nEr,56,79,92,70.75\nCy,97,98,95,96.75\nOrt,68,72,66,68.5\nIth,100,100,100,100\n",
+        "ref_solution": [
+            "awk -F, -v OFS=, '{$(NF+1) = NR==1 ? \"GP\" : ($2/2 + ($3+$4)/4)} 1' scores.csv"
+        ]
+    },
+    "47": {
+        "question": "For the input file `sample.txt`, extract all paragraphs containing `do` and exactly two lines.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\nBelieve it\n\nMuch ado about nothing\nHe he he\n",
+        "ref_solution": [
+            "awk -F'\\n' -v RS= 'NF==2 && /do/{print s $0; s=\"\\n\"}' sample.txt"
+        ]
+    },
+    "48": {
+        "question": "For the input file `ip.txt`, change each paragraph to a single line by joining lines using `.` and a space character as the separator. Also, add a final `.` to each paragraph.",
+        "ip_file": [
+            "ip.txt"
+        ],
+        "op_file": "hello.\n\nworld.\n\napple. banana. cherry.\n\ntea coffee. chocolate.\n",
+        "ref_solution": [
+            "awk 'BEGIN{FS=\"\\n\"; OFS=\". \"; RS=\"\"} {$NF=$NF \".\"; print s $0; s=\"\\n\"}' ip.txt"
+        ]
+    },
+    "49": {
+        "question": "The various input/output separators can be changed dynamically and comes into effect during the next input/output operation. For the input file `mixed_fs.txt`, retain only the first two fields from each input line. The field separators should be space for the first two lines and `,` for the rest of the lines.",
+        "ip_file": [
+            "mixed_fs.txt"
+        ],
+        "op_file": "rose lily\npink blue\ncar,mat\ngreen,brown\n",
+        "ref_solution": [
+            "awk 'NF=2; NR==2{FS=OFS=\",\"}' mixed_fs.txt"
+        ]
+    },
+    "50": {
+        "question": "For the input file `table.txt`, print other than the second line.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "brown bread mat hair 42\nyellow banana window shoes 3.14\n",
+        "ref_solution": [
+            "awk 'NR!=2' table.txt"
+        ]
+    },
+    "51": {
+        "question": "For the input file `table.txt`, print only the line number for lines containing `air` or `win`.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "1\n3\n",
+        "ref_solution": [
+            "awk '/air|win/{print NR}' table.txt"
+        ]
+    },
+    "52": {
+        "question": "For the input file `table.txt`, calculate the sum of numbers in the last column, excluding the second line.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "45.14\n",
+        "ref_solution": [
+            "awk 'NR!=2{sum += $NF} END{print sum}' table.txt"
+        ]
+    },
+    "53": {
+        "question": "For the input file `sample.txt`, print the second and fourth line for every block of five lines.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "\nHow are you\nBelieve it\nToday is sunny\n\nHe he he\n",
+        "ref_solution": [
+            "awk 'NR%5 == 2 || NR%5 == 4' sample.txt",
+            "awk 'BEGIN{a[2]; a[4]} (NR%5) in a' sample.txt"
+        ]
+    },
+    "54": {
+        "question": "For the input file `odd.txt`, surround all whole words with `{}` that start and end with the same word character. This is a contrived exercise to make you use the `RT` variable (`sed -E 's/\\b(\\w)(\\w*\\1)?\\b/{&}/g' odd.txt` would be a simpler solution).",
+        "ip_file": [
+            "odd.txt"
+        ],
+        "op_file": "-{oreo}-not:{a} {_a2_} {roar}\n{RoaR} to {wow}-\n",
+        "ref_solution": [
+            "awk -F '' -v RS='\\\\W+' -v ORS= '$0 && $1==$NF{$0 = \"{\" $0 \"}\"} {print $0 RT}' odd.txt"
+        ]
+    },
+    "55": {
+        "question": "Print only the second field of the third line, if any, from these input files: `addr.txt`, `sample.txt` and `copyright.txt`. Consider space as the field separator.",
+        "ip_file": [
+            "addr.txt",
+            "sample.txt",
+            "copyright.txt"
+        ],
+        "op_file": "game\nday\nbla\n",
+        "ref_solution": [
+            "awk 'FNR==3{print $2}' addr.txt sample.txt copyright.txt"
+        ]
+    },
+    "56": {
+        "question": "The input file `ip.txt` has varying amount of empty lines between the records, change them to be always two empty lines. Also, remove the empty lines at the start and end of the file.",
+        "ip_file": [
+            "ip.txt"
+        ],
+        "op_file": "hello\n\n\nworld\n\n\napple\nbanana\ncherry\n\n\ntea coffee\nchocolate\n",
+        "ref_solution": [
+            "awk -v RS= '{print s $0; s=\"\\n\\n\"}' ip.txt"
+        ]
+    },
+    "57": {
+        "question": "The `f10.txt` file uses `cat` as the record separator (irrespective of case). Display only the even numbered records separated by a single empty line.",
+        "ip_file": [
+            "f10.txt"
+        ],
+        "op_file": "fig\n\n\nbanana\n\n:mango\n",
+        "ref_solution": [
+            "awk -v RS='cat' -v IGNORECASE=1 'NR%2==0{print s $0; s=\"\\n\"}' f10.txt"
+        ]
+    },
+    "58": {
+        "question": "The input file `nums.txt` contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.",
+        "ip_file": [
+            "nums.txt"
+        ],
+        "op_file": "-42\n2\n-10101\n3.14\n75\n",
+        "ref_solution": [
+            "awk '!sub(/^-/, \"\"){sub(/^/, \"-\")} 1' nums.txt"
+        ]
+    },
+    "59": {
+        "question": "For the input file `table.txt`, change the field separator from space to the `,` character. Retain only the first three fields and any field containing `b` or `g` should be surrounded by double quotes.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "\"brown\",\"bread\",mat\n\"blue\",cake,\"mug\"\nyellow,\"banana\",window\n",
+        "ref_solution": [
+            "awk -v q='\"' -v OFS=, '{NF=3; for(i=1; i<=NF; i++) if($i ~ /[bg]/) $i = q $i q} 1' table.txt"
+        ]
+    },
+    "60": {
+        "question": "For each input line of the file `secrets.txt`, remove all characters except the last character of each field. Assume space as the input field separator.",
+        "ip_file": [
+            "secrets.txt"
+        ],
+        "op_file": "gawk\nfield\nice-2\n",
+        "ref_solution": [
+            "awk -v OFS= '{for(i=1; i<=NF; i++) $i = gensub(/.*(.)/, \"\\\\1\", 1, $i)} 1' secrets.txt",
+            "awk '{print gensub(/[^ ]*(.)( |$)/, \"\\\\1\", \"g\")}' secrets.txt",
+            "awk -v OFS= '{for(i=1; i<=NF; i++) $i = substr($i, length($i))} 1' secrets.txt"
+        ]
+    },
+    "61": {
+        "question": "For the input file `sample.txt`, display from the start of the file till a line containing `are`. In other words, emulate the `q` command of `sed`.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\n\nGood day\nHow are you\n",
+        "ref_solution": [
+            "awk '1; /are/{exit}' sample.txt"
+        ]
+    },
+    "62": {
+        "question": "For the input file `sample.txt`, display from the start of the file till a line containing `are`, but exclude the matching line. In other words, emulate the `Q` command of `sed`.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Hello World\n\nGood day\n",
+        "ref_solution": [
+            "awk '/are/{exit} 1' sample.txt"
+        ]
+    },
+    "63": {
+        "question": "For the input file `scores.csv`, sort the rows in descending order based on the values in the Physics column. Header should be retained as the first line in the output.",
+        "ip_file": [
+            "scores.csv"
+        ],
+        "op_file": "Name,Maths,Physics,Chemistry\nIth,100,100,100\nCy,97,98,95\nLin,78,83,80\nEr,56,79,92\nOrt,68,72,66\nBlue,67,46,99\n",
+        "ref_solution": [
+            "awk -F, 'NR==1{PROCINFO[\"sorted_in\"] = \"@ind_num_desc\"; print; next} {a[$3]=$0} END{for(k in a) print a[k]}' scores.csv"
+        ]
+    },
+    "64": {
+        "question": "For the input file `nums1.txt`, display the square root of numbers in the scientific notation, with four digits after the fractional point. Assume that the input has only a single column of positive numbers.",
+        "ip_file": [
+            "nums1.txt"
+        ],
+        "op_file": "1.7720e+00\n6.4815e+01\n2.7875e+01\n5.6834e+02\n",
+        "ref_solution": [
+            "awk '{printf \"%.4e\\n\", sqrt($0)}' nums1.txt",
+            "awk '{printf \"%.4e\\n\", $0**0.5}' nums1.txt"
+        ]
+    },
+    "65": {
+        "question": "For the input file `items.txt`, assume space as the field separator. From the second field, remove the second `:` character and the number that follows. Modify the last field by multiplying it by the number that was deleted from the second field.",
+        "ip_file": [
+            "items.txt"
+        ],
+        "op_file": "apple rxg:12 og -2635\nfig zwt:3.64 ljg 6445\nbanana ysl:42 vle 141.3\n",
+        "ref_solution": [
+            "awk '{split($2, a, /:/); $2=a[1] \":\" a[2]; $NF *= a[3]} 1' items.txt"
+        ]
+    },
+    "66": {
+        "question": "For the input file `sum.txt`, assume space as the field separator. Replace the second field with the sum of the two numbers embedded in it. The numbers can be positive/negative integers or floating-point numbers but not scientific notation.",
+        "ip_file": [
+            "sum.txt"
+        ],
+        "op_file": "f2:z3 -38.86 5y6\nt5:x7 -8754.12 u9\napple:fig 132 9j4\n",
+        "ref_solution": [
+            "awk '{patsplit($2, a, /-?[0-9]+(\\.[0-9]+)?/); $2=a[1] + a[2]} 1' sum.txt"
+        ]
+    },
+    "67": {
+        "question": "For the input file `f11.txt`, extract all positive integers preceded by `-` and followed by `:` or `;`. Display the matching portions separated by a newline character.",
+        "ip_file": [
+            "f11.txt"
+        ],
+        "op_file": "5\n20\n34\n",
+        "ref_solution": [
+            "awk '{ while(match($0, /-([0-9]+)[;:]/, m)){print m[1]; $0=substr($0, RSTART+RLENGTH)} }' f11.txt",
+            "awk -v RS='-[0-9]+[;:]' 'RT{print substr(RT, 2, length(RT)-2)}' f11.txt"
+        ]
+    },
+    "68": {
+        "question": "For the input file `files.txt`, replace lines starting with a space with the output of that line executed as a shell command.",
+        "ip_file": [
+            "files.txt"
+        ],
+        "op_file": "How are you\n-----------\n31 sample.txt\n===========\nbrown\nblue\nyellow\n-----------\n",
+        "ref_solution": [
+            "awk '/^ /{system($0); next} 1' files.txt"
+        ]
+    },
+    "69": {
+        "question": "For the input file `fw.txt`, format the last column in scientific notation with two digits after the decimal point.",
+        "ip_file": [
+            "fw.txt"
+        ],
+        "op_file": "1.3  rs   90  1.35e-01\n3.8           6.00e+00\n5.2  ye       8.24e+00\n4.2  kt   32  4.51e+01\n",
+        "ref_solution": [
+            "awk -v FIELDWIDTHS='14 *' '{printf \"%s%.2e\\n\", $1, $2}' fw.txt"
+        ]
+    },
+    "70": {
+        "question": "For the input file `addr.txt`, display all lines containing `e` or `u` but not both.",
+        "ip_file": [
+            "addr.txt"
+        ],
+        "op_file": "Hello World\nThis game is good\nToday is sunny\n",
+        "ref_solution": [
+            "awk 'xor(/e/, /u/)' addr.txt",
+            "awk '(/e/ && !/u/) || (!/e/ && /u/)' addr.txt"
+        ]
+    },
+    "71": {
+        "question": "For the input file `patterns.txt`, filter lines containing `[5]` at the start of a line. The search term should be matched literally.",
+        "ip_file": [
+            "patterns.txt"
+        ],
+        "op_file": "[5]*3\n",
+        "ref_solution": [
+            "awk 'index($0, \"[5]\")==1' patterns.txt"
+        ]
+    },
+    "72": {
+        "question": "For the input file `table.txt`, uppercase the third field.",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "brown bread MAT hair 42\nblue cake MUG shirt -7\nyellow banana WINDOW shoes 3.14\n",
+        "ref_solution": [
+            "awk '{$3 = toupper($3)} 1' table.txt"
+        ]
+    },
+    "73": {
+        "question": "Print the last field of the first two lines for the input files `table.txt`, `scores.csv` and `fw.txt`. The field separators for these files are space, comma and fixed width respectively. To make the output more informative, print filenames and a separator as shown in the output below. Assume that the input files will have at least two lines.",
+        "ip_file": [
+            "table.txt",
+            "scores.csv",
+            "fw.txt"
+        ],
+        "op_file": ">table.txt<\n42\n-7\n----------\n>scores.csv<\nChemistry\n99\n----------\n>fw.txt<\n0.134563\n6\n----------\n",
+        "ref_solution": [
+            "awk 'BEGINFILE{print \">\" FILENAME \"<\"} {print $NF} FNR==2{print \"----------\"; nextfile}' table.txt FS=, scores.csv FIELDWIDTHS='14 *' fw.txt"
+        ]
+    },
+    "74": {
+        "question": "For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `at` or `fun` in the third field. Assume space as the field separator.",
+        "ip_file": [
+            "sample.txt",
+            "secrets.txt",
+            "addr.txt",
+            "table.txt"
+        ],
+        "op_file": "secrets.txt\naddr.txt\ntable.txt\n",
+        "ref_solution": [
+            "awk '$3 ~ /fun|at/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt"
+        ]
+    },
+    "75": {
+        "question": "For the input file `sample.txt`, print matching lines containing `do` only if the previous line is empty and the line before that contains `you`.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "Just do-it\nMuch ado about nothing\n",
+        "ref_solution": [
+            "awk 'p2 ~ /you/ && p1==\"\" && /do/; {p2=p1; p1=$0}' sample.txt"
+        ]
+    },
+    "76": {
+        "question": "For the input file `sample.txt`, match lines containing `do` or `not` case insensitively. Each of these terms occur multiple times in the file. The goal is to print only the second occurrences of these terms (independent of each other).",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "No doubt you like it too\nMuch ado about nothing\n",
+        "ref_solution": [
+            "awk -v IGNORECASE=1 '/do/ && ++d == 2; /not/ && ++n == 2' sample.txt"
+        ]
+    },
+    "77": {
+        "question": "For the input file `sample.txt`, print the matching lines containing `are` or `bit` as well as `n` lines around the matching lines. The value for `n` is passed to the `awk` command via the `-v` option. Use `n=2` for this exercise.",
+        "ip_file": [
+            "sample.txt"
+        ],
+        "op_file": "\nGood day\nHow are you\n\nJust do-it\n\nToday is sunny\nNot a bit funny\nNo doubt you like it too\n\n",
+        "ref_solution": [
+            "awk -v n=2 '/are|bit/{for(i=NR-n; i<NR; i++) if(i>0) print a[i]; c=n+1} c && c--; {a[NR]=$0}' sample.txt"
+        ]
+    },
+    "78": {
+        "question": "For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.",
+        "ip_file": [
+            "broken.txt"
+        ],
+        "op_file": "3.14\n1234567890\n",
+        "ref_solution": [
+            "tac broken.txt | awk '/top/{f=0} f; /bottom/{f=1}' | tac"
+        ]
+    },
+    "79": {
+        "question": "For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by the variable `n` passed via the `-v` option. Use `n=4` for this exercise.",
+        "ip_file": [
+            "concat.txt"
+        ],
+        "op_file": "### mixed_fs.txt\npink blue white yellow\ncar,mat,ball,basket\n",
+        "ref_solution": [
+            "awk -v n=4 '/^### /{c++} c==n' concat.txt"
+        ]
+    },
+    "80": {
+        "question": "For the input file `lines.txt`, delete the line that comes after a whole line containing `---`. Assume that such lines won't occur consecutively.",
+        "ip_file": [
+            "lines.txt"
+        ],
+        "op_file": "Go There\ncome on\ngo there\n---\ncome on!\n---\nCOME ON\n",
+        "ref_solution": [
+            "awk 'p!=\"---\"; {p=$0}' lines.txt",
+            "awk '!(n && n--); $0==\"---\"{n=1}' lines.txt"
+        ]
+    },
+    "81": {
+        "question": "For the input file `result.csv`, use `---` to separate entries with the same name in the first column. Assume that the lines with the same first column value will always be next to each other.",
+        "ip_file": [
+            "result.csv"
+        ],
+        "op_file": "Amy,maths,89\nAmy,physics,75\n---\nJoe,maths,79\n---\nJohn,chemistry,77\nJohn,physics,91\n---\nMoe,maths,81\n---\nRavi,physics,84\nRavi,chemistry,70\n---\nYui,maths,92\n",
+        "ref_solution": [
+            "awk -F, 'NR>1 && p!=$1{print \"---\"} 1; {p=$1}' result.csv"
+        ]
+    },
+    "82": {
+        "question": "Use the contents of `match_words.txt` file to display matching lines from `jumbled.txt` and `sample.txt`. The matching criteria is that the second word of lines from these files should match the third word of lines from `match_words.txt`.",
+        "ip_file": [
+            "match_words.txt",
+            "jumbled.txt",
+            "sample.txt"
+        ],
+        "op_file": "wavering:concession/woof\\retailer\nNo doubt you like it too\n",
+        "ref_solution": [
+            "awk -v FPAT='\\\\w+' 'NR==FNR{a[$3]; next} $2 in a' match_words.txt jumbled.txt sample.txt"
+        ]
+    },
+    "83": {
+        "question": "Interleave the contents of `secrets.txt` with the contents of a file indicated by the variable `f` passed via the `-v` option as shown below. Use `f='table.txt'` for this exercise.",
+        "ip_file": [
+            "secrets.txt",
+            "table.txt"
+        ],
+        "op_file": "stag area row tick\nbrown bread mat hair 42\n---\ndeaf chi rate tall glad\nblue cake mug shirt -7\n---\nBi tac toe - 42\nyellow banana window shoes 3.14\n---\n",
+        "ref_solution": [
+            "awk -v f='table.txt' '{print; getline < f; print; print \"---\"}' secrets.txt"
+        ]
+    },
+    "84": {
+        "question": "Display lines from `scores.csv` by matching the first field based on a list of names from the `names.txt` file. Also, change the output field separator to a space character.",
+        "ip_file": [
+            "names.txt",
+            "scores.csv"
+        ],
+        "op_file": "Lin 78 83 80\nCy 97 98 95\nIth 100 100 100\n",
+        "ref_solution": [
+            "awk -F, 'NR==FNR{a[$1]; next} $1 in a{$1=$1; print}' names.txt scores.csv"
+        ]
+    },
+    "85": {
+        "question": "The `result.csv` file has three columns \u2014 name, subject and mark. The `criteria.txt` file has two columns \u2014 name and subject. Match lines from `result.csv` based on the two columns from `criteria.txt` provided the mark column is greater than 80.",
+        "ip_file": [
+            "result.csv",
+            "criteria.txt"
+        ],
+        "op_file": "Amy,maths,89\nJohn,physics,91\nYui,maths,92\n",
+        "ref_solution": [
+            "awk 'NR==FNR{a[$1,$2]; next} ($1,$2) in a && $3 > 80' criteria.txt FS=, result.csv"
+        ]
+    },
+    "86": {
+        "question": "Retain only the first copy of a line for the input file `lines.txt`. Case should be ignored while comparing the lines. For example, `hi there` and `HI TheRE` should be considered as duplicates.",
+        "ip_file": [
+            "lines.txt"
+        ],
+        "op_file": "Go There\ncome on\n---\n2 apples and 5 mangoes\ncome on!\n2 Apples\n",
+        "ref_solution": [
+            "awk '!seen[tolower($0)]++' lines.txt"
+        ]
+    },
+    "87": {
+        "question": "Retain only the first copy of a line for the input file `twos.txt`. Assume space as the field separator with exactly two fields per line. Compare the lines irrespective of the order of the fields. For example, `hehe haha` and `haha hehe` should be considered as duplicates.",
+        "ip_file": [
+            "twos.txt"
+        ],
+        "op_file": "hehe haha\ndoor floor\n6;8 3-4\ntrue blue\nhehe bebe\ntru eblue\n",
+        "ref_solution": [
+            "awk '!($1,$2) in seen && !($2,$1) in seen; {seen[$1,$2]}' twos.txt"
+        ]
+    },
+    "88": {
+        "question": "For the input file `twos.txt`, display only the unique lines. Assume space as the field separator with exactly two fields per line. Compare the lines irrespective of the order of the fields. For example, `hehe haha` and `haha hehe` should be considered as duplicates.",
+        "ip_file": [
+            "twos.txt"
+        ],
+        "op_file": "true blue\nhehe bebe\ntru eblue\n",
+        "ref_solution": [
+            "awk 'NR==FNR{c[$1,$2]++; next} c[$1,$2] + c[$2,$1] == 1' twos.txt twos.txt"
+        ]
+    }
+}
