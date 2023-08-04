@@ -197,7 +197,8 @@
         ],
         "op_file": "lion,ant,42,neon\n_;3%,.,42,:\n\"apple\",banana,42,guava\n",
         "ref_solution": [
-            "awk '{print gensub(/[^,]+/, \"42\", 3)}' f2.txt"
+            "awk '{print gensub(/[^,]+/, \"42\", 3)}' f2.txt",
+            "awk -F, -v OFS=, '{$3 = 42} 1' f2.txt"
         ]
     },
     "21": {
