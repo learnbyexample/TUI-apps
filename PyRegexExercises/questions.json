@@ -1004,7 +1004,7 @@
             "wow hi-2",
             "bye kite"
         ],
-        "Reference solution": "re.sub(r'(\\w+)[:.](\\w+[:.])+', r'\\1', ip)"
+        "Reference solution": "re.sub(r'([:.]\\w*)+', '', ip)"
     },
     "69": {
         "question": "Replace sequences made up of words separated by `:` or `.` by the last word of the sequence. Such sequences will end when `:` or `.` is not followed by a word character.",
