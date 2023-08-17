@@ -248,7 +248,7 @@
         ],
         "op_file": "wow hi-2 bye\nkite apple\n",
         "ref_solution": [
-            "awk '{print gensub(/(\\w+)[:.](\\w+[:.])+/, \"\\\\1\", \"g\")}' f3.txt"
+            "awk '{gsub(/([:.]\\w*)+/, \"\")} 1' f3.txt"
         ]
     },
     "26": {
@@ -760,7 +760,7 @@
         ]
     },
     "75": {
-        "question": "For the input file `sample.txt`, print matching lines containing `do` only if the previous line is empty and the line before that contains `you`.",
+        "question": "For the input file `sample.txt`, print lines containing `do` only if the previous line is empty and the line before that contains `you`.",
         "ip_file": [
             "sample.txt"
         ],
