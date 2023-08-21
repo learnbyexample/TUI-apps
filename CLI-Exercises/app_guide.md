@@ -29,8 +29,8 @@ You can either click the buttons using mouse or press the key combinations liste
 * **F1** view this guide
 * **F2** view exercises
 * **F3** view directory
-* **Ctrl+n** go the next question
-* **Ctrl+p** go the previous question
+* **Ctrl+n** go to the next question
+* **Ctrl+p** go to the previous question
 * **Ctrl+s** show reference solution box
 * **Ctrl+t** toggle the theme between **light** and **dark** modes
 * **Ctrl+c** or **Ctrl+q** quit the application
