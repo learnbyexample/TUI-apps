@@ -1,3 +1,11 @@
+Screen {
+    overflow-y: hidden;
+}
+
+ContentSwitcher {
+    height: 1fr;
+}
+
 #question {
     border: blank;
     padding: 0 1 0 1;
