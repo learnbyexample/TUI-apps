@@ -1,3 +1,11 @@
+Screen {
+    overflow-y: hidden;
+}
+
+ContentSwitcher {
+    height: 1fr;
+}
+
 .container {
     height: auto;
     align: center middle;
@@ -9,6 +17,7 @@
 }
 
 #input {
+    height: 1;
     padding: 0 1 0 1;
     margin: 0 1 0 1;
     border: none;
@@ -16,6 +25,7 @@
 }
 
 .radio {
+    background: white 0%;
     layout: horizontal;
     border: none;
     width: 1fr;
