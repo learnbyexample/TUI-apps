@@ -156,7 +156,7 @@ class GrepExercisesApp(App):
         if ip_files:
             self.h_ip_op = Horizontal(v_ip, v_op, classes='container')
         else:
-            self.h_ip_op = Horizontal(v_op, classes='container')
+            self.h_ip_op = v_op
         self.v_exercises.mount(self.h_ip_op)
 
         for ip_file in ip_files:
