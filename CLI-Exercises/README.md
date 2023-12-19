@@ -39,9 +39,7 @@ See [app_guide.md](./app_guide.md)
 
 # Video demo
 
-https://user-images.githubusercontent.com/17766317/206649676-a913ad0d-1be7-430d-8978-98517347d86b.mp4
-
-You can also view the [demo video on youtube](https://youtu.be/0ggfQzXeYJg).
+You can view a demo video about this app on Youtube: [https://youtu.be/lcm_F7zPzRY](https://youtu.be/lcm_F7zPzRY)
 
 # License
 
