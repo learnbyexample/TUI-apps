@@ -1,0 +1,39 @@
+#title {
+    background: orange;
+    width: 100%;
+    text-align: center;
+}
+
+Markdown {
+    margin: 1 0 0 0;
+    padding: 0 3 0 3;
+}
+
+.comment {
+    padding: 0 1 0 1;
+    width: 100%;
+    color: gray;
+}
+
+.codeblock {
+    margin: 0 1 1 1;
+    border: solid green;
+    height: auto;
+    width: 100%;
+}
+
+.input {
+    height: 1;
+    padding: 0 1 0 1;
+    margin: 0 1 0 1;
+    border: none;
+    background: silver;
+}
+
+.cmd_output {
+    min-height: 1;
+    margin: 0 1 0 1;
+    width: 100%;
+    border-subtitle-align: left;
+}
+

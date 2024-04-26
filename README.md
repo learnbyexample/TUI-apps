@@ -11,6 +11,7 @@ Repository for Terminal User Interface (TUI) apps. Mostly for fun (ex: games), l
 * [Grep Exercises](./GrepExercises) — 50+ exercises for `GNU grep` (or alternate implementations like `ripgrep`)
 * [Sed Exercises](./SedExercises) — 50+ exercises for `GNU sed`
 * [Awk Exercises](./AwkExercises) — 80+ exercises for `GNU awk`
+* [Awk Tutorial](./AwkTutorial) — brief tour of the `awk` command
 
 # Acknowledgements
 
