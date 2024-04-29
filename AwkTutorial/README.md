@@ -4,7 +4,25 @@ This interactive tutorial aims to give a brief tour of the `GNU awk` command.
 
 # Installation
 
-TODO: PyPI app
+This app is available on PyPI as [awktutorial](https://pypi.org/project/awktutorial/). Example installation instructions are shown below, adjust them based on your preferences and OS.
+
+```bash
+# virtual environment
+$ python3 -m venv textual_apps
+$ cd textual_apps
+$ source bin/activate
+$ pip install awktutorial
+
+# launch the app
+$ awktutorial
+```
+
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias awktutorial='/path/to/textual_apps/bin/awktutorial'
+```
 
 As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `awk_tutorial.py` file.
 
