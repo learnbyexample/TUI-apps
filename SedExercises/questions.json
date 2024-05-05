@@ -220,7 +220,8 @@
         ],
         "op_file": "[sets] tests Sauerkraut\n[site] cite kite bite [store_2]\n[subtle] sequoia\na [set]\n",
         "ref_solution": [
-            "sed -nE 's/\\bs\\w*(e\\w*t|t\\w*e)\\w*/[&]/gp' patterns.txt"
+            "sed -nE 's/\\bs\\w*(e\\w*t|t\\w*e)\\w*/[&]/gp' patterns.txt",
+            "sed -nE 's/\\bs[[:alnum:]_]*(e[[:alnum:]_]*t|t[[:alnum:]_]*e)[[:alnum:]_]*/[&]/gp' patterns.txt"
         ]
     },
     "23": {
@@ -231,7 +232,9 @@
         "op_file": "Not a pip DOWN\ny\n1 dentist 1\n_42_\n",
         "ref_solution": [
             "sed -nE '/^(\\w)(.*\\1)?$/p' patterns.txt",
-            "sed -nE '/^(\\w|(\\w).*\\2)$/p' patterns.txt"
+            "sed -nE '/^([[:alnum:]_])(.*\\1)?$/p' patterns.txt",
+            "sed -nE '/^(\\w|(\\w).*\\2)$/p' patterns.txt",
+            "sed -nE '/^([[:alnum:]_]|([[:alnum:]_]).*\\2)$/p' patterns.txt"
         ]
     },
     "24": {
@@ -311,7 +314,8 @@
         ],
         "op_file": "(tiger) () (goat)\n(eagle) () (important)\n(Apple):(FIG):(banana2)\n()-(imp_42)-()-()-(_ant)\n",
         "ref_solution": [
-            "sed -E 's/\\b(imp|ant|(\\w+))\\b/(\\2)/g' f1.txt"
+            "sed -E 's/\\b(imp|ant|(\\w+))\\b/(\\2)/g' f1.txt",
+            "sed -E 's/\\b(imp|ant|([[:alnum:]_]+))\\b/(\\2)/g' f1.txt"
         ]
     },
     "32": {
@@ -351,7 +355,8 @@
         ],
         "op_file": "wow hi-2 bye\nkite apple\n",
         "ref_solution": [
-            "sed -E 's/([:.]\\w*)+//g' f3.txt"
+            "sed -E 's/([:.]\\w*)+//g' f3.txt",
+            "sed -E 's/([:.][[:alnum:]_]*)+//g' f3.txt"
         ]
     },
     "36": {
@@ -361,7 +366,8 @@
         ],
         "op_file": "five hi-2 bye\nwater fig\n",
         "ref_solution": [
-            "sed -E 's/((\\w+)[:.])+/\\2/g' f3.txt"
+            "sed -E 's/((\\w+)[:.])+/\\2/g' f3.txt",
+            "sed -E 's/(([[:alnum:]_]+)[:.])+/\\2/g' f3.txt"
         ]
     },
     "37": {
@@ -371,7 +377,8 @@
         ],
         "op_file": "X (apple) X) X\n(mango) (grape\n",
         "ref_solution": [
-            "sed -E 's/(^|[^(])\\b\\w+/\\1X/g' f4.txt"
+            "sed -E 's/(^|[^(])\\b\\w+/\\1X/g' f4.txt",
+            "sed -E 's/(^|[^(])\\b[[:alnum:]_]+/\\1X/g' f4.txt"
         ]
     },
     "38": {
@@ -381,7 +388,8 @@
         ],
         "op_file": "[Poke],on=-=[so_good]:ink\nto/is(vast)[ever2]-sit\n[apple],[banana]:[fig]-grape\n",
         "ref_solution": [
-            "sed -E 's/(\\w+)([:,-])/[\\1]\\2/g' f5.txt"
+            "sed -E 's/(\\w+)([:,-])/[\\1]\\2/g' f5.txt",
+            "sed -E 's/([[:alnum:]_]+)([:,-])/[\\1]\\2/g' f5.txt"
         ]
     },
     "39": {
