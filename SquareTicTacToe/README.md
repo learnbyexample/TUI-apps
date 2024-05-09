@@ -28,7 +28,14 @@ To run the app without having to enter the virtual environment again, add this a
 alias squaretictactoe='/path/to/textual_apps/bin/squaretictactoe'
 ```
 
-As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `square_tictactoe.py` file.
+As an alternative to manually managing such virtual environments, you can use [https://github.com/pypa/pipx](https://github.com/pypa/pipx) instead:
+
+```bash
+$ pipx install squaretictactoe
+$ squaretictactoe
+```
+
+As yet another alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `square_tictactoe.py` file.
 
 Terminal dimension should be at least 84x25 (characters x lines) for the game widgets to appear properly. You should get an initial screen similar to the one shown below:
 

@@ -24,7 +24,14 @@ To run the app without having to enter the virtual environment again, add this a
 alias regexplayground='/path/to/textual_apps/bin/regexplayground'
 ```
 
-As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `pyregex_playground.py` file.
+As an alternative to manually managing such virtual environments, you can use [https://github.com/pypa/pipx](https://github.com/pypa/pipx) instead:
+
+```bash
+$ pipx install regexplayground
+$ regexplayground
+```
+
+As yet another alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `pyregex_playground.py` file.
 
 Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here are some sample screenshots:
 

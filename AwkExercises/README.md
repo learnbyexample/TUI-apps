@@ -27,7 +27,14 @@ To run the app without having to enter the virtual environment again, add this a
 alias awkexercises='/path/to/textual_apps/bin/awkexercises'
 ```
 
-As an alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `awk_exercises.py` file.
+As an alternative to manually managing such virtual environments, you can use [https://github.com/pypa/pipx](https://github.com/pypa/pipx) instead:
+
+```bash
+$ pipx install awkexercises
+$ awkexercises
+```
+
+As yet another alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `awk_exercises.py` file.
 
 Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here's a sample screenshot:
 
