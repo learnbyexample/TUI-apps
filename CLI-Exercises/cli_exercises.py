@@ -16,7 +16,7 @@ class CLIExercisesApp(App):
     CSS_PATH = SCRIPT_DIR.joinpath('cli_exercises.css')
     BINDINGS = [
         Binding('ctrl+s', 'show_solution', 'Solution', show=True),
-        Binding('ctrl+p', 'previous', 'Prev', show=True),
+        Binding('ctrl+p', 'previous', 'Previous', show=True),
         Binding('ctrl+n', 'next', 'Next', show=True),
         Binding('f1', 'app_guide', 'App Guide', show=False),
         Binding('f2', 'cli_exercises', 'CLI Exercises', show=False),
@@ -136,26 +136,26 @@ class CLIExercisesApp(App):
         self.ref_solution = self.questions[self.q_idx]['ref_solution']
 
         self.h_ip_op.remove()
-        v_ip = Vertical(classes='ip_op_container')
-        v_op = Vertical(classes='ip_op_container')
         ip_files = self.questions[self.q_idx]['ip_file']
-        if ip_files:
-            self.h_ip_op = Horizontal(v_ip, v_op, classes='container')
-        else:
-            self.h_ip_op = v_op
-        self.v_exercises.mount(self.h_ip_op)
-
+        v_ip_widgets = []
         for ip_file in ip_files:
             with open(ip_file, encoding='ascii') as f:
                 ip_txt = self.trim(f.read())
             l_ip = Label(ip_txt, classes='ip_op', markup=False)
             l_ip.border_title = ip_file
-            v_ip.mount(l_ip)
+            v_ip_widgets.append(l_ip)
 
         self.op_txt = self.trim(self.questions[self.q_idx]['op_file'])
         l_op = Label(self.op_txt, classes='ip_op', markup=False)
         l_op.border_title = 'Expected output'
-        v_op.mount(l_op)
+
+        v_ip = Vertical(*v_ip_widgets, classes='ip_op_container')
+        v_op = Vertical(l_op, classes='ip_op_container')
+        if ip_files:
+            self.h_ip_op = Horizontal(v_ip, v_op, classes='container')
+        else:
+            self.h_ip_op = v_op
+        self.v_exercises.mount(self.h_ip_op)
 
         if self.q_idx in self.user_progress:
             self.set_cmd(self.user_progress[self.q_idx][0])
