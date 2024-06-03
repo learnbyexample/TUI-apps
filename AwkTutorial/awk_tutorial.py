@@ -13,7 +13,7 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 class AwkTutorialApp(App):
     CSS_PATH = SCRIPT_DIR.joinpath('awk_tutorial.css')
     BINDINGS = [
-        Binding('ctrl+p', 'previous', 'Prev', show=True),
+        Binding('ctrl+p', 'previous', 'Previous', show=True),
         Binding('ctrl+n', 'next', 'Next', show=True),
         Binding('ctrl+r', 'reset', 'Reset', show=True),
         ('ctrl+t', 'toggle_theme', 'Theme'),
@@ -68,44 +68,45 @@ class AwkTutorialApp(App):
 
     def setup_tutorial(self):
         self.v_tutorial.remove()
-        self.v_tutorial = VerticalScroll()
         block = False
         s = ''
         cnt = 0
         self.i_cmds = []
         self.l_cmd_outputs = []
+        tt_widgets = []
         with open(self.tutorial_files[self.idx]) as f:
             title = f'[b]({self.idx+1}/{self.max_idx+1}) {next(f)[2:-1]}'
             self.l_title.update(title)
             for line in f:
                 if line.startswith('```'):
                     if block:
-                        codeblock = Vertical(classes='codeblock')
+                        cb_widgets = []
                         for c in s.splitlines():
                             if c.startswith('#'):
-                                codeblock.mount(Label(c, classes='comment'))
+                                cb_widgets.append(Label(c, classes='comment'))
                             elif c.startswith('$ '):
                                 self.i_cmd = Input(classes='input',
                                                    name=str(cnt))
                                 self.l_cmd_output = Label(classes='cmd_output',
                                                           markup=False)
-                                codeblock.mount(self.i_cmd)
-                                codeblock.mount(self.l_cmd_output)
+                                cb_widgets.append(self.i_cmd)
+                                cb_widgets.append(self.l_cmd_output)
                                 self.i_cmds.append(self.i_cmd)
                                 self.l_cmd_outputs.append(self.l_cmd_output)
                                 self.set_cmd(c[2:])
                                 if cnt == 0:
                                     self.i_cmd.focus()
                                 cnt += 1
-                        self.v_tutorial.mount(codeblock)
+                        tt_widgets.append(Vertical(*cb_widgets, classes='codeblock'))
                     else:
-                        self.v_tutorial.mount(Markdown(s))
+                        tt_widgets.append(Markdown(s))
                     s = ''
                     block ^= True
                     continue
                 s += line
             if s:
-                self.v_tutorial.mount(Markdown(s))
+                tt_widgets.append(Markdown(s))
+        self.v_tutorial = VerticalScroll(*tt_widgets)
         self.v_main.mount(self.v_tutorial)
 
     def set_cmd(self, cmd):
