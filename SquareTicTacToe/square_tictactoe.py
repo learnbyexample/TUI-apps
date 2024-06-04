@@ -3,9 +3,7 @@ from textual.binding import Binding
 from textual.containers import Container
 from textual.widgets import Button, Header, Footer, Label
 from typing import List
-from rich.panel import Panel
 import random
-from functools import partial
 
 class SquareTicTacToeApp(App):
     """Square Tic Tac Toe game."""
@@ -21,7 +19,6 @@ class SquareTicTacToeApp(App):
 
         self.active = "ACTIVE"
         self.state = "INACTIVE"
-        self.state_panel = partial(Panel, title='Game Status')
         self.corners = 4
         self.total_cells = 16
         self.easy, self.hard = (0, 1)
@@ -40,8 +37,9 @@ class SquareTicTacToeApp(App):
                             (2, 5, 7, 10), (5, 8, 10, 13), (6, 9, 11, 14),
                             (1, 7, 8, 14), (2, 4, 11, 13))
 
-        self.status = Label(renderable=self.state_panel(self.state), id="info")
-        self.new_game = Button(label="New Game", id="new game")
+        self.status = Label(self.state, id="info")
+        self.status.border_title = 'Game Status'
+        self.new_game = Button(label="New Game", id="new_game")
         self.choice = (Button(label="Easy", id="easy", variant="success"),
                        Button(label="Hard", id="hard", variant="default"))
         self.cell_buttons = tuple(Button(label="", name=str(n),
@@ -70,7 +68,7 @@ class SquareTicTacToeApp(App):
         """Called when any button is pressed."""
 
         button_id = event.button.id
-        if button_id == "new game":
+        if button_id == "new_game":
             self.start_new_game()
         elif button_id == "easy":
             self.choice[0].variant = "success"
@@ -96,7 +94,7 @@ class SquareTicTacToeApp(App):
         self.ai["last_move"] = 0
         self.user["last_move"] = 0
         self.state = self.active
-        self.status.update(self.state_panel(self.state))
+        self.status.update(self.state)
         if self.choice[0].variant == "success":
             self.difficulty = self.easy
         else:
@@ -129,7 +127,7 @@ class SquareTicTacToeApp(App):
         else:
             if self.state == self.active and not self.available_moves:
                 self.state = "TIE"
-        self.status.update(self.state_panel(self.state))
+        self.status.update(self.state)
 
     def ai_response(self) -> None:
         """Move made by AI based on Easy/Hard modes."""

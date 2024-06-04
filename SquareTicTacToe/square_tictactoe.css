@@ -10,11 +10,12 @@
     dock: left;
     align: left middle;
     text-align: center;
-    width: 20%;
+    width: 22%;
     background: orange;
     margin: 1;
     padding: 1;
     color: black;
+    border: round black;
 }
 
 Button:focus {
