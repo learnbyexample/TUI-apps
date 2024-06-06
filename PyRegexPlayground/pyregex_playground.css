@@ -15,6 +15,7 @@
     height: auto;
     width: 100%;
     border: solid brown;
+    border-title-align: center;    
 }
 
 .examples_ip {
@@ -37,14 +38,6 @@
 .examples_md {
     margin: 1 2 0 2;
     border: none;
-}
-
-.playground_name {
-    min-height: 1;
-    padding: 0 1 0 1;
-    text-style: bold;
-    text-align: right;
-    width: 9;
 }
 
 .playground_ip {

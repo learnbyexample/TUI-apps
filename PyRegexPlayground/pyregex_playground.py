@@ -83,17 +83,17 @@ class Examples(Screen):
                 l_op.border_title = str(type(e).__name__)
 
     def load_examples(self):
-        self.v_examples = Vertical(classes='container')
         self.v_code_block = []
         self.input_collection = []
         comment_highlighter = CommentHighlighter()
         with open('examples.json', encoding='UTF-8') as f:
             md = iter(json.load(f).values())
         idx = 0
+        md_cb_widgets = []
         for info in md:
             code_block = next(md)
-            self.v_code_block.append(Vertical(classes='code_container'))
             self.input_collection.append([])
+            cb_widgets = []
             for unit in code_block:
                 lines = unit.splitlines(keepends=True)
                 *setup, expr = lines
@@ -107,10 +107,12 @@ class Examples(Screen):
                 l_op = Label(Pretty(op), classes='examples_op', markup=False)
                 t.append(l_op)
                 self.input_collection[idx].append(t)
-                self.v_code_block[idx].mount(*t)
-            self.v_examples.mount(Label(RichMarkdown(info), classes='examples_md'))
-            self.v_examples.mount(self.v_code_block[idx])
+                cb_widgets.extend(t)
+            self.v_code_block.append(Vertical(*cb_widgets, classes='code_container'))
+            md_cb_widgets.append(Label(RichMarkdown(info), classes='examples_md'))
+            md_cb_widgets.append(self.v_code_block[idx])
             idx += 1
+        self.v_examples = Vertical(*md_cb_widgets, classes='container')
         self.v_container.mount(self.v_examples)
 
     def action_reload(self):
@@ -129,9 +131,6 @@ class Playground(Screen):
 
     def __init__(self):
         super().__init__()
-
-        self.l_compile = Label('Compile', classes='playground_name')
-        self.l_action = Label('Action', classes='playground_name')
 
         self.l_compile_error = Label()
         self.l_action_error = Label()
@@ -153,7 +152,7 @@ class Playground(Screen):
         self.i_compile = Input(placeholder=placeholder, value="re.compile(r'')",
                                classes='playground_ip')
         self.i_compile.styles.background = self.code_bg_color
-        placeholder = "Function to run. Example: pat.sub('X', ip)"
+        placeholder = "Function to run. For example: pat.sub('X', ip)"
         self.i_action = Input(placeholder=placeholder,
                               classes='playground_ip')
         self.i_action.styles.background = self.code_bg_color
@@ -166,10 +165,10 @@ class Playground(Screen):
     def compose(self):
         yield Label('[b]Python re(gex)? playground', classes='header')
         with Vertical(classes='code_container') as self.v_compile:
-            yield Horizontal(self.l_compile, self.i_compile, classes='container')
+            yield self.i_compile
         yield self.l_input
         with Vertical(classes='code_container') as self.v_action:
-            yield Horizontal(self.l_action, self.i_action, classes='container')
+            yield self.i_action
         yield self.l_output
         with Horizontal(classes='container'):
             yield self.b_guide
@@ -179,6 +178,8 @@ class Playground(Screen):
 
     def on_mount(self):
         self.i_compile.focus()
+        self.v_compile.border_title = 'Compile'
+        self.v_action.border_title = 'Action'
 
     def on_input_submitted(self, event):
         self.l_compile_error.remove()

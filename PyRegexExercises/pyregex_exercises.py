@@ -14,7 +14,7 @@ from pathlib import Path
 class PyRegexExercises(App):
     CSS_PATH = 'pyregex_exercises.css'
     BINDINGS = [
-                Binding('ctrl+p', 'previous', 'Prev'),
+                Binding('ctrl+p', 'previous', 'Previous'),
                 Binding('ctrl+n', 'next', 'Next'),
                 Binding('ctrl+s', 'solution', 'Solution'),
                 Binding('ctrl+t', 'toggle_theme', 'Theme'),
