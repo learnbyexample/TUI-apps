@@ -171,7 +171,7 @@
     "17": {
         "question": "Search for files containing `red` or `ello` recursively, but do not list the file if it also contains `greeting` or `earth`. Hidden files should also be searched and assume that there are no links",
         "ip_file": [],
-        "op_file": "sample.txt\nbackups/color list.txt\ntable.txt\nmulti_empty_lines.txt\nduplicates.txt\n",
+        "op_file": "books.txt\nsample.txt\nbackups/color list.txt\ntable.txt\nmulti_empty_lines.txt\nduplicates.txt\n",
         "ref_solution": [
             "grep -rlEZ 'red|ello' | xargs -r0 grep -LE 'greeting|earth'",
             "grep -rLEZ 'greeting|earth' | xargs -r0 grep -lE 'red|ello'"
@@ -268,6 +268,16 @@
         ]
     },
     "27": {
+        "question": "Filter the 3rd column from `duplicates.txt` and display all occurrences of duplicate items",
+        "ip_file": [
+            "duplicates.txt"
+        ],
+        "op_file": "bread\nbread\nrose\nrose\nrose\n",
+        "ref_solution": [
+            "cut -d, -f3 duplicates.txt | sort | uniq -D"
+        ]
+    },
+    "28": {
         "question": "For the input file `fruits.txt` retain only unique entries based on the first two characters. For example, `abcd` and `ab12` should be considered as duplicates and neither of them will be part of the output",
         "ip_file": [
             "fruits.txt"
@@ -277,7 +287,7 @@
             "sort fruits.txt | uniq -u -w2"
         ]
     },
-    "28": {
+    "29": {
         "question": "Count the number of times input lines are repeated in `colors.txt` and display the results as shown in the expected output panel",
         "ip_file": [
             "colors.txt"
@@ -287,7 +297,17 @@
             "sort colors.txt | uniq -c | sort -n"
         ]
     },
-    "29": {
+    "30": {
+        "question": "For the input file `duplicates.txt` change spaces to `-` and `,` to spaces. Display all the duplicate entries based on the 4th column (assume that the input only has 4 columns)",
+        "ip_file": [
+            "duplicates.txt"
+        ],
+        "op_file": "dark-red ruby rose 111\nwhite sky bread 111\nblue ruby water 333\nlight-red purse rose 333\nyellow toy flower 333\n",
+        "ref_solution": [
+            "<duplicates.txt tr ' ,' '- ' | sort -k4,4 | uniq -f3 -D"
+        ]
+    },
+    "31": {
         "question": "Display lines present in `c1.txt` but not in `c2.txt`. Assume that the input files are already sorted",
         "ip_file": [
             "c1.txt",
@@ -300,7 +320,7 @@
             "grep -vFxf c2.txt c1.txt"
         ]
     },
-    "30": {
+    "32": {
         "question": "Combine common lines from `shopping_jan.txt` and `shopping_feb.txt` based on the first field as the key. Assume that the input files are already sorted",
         "ip_file": [
             "shopping_jan.txt",
@@ -311,7 +331,19 @@
             "join shopping_jan.txt shopping_feb.txt"
         ]
     },
-    "31": {
+    "33": {
+        "question": "Join `marks_1.csv` and `marks_2.csv` based on the first field as the key. Assume that the input files are already sorted except for the header lines. The output field order should be the common 1st field, followed by the 2nd field from the second file, 2nd field from the first file and then the 4th field from the second file",
+        "ip_file": [
+            "marks_1.csv",
+            "marks_2.csv"
+        ],
+        "op_file": "Name,Maths,Biology,Chemistry\nIth,100,100,100\nLin,78,92,80\n",
+        "ref_solution": [
+            "join -t, --header -o 1.1,2.2,1.2,2.4 marks_1.csv marks_2.csv",
+            "awk -F, -v OFS=, 'NR==FNR{a[$1]=$2; next} $1 in a{print $1, $2, a[$1], $4}' marks_1.csv marks_2.csv"
+        ]
+    },
+    "34": {
         "question": "Delete the second field for the input `varying_fields.csv`",
         "ip_file": [
             "varying_fields.csv"
@@ -322,7 +354,7 @@
             "cut -d, -f1,3- varying_fields.csv"
         ]
     },
-    "32": {
+    "35": {
         "question": "Delete the first three characters from each line for the input `fruits.txt`",
         "ip_file": [
             "fruits.txt"
@@ -332,7 +364,7 @@
             "cut -c4- fruits.txt"
         ]
     },
-    "33": {
+    "36": {
         "question": "Filter 1st and 3rd fields of `varying_fields.csv` and align the output fields using space characters",
         "ip_file": [
             "varying_fields.csv"
@@ -342,7 +374,19 @@
             "cut -d, -f1,3  varying_fields.csv | column -ts,"
         ]
     },
-    "34": {
+    "37": {
+        "question": "Display the first 3 characters of each line separated by a `:` character from the input file `table.txt`. Assume that the input lines will have at least 3 characters",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "b:r:o\nb:l:u\ny:e:l\n",
+        "ref_solution": [
+            "cut -c1,2,3 --output-delimiter=: table.txt",
+            "sed -E 's/^(.)(.)(.).*/\\1:\\2:\\3/' table.txt",
+            "awk -v FS= -v OFS=: '{print $1, $2, $3}' table.txt"
+        ]
+    },
+    "38": {
         "question": "Delete other than alphabets, digits and whitespace characters from `blocks.txt`",
         "ip_file": [
             "blocks.txt"
@@ -352,7 +396,18 @@
             "tr -dc '[:alnum:][:space:]' <blocks.txt"
         ]
     },
-    "35": {
+    "39": {
+        "question": "The `books.txt` file has items separated by one or more `:` characters. Change this separator to a single newline character",
+        "ip_file": [
+            "books.txt"
+        ],
+        "op_file": "Cradle\nMage Errant\nPiranesi\nMother of Learning\nEight\nAscendant\nMark of the Fool\nSuper Powereds\n",
+        "ref_solution": [
+            "<books.txt tr -s ':' '\\n'",
+            "sed -E 's/:+/\\n/g' books.txt"
+        ]
+    },
+    "40": {
         "question": "Display lines from `c1.txt` and `c2.txt` side-by-side, using a tab character as the separator",
         "ip_file": [
             "c1.txt",
@@ -363,7 +418,19 @@
             "paste c1.txt c2.txt"
         ]
     },
-    "36": {
+    "41": {
+        "question": "Interleave the contents of `table.txt` and `books.txt` as shown below",
+        "ip_file": [
+            "table.txt",
+            "books.txt"
+        ],
+        "op_file": "brown bread mat hair 42\nCradle:::Mage Errant:Piranesi\nblue cake mug shirt -7\nMother of Learning::Eight::::Ascendant\nyellow banana window shoes 3.14\nMark of the Fool:::Super Powereds\n",
+        "ref_solution": [
+            "paste -d'\\n' table.txt books.txt",
+            "sed 'R books.txt' table.txt"
+        ]
+    },
+    "42": {
         "question": "Display second column from `varying_fields.csv` as a single row",
         "ip_file": [
             "varying_fields.csv"
@@ -373,7 +440,7 @@
             "cut -d, -f2 varying_fields.csv | paste -sd,"
         ]
     },
-    "37": {
+    "43": {
         "question": "Combine every two lines of `purchases.txt` using comma as the separator",
         "ip_file": [
             "purchases.txt"
@@ -383,7 +450,7 @@
             "pr -2ats, purchases.txt"
         ]
     },
-    "38": {
+    "44": {
         "question": "Divide the contents of `blocks.txt` into two equal parts (based on number of lines) and then join these parts vertically using comma as the separator",
         "ip_file": [
             "blocks.txt"
@@ -393,7 +460,7 @@
             "pr -2ts, blocks.txt"
         ]
     },
-    "39": {
+    "45": {
         "question": "Display lines from `c1.txt` and `c2.txt` side-by-side. The separator is a space character, followed by ` : ` and then another space",
         "ip_file": [
             "c1.txt",
@@ -404,7 +471,7 @@
             "pr -mts' : ' c1.txt c2.txt"
         ]
     },
-    "40": {
+    "46": {
         "question": "Retain only the last 3 characters of each line from `purchases.txt`",
         "ip_file": [
             "purchases.txt"
@@ -415,7 +482,7 @@
             "rev purchases.txt | cut -c-3 | rev"
         ]
     },
-    "41": {
+    "47": {
         "question": "Reshape contents of `varying_fields.csv` such that 3 fields are displayed per line, separated by tab",
         "ip_file": [
             "varying_fields.csv"
@@ -425,7 +492,7 @@
             "<varying_fields.csv tr ',' '\\n' | pr -3ats"
         ]
     },
-    "42": {
+    "48": {
         "question": "Transpose comma delimited data from `scores.csv`",
         "ip_file": [
             "scores.csv"
@@ -436,7 +503,28 @@
             "datamash -t, transpose <scores.csv"
         ]
     },
-    "43": {
+    "49": {
+        "question": "For the input file `table.txt`, split lines more than 10 characters long as shown below. An output line can still be longer than 10 characters to avoid splitting a word",
+        "ip_file": [
+            "table.txt"
+        ],
+        "op_file": "brown\nbread mat\nhair 42\nblue cake\nmug shirt\n-7 yellow\nbanana\nwindow\nshoes\n3.14\n",
+        "ref_solution": [
+            "fmt -w10 table.txt"
+        ]
+    },
+    "50": {
+        "question": "For the input file `blocks.txt`, number the lines that start with `%=%=` in the format as shown below",
+        "ip_file": [
+            "blocks.txt"
+        ],
+        "op_file": "1) %=%=\n   apple\n   banana\n2) %=%=\n   3.14\n   42\n   1000\n3) %=%=\n   brown\n   green\n4) %=%=\n   hi\n",
+        "ref_solution": [
+            "nl -w1 -s') ' -bp'^%=%=' blocks.txt",
+            "awk '{printf /^%=%=/ ? ++c \") \" : \"   \"} 1' blocks.txt"
+        ]
+    },
+    "51": {
         "question": "For the input file `purchases.txt` replace all occurrences of `tea` with `cake` and `coffee` with `toffee`",
         "ip_file": [
             "purchases.txt"
@@ -446,7 +534,7 @@
             "sed 's/tea/cake/g; s/coffee/toffee/g' purchases.txt"
         ]
     },
-    "44": {
+    "52": {
         "question": "Display contents of `ip.txt` *except* for line numbers 4, 5, 6 and 7",
         "ip_file": [
             "ip.txt"
@@ -457,7 +545,7 @@
             "head -n3 ip.txt ; tail -n +8 ip.txt"
         ]
     },
-    "45": {
+    "53": {
         "question": "For the input file `sample.txt` display all lines from the start of the file till the first occurrence of `do`",
         "ip_file": [
             "sample.txt"
@@ -468,7 +556,7 @@
             "awk '1; /do/{exit}' sample.txt"
         ]
     },
-    "46": {
+    "54": {
         "question": "Delete all groups of lines from a line containing `start` to a line containing `end` for the input file `range.txt`",
         "ip_file": [
             "range.txt"
@@ -479,7 +567,7 @@
             "awk '/start/{f=1} !f; /end/{f=0}' range.txt"
         ]
     },
-    "47": {
+    "55": {
         "question": "For the input file `anchors.txt` convert markdown anchors to hyperlinks as shown in the excepted output panel",
         "ip_file": [
             "anchors.txt"
@@ -489,7 +577,7 @@
             "sed -E 's|[^\"]+\"([^\"]+)\"></a>(.+)|[\\2](#\\1)|' anchors.txt"
         ]
     },
-    "48": {
+    "56": {
         "question": "For the input file `greeting.txt` surround all lowercase vowels with `[]` except for the first two vowels in the line",
         "ip_file": [
             "greeting.txt"
@@ -499,7 +587,7 @@
             "sed 's/[aeiou]/[&]/3g' greeting.txt"
         ]
     },
-    "49": {
+    "57": {
         "question": "Display only the fourth line from `ip.txt`, `sample.txt` and `purchases.txt`",
         "ip_file": [
             "ip.txt",
@@ -512,7 +600,7 @@
             "awk 'FNR==4{print; nextfile}' ip.txt sample.txt purchases.txt"
         ]
     },
-    "50": {
+    "58": {
         "question": "For the input file `hex.txt`, use content from `replace.txt` to perform search and replace operations. Each line in `replace.txt` starts with the search term, followed by a space and then followed by the replacement term. Match the search terms only as whole words and assume that these terms do not contain any regex metacharacters",
         "ip_file": [
             "replace.txt",
@@ -523,7 +611,7 @@
             "sed -E 's|(.+) (.+)|s/\\\\b\\1\\\\b/\\2/g|' replace.txt | sed -f- hex.txt"
         ]
     },
-    "51": {
+    "59": {
         "question": "Insert contents of `greeting.txt` after every line containing `coffee` for the `purchases.txt` file",
         "ip_file": [
             "greeting.txt",
@@ -534,7 +622,7 @@
             "sed '/coffee/r greeting.txt' purchases.txt"
         ]
     },
-    "52": {
+    "60": {
         "question": "Replace every line containing `coffee` from the `purchases.txt` file with contents of `greeting.txt`",
         "ip_file": [
             "greeting.txt",
@@ -545,7 +633,7 @@
             "sed -e '/coffee/r greeting.txt' -e '//d' purchases.txt"
         ]
     },
-    "53": {
+    "61": {
         "question": "The `blocks.txt` file uses `%=%=` to separate group of lines. Display the last such group",
         "ip_file": [
             "blocks.txt"
@@ -555,7 +643,18 @@
             "tac blocks.txt | sed '/%=%=/q' | tac"
         ]
     },
-    "54": {
+    "62": {
+        "question": "The `blocks.txt` file uses `%=%=` to separate group of lines. Display the last two groups",
+        "ip_file": [
+            "blocks.txt"
+        ],
+        "op_file": "%=%=\nbrown\ngreen\n%=%=\nhi\n",
+        "ref_solution": [
+            "tac -bs '%=%=' blocks.txt | awk '/%=%=/ && ++c==3{exit} 1' | tac -bs '%=%='",
+            "awk -v n=$(grep -c '%=%=' blocks.txt) '/%=%=/ && c++==(n-2){f=1} f' blocks.txt"
+        ]
+    },
+    "63": {
         "question": "For the input file `table.txt` calculate and display the product of numbers in the last field of each line",
         "ip_file": [
             "table.txt"
@@ -565,7 +664,7 @@
             "awk 'BEGIN{p = 1} {p *= $NF} END{print p}' table.txt"
         ]
     },
-    "55": {
+    "64": {
         "question": "Reverse contents of `blocks.txt` considering `%=%=` as the separator",
         "ip_file": [
             "blocks.txt"
@@ -575,7 +674,7 @@
             "tac -bs '%=%=' blocks.txt"
         ]
     },
-    "56": {
+    "65": {
         "question": "Display all lines from `sample.txt` that contain `do` but not `it`",
         "ip_file": [
             "sample.txt"
@@ -588,7 +687,7 @@
             "grep -P '^(?!.*it).*do' sample.txt"
         ]
     },
-    "57": {
+    "66": {
         "question": "Extract the contents between `()` or `)(` from each line of `fun.txt`. Assume that the `()` characters will be present only once every line",
         "ip_file": [
             "fun.txt"
@@ -599,7 +698,7 @@
             "grep -oP '[()]\\K[^()]+(?=[()])' fun.txt"
         ]
     },
-    "58": {
+    "67": {
         "question": "For the input file `ip.txt` filter paragraphs *not* containing digit characters. Use an empty line to separate the matching paragraphs",
         "ip_file": [
             "ip.txt"
@@ -609,7 +708,7 @@
             "awk -v RS= '!/[0-9]/{print s $0; s=\"\\n\"}' ip.txt"
         ]
     },
-    "59": {
+    "68": {
         "question": "For the input file `varying_fields.csv` display 3rd field followed by the 1st field. Use `:` as the output field separator",
         "ip_file": [
             "varying_fields.csv"
@@ -620,7 +719,7 @@
             "awk -F, '{print $3, $1}' OFS=: varying_fields.csv"
         ]
     },
-    "60": {
+    "69": {
         "question": "For the input file `ip.txt` filter lines containing 3 or more lowercase vowels",
         "ip_file": [
             "ip.txt"
@@ -631,7 +730,7 @@
             "grep -E '([aeiou].*){3}' ip.txt"
         ]
     },
-    "61": {
+    "70": {
         "question": "From `blocks.txt` extract only the 3rd block. A line containing `%=%=` determines the start of a block",
         "ip_file": [
             "blocks.txt"
@@ -641,7 +740,7 @@
             "awk '$0 == \"%=%=\"{c++} c==3' blocks.txt"
         ]
     },
-    "62": {
+    "71": {
         "question": "Squeeze consecutive empty lines in the `multi_empty_lines.txt` input file to a single empty line. Construct a solution assuming that there are no empty lines at the start/end of the input file",
         "ip_file": [
             "multi_empty_lines.txt"
@@ -653,7 +752,7 @@
             "grep --group-separator= -A0 '.' multi_empty_lines.txt"
         ]
     },
-    "63": {
+    "72": {
         "question": "Retain only the first copy of repeated lines from the `duplicates.txt` input file. Use only the contents of the last field for determining duplicates and the order of the qualifying lines should be the same as the input order",
         "ip_file": [
             "duplicates.txt"
@@ -663,7 +762,7 @@
             "awk -F, '!seen[$NF]++' duplicates.txt"
         ]
     },
-    "64": {
+    "73": {
         "question": "For the input file `scores.csv`, add another column named `GP` which is calculated out of 100 by giving 50% weightage to `Maths` and 25% each for `Physics` and `Chemistry`",
         "ip_file": [
             "scores.csv"
@@ -673,7 +772,7 @@
             "awk -F, -v OFS=, '{$(NF+1) = NR==1 ? \"GP\" : ($2/2 + ($3+$4)/4)} 1' scores.csv"
         ]
     },
-    "65": {
+    "74": {
         "question": "For the input file `sample.txt`, print a matching line containing `do` only if `you` is found two lines before. For example, if `do` is found on line number 10 and the 8th line contains `you`, then the 10th line should be printed",
         "ip_file": [
             "sample.txt"
@@ -683,7 +782,7 @@
             "awk 'p2 ~ /you/ && /do/; {p2=p1; p1=$0}' sample.txt"
         ]
     },
-    "66": {
+    "75": {
         "question": "Display lines from `scores.csv` by matching the first field based on a list of names from the `names.txt` file",
         "ip_file": [
             "names.txt",
@@ -694,7 +793,7 @@
             "awk -F, 'NR==FNR{a[$1]; next} $1 in a' names.txt scores.csv"
         ]
     },
-    "67": {
+    "76": {
         "question": "For the input file `twos.txt`, display only the unique lines. Assume each line has exactly two fields separated by a space character. Compare the lines irrespective of order of the fields. For example, `hehe haha` and `haha hehe` will be considered as duplicates, and thus neither of them will qualify as unique",
         "ip_file": [
             "twos.txt"
@@ -704,7 +803,7 @@
             "awk 'NR==FNR{c[$1,$2]++; next} (c[$1,$2] + c[$2,$1]) == 1' twos.txt twos.txt"
         ]
     },
-    "68": {
+    "77": {
         "question": "For the input file `table.txt`, change contents of the 3rd field to all uppercase",
         "ip_file": [
             "table.txt"
