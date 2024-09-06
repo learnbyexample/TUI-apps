@@ -1,0 +1,54 @@
+Screen {
+    overflow-y: hidden;
+}
+
+ContentSwitcher {
+    height: 1fr;
+}
+
+#script {
+    min-height: 5;
+    height: auto;
+}
+
+#question {
+    border: blank;
+    padding: 0 1 0 1;
+    width: 100%;
+}
+
+#output {
+    min-height: 3;
+    width: 100%;
+}
+
+#solution {
+    border: round black;
+    height: auto;
+}
+
+#tree {
+    width: 45%;
+    padding: 1;
+}
+
+#viewfile {
+    border: round brown;
+    border-title-align: center;
+}
+
+#b_tabs {
+    height: auto;
+    align: center middle;
+}
+
+Button:focus {
+    text-style: bold;
+}
+
+.buttons {
+    max-height: 1;
+    border: none;
+    width: 1fr;
+}
+

@@ -1,0 +1,27 @@
+{
+  "1": {
+    "question": "Write a function that returns:\n\n* `Good` for numbers divisible by 7\n* `Food` for numbers divisible by 6\n* `Universe` for numbers divisible by 42\n* `Oops` for all other numbers\n\nOnly one output is expected, with *divisible by 42* taking precedence. This question is based on the popular FizzBuzz test for programmers.",
+    "q_file": "6by7.py",
+    "exp_op": "all tests passed\n"
+  },
+  "2": {
+    "question": "Check if two strings are same irrespective of case.",
+    "q_file": "str_comparison.py",
+    "exp_op": "all tests passed\n"
+  },
+  "3": {
+    "question": "Check if two strings are anagrams. Assume that the input strings can contain only alphabets.",
+    "q_file": "str_same_letters.py",
+    "exp_op": "all tests passed\n"
+  },
+  "4": {
+    "question": "Given `a = 5`, display `{5}` using the `print()` function and **f-strings**.",
+    "q_file": "fstring_braces.py",
+    "exp_op": "{5}\n"
+  },
+  "5": {
+    "question": "The function `len_int()` should return the length of integer numbers. For non-integer inputs, it should raise an exception as shown below.",
+    "q_file": "int_length.py",
+    "exp_op": "all tests passed\n"
+  }
+}
