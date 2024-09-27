@@ -33,5 +33,20 @@
     "question": "Write a function that prints a styled version of the string argument it receives. Expected output is shown below inside a triple quoted string.",
     "q_file": "string_styling.py",
     "exp_op": "--------\n   hi   \n--------\n***********\n///hello///\n***********\n----------------------------\n          good day          \n----------------------------\n=-==-==-==-==-==-\n   pomegranate   \n=-==-==-==-==-==-\n:::::\n=fig=\n:::::\n"
+  },
+  "8": {
+    "question": "Write a function that returns the maximum nested depth of curly braces in a string. For example, `'{{a+2}*{{b+{c*d}}+e*d}}'` should give `4`. Unbalanced or wrongly ordered braces like `'{a}*b{'` and `'}a+b{'` should return `-1`.",
+    "q_file": "count_nested_braces.py",
+    "exp_op": "all tests passed\n"
+  },
+  "9": {
+    "question": "Write a function that returns both the minimum and maximum values from an iterable input. Assume that there will be at least one element in the input. Do not use the built-in `min()` and `max()` functions.",
+    "q_file": "min_max_iter.py",
+    "exp_op": "all tests passed\n"
+  },
+  "10": {
+    "question": "Write a function that sums up zero or more numeric arguments passed to it. The function should also accept a default valued argument `initial` which should be added to the final total. For example, `sum_nums(3, -8)` should give `-5` and `sum_nums(1, 2, 3, 4, 5, initial=5)` should give `20`.",
+    "q_file": "sum_numbers.py",
+    "exp_op": "all tests passed\n"
   }
 }
