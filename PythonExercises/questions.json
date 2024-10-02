@@ -48,5 +48,40 @@
     "question": "Write a function that sums up zero or more numeric arguments passed to it. The function should also accept a default valued argument `initial` which should be added to the final total. For example, `sum_nums(3, -8)` should give `-5` and `sum_nums(1, 2, 3, 4, 5, initial=5)` should give `20`.",
     "q_file": "sum_numbers.py",
     "exp_op": "all tests passed\n"
+  },
+  "11": {
+    "question": "Write a function that returns the sum of product of corresponding elements of two sequences. For example, the result should be `44` for `(1, 3, 5)` and `(2, 4, 6)`.",
+    "q_file": "inner_product.py",
+    "exp_op": "all tests passed\n"
+  },
+  "12": {
+    "question": "Sort a sequence of numbers in such a way that the even numbers are all placed before the odd ones. The even and odd numbers should further be sorted in descending order.",
+    "q_file": "sort_even_odd.py",
+    "exp_op": "all tests passed\n"
+  },
+  "13": {
+    "question": "Write a function that returns the product of numbers from an iterable. Empty sequence or non-numerical values should raise an exception as shown below.",
+    "q_file": "product_of_nums.py",
+    "exp_op": "all tests passed\n"
+  },
+  "14": {
+    "question": "Write a function that returns a list of first occurrences of an element from a sequence without changing the order.",
+    "q_file": "first_occurrence.py",
+    "exp_op": "all tests passed\n"
+  },
+  "15": {
+    "question": "Write a function that checks whether an iterable has duplicate values or not. Assume that the iterable will not have any unhashable element.",
+    "q_file": "iterable_duplicates.py",
+    "exp_op": "all tests passed\n"
+  },
+  "16": {
+    "question": "Write a function that returns a `list` of words present in the input string. A word here is defined as a sequence of English alphabets.",
+    "q_file": "list_of_words.py",
+    "exp_op": "all tests passed\n"
+  },
+  "17": {
+    "question": "Write a function that returns a dictionary sorted by values in ascending order.",
+    "q_file": "dictionary_sort.py",
+    "exp_op": "all tests passed\n"
   }
 }
