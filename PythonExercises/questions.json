@@ -83,5 +83,20 @@
     "question": "Write a function that returns a dictionary sorted by values in ascending order.",
     "q_file": "dictionary_sort.py",
     "exp_op": "all tests passed\n"
+  },
+  "18": {
+    "question": "Write a function that returns a list of string slices as per the following rules:\n\n* return the input string as the only element if its length is less than 3 characters\n* otherwise, return slices that have 2 or more characters as shown below\n\nAssume that the input string will contain only alphabets.",
+    "q_file": "string_slices.py",
+    "exp_op": "all tests passed\n"
+  },
+  "19": {
+    "question": "Square even numbers and cube odd numbers. For example, `[321, 1, -4, 0, 5, 2]` should give `[33076161, 1, 16, 0, 125, 4]` as the output.",
+    "q_file": "square_cube.py",
+    "exp_op": "all tests passed\n"
+  },
+  "20": {
+    "question": "The file `nums.txt` (in the current working directory) has a single column of numbers. Display the sum of these numbers (`10485.14`).",
+    "q_file": "sum_column.py",
+    "exp_op": "10485.14\n"
   }
 }
