@@ -95,8 +95,33 @@
     "exp_op": "all tests passed\n"
   },
   "20": {
-    "question": "The file `nums.txt` (in the current working directory) has a single column of numbers. Display the sum of these numbers (`10485.14`).",
+    "question": "The file `nums.txt` (in the current working directory) contains a single column of numbers. Display the sum of these numbers (`10485.14`).",
     "q_file": "sum_column.py",
     "exp_op": "10485.14\n"
+  },
+  "21": {
+    "question": "Return a list of integers from a given range (inclusive) which reads the same in reversed form in both binary and decimal formats. For example, `33` in decimal is `100001` in binary and both of these are palindromic. The function should accept two keyword arguments `start=1` and `stop=10000`.",
+    "q_file": "numeric_palindrome.py",
+    "exp_op": "all tests passed\n"
+  },
+  "22": {
+    "question": "Write a function that returns a set of longest words from a file passed to it. Assume that the input file can only have whitespace separated words. Also assume that the input file is small enough to fit within the available memory. If the input file doesn't have any alphabets, the return value should be an empty set.",
+    "q_file": "longest_words.py",
+    "exp_op": "all tests passed\n"
+  },
+  "23": {
+    "question": "Write a function that accepts a file argument and returns the sum of all integers present in the file. If the keyword argument `floating` (default `False`) is set to True, floating-point numbers should also be counted. Assume whitespace as the separator between numbers and other words in the input file. Only decimal format is allowed as a valid integer \u2014 Octal, Binary and Hexadecimal values shouldn't be counted. Scientific notation is valid for floating-point values.",
+    "q_file": "sum_file_numbers.py",
+    "exp_op": "all tests passed\n"
+  },
+  "24": {
+    "question": "Write a function that checks if two words differ at most by a single character, irrespective of case. The length of both the words should be same and the characters should be in the same order for a positive match.",
+    "q_file": "character_diff.py",
+    "exp_op": "all tests passed\n"
+  },
+  "25": {
+    "question": "Write a function that checks if a word is in alphabetic order, irrespective of case. Order can be either ascending or descending. Write another function that uses the first function to check if all the words in a sentence are alphabetically ordered. Assume that the sentence can only have alphabets and whitespace characters.",
+    "q_file": "alphabetic_ordering.py",
+    "exp_op": "all tests passed\n"
   }
 }

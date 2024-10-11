@@ -1,0 +1,15 @@
+bad begin
+123
+good BEGIN
+HI
+BYE
+end
+xyzzzzza
+a good beginning again
+end
+---
+ok end REwoRkinG
+123
+begin maneuver
+APPLE
+and end

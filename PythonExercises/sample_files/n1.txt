@@ -1,0 +1,6 @@
+This file has integers like 42
+and floats like -3.14e3
+Another line with 11 and 12 and 4.4 numbers
+okay, but 0x1f shouldn't be counted
+nor should 0b101 or 0o123
+here's more valid numbers 7.34 and -400
