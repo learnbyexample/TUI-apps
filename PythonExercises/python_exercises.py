@@ -8,7 +8,9 @@ from rich.markdown import Markdown
 import json
 import subprocess
 import re
+import os
 from pathlib import Path
+from sys import executable as PYTHON
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
 # syntax highlight only for py files
@@ -137,7 +139,7 @@ class PythonExercisesApp(App):
     def action_run(self):
         Path.write_text(self.py_file, f'{self.t_script.text}\n', encoding='UTF-8')
         try:
-            result = subprocess.run(f'python {self.py_file}', timeout=5,
+            result = subprocess.run(f'{PYTHON} {self.py_file}', timeout=5,
                                     shell=True, capture_output=True, text=True)
         except subprocess.TimeoutExpired:
             msg = ('App might become unresponsive.\n'
@@ -276,6 +278,7 @@ class PythonExercisesApp(App):
 
 
 def main():
+    os.chdir(SCRIPT_DIR)
     app = PythonExercisesApp()
     app.run()
 
