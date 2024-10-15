@@ -11,6 +11,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent.resolve()
 
 class AwkTutorialApp(App):
+    ENABLE_COMMAND_PALETTE = False
     CSS_PATH = SCRIPT_DIR.joinpath('awk_tutorial.css')
     BINDINGS = [
         Binding('ctrl+p', 'previous', 'Previous', show=True),
@@ -115,9 +116,7 @@ class AwkTutorialApp(App):
         self.process_user_cmd()
 
     def trim(self, text):
-        if text.endswith('\n'):
-            text = text[:-1]
-        return text
+        return text.removesuffix('\n')
 
     def l_cmd_output_style(self, color, title, subtitle):
         self.l_cmd_output.styles.color = color

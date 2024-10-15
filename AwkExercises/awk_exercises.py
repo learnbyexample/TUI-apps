@@ -13,6 +13,7 @@ from pathlib import Path
 SCRIPT_DIR = Path(__file__).parent.resolve()
 
 class AwkExercisesApp(App):
+    ENABLE_COMMAND_PALETTE = False
     CSS_PATH = SCRIPT_DIR.joinpath('awk_exercises.css')
     BINDINGS = [
         Binding('ctrl+s', 'show_solution', 'Solution', show=True),
@@ -172,9 +173,7 @@ class AwkExercisesApp(App):
         self.process_user_cmd()
 
     def trim(self, text):
-        if text.endswith('\n'):
-            text = text[:-1]
-        return text
+        return text.removesuffix('\n')
 
     def save_progress(self):
         cmd = self.i_cmd.value
