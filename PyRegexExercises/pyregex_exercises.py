@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 
 class PyRegexExercises(App):
+    ENABLE_COMMAND_PALETTE = False
     CSS_PATH = 'pyregex_exercises.css'
     BINDINGS = [
                 Binding('ctrl+p', 'previous', 'Previous'),

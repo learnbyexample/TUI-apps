@@ -8,6 +8,7 @@ import random
 class SquareTicTacToeApp(App):
     """Square Tic Tac Toe game."""
 
+    ENABLE_COMMAND_PALETTE = False
     CSS_PATH = "square_tictactoe.css"
     BINDINGS = [
         ("d", "toggle_theme", "Toggle theme"),
