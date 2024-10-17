@@ -26,8 +26,8 @@ class SmartTextArea(TextArea):
             self.insert_indentation()
             event.prevent_default()
         elif event.key == 'backspace':
-            m = re.fullmatch(r' +', self.get_current_line())
-            if m and len(m[0]) % 4 == 0:
+            text_b4_cursor = self.get_current_line()[:self.cursor_location[1]]
+            if re.fullmatch(r'(?:    )+', text_b4_cursor):
                 self.action_delete_left()
                 self.action_delete_left()
                 self.action_delete_left()
@@ -61,7 +61,7 @@ class PythonExercisesApp(App):
         Binding('ctrl+r', 'run', 'Run', show=True),
         Binding('ctrl+l', 'reset', 'Reset', show=True),
         Binding('ctrl+s', 'show_solution', 'Solution', show=True),
-        Binding('ctrl+p', 'previous', 'Prev', show=True),
+        Binding('ctrl+p', 'previous', 'Previous', show=True),
         Binding('ctrl+n', 'next', 'Next', show=True),
         Binding('f1', 'app_guide', 'App Guide', show=False),
         Binding('f2', 'python_exercises', 'Python Exercises', show=False),
@@ -155,7 +155,7 @@ class PythonExercisesApp(App):
                 self.l_output_style('red', 'Error!',
                                     f'Exit Status: {result.returncode}')
             else:
-                s1 = self.trim(result.stdout)
+                s1 = result.stdout.removesuffix('\n')
                 s2 = self.exp_op_txt
                 self.l_output.update(s1)
                 self.l_output_style('gray', 'Output', '')
@@ -181,7 +181,7 @@ class PythonExercisesApp(App):
                          self.questions[self.q_idx]['question']))
         self.q_file = self.questions[self.q_idx]['q_file']
         self.py_file = self.user_scripts.joinpath(self.q_file)
-        self.exp_op_txt = self.trim(self.questions[self.q_idx]['exp_op'])
+        self.exp_op_txt = self.questions[self.q_idx]['exp_op'].removesuffix('\n')
         
         if not reset and Path.exists(self.py_file):
             path = self.py_file
@@ -195,12 +195,7 @@ class PythonExercisesApp(App):
 
     def read_file(self, path):
         text = Path.read_text(path, encoding='UTF-8')
-        return self.trim(text)
-
-    def trim(self, text):
-        if text.endswith('\n'):
-            text = text[:-1]
-        return text
+        return text.removesuffix('\n')
 
     def save_progress(self):
         self.user_progress[self.q_idx] = self.solved

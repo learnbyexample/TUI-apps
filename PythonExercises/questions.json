@@ -5,93 +5,93 @@
     "exp_op": "'{5}'\n'{hello world}'\n'{[1, 2]}'\n"
   },
   "2": {
-    "question": "Write a function that adds two time strings of the format HH:MM:SS (hours, minutes, seconds). Assume that the input can be `0` to `99` for each of the three time components. The output format should be DD-HH:MM:SS where DD stands for number of days. The output should be normalized to not exceed `59` for minutes/seconds and `23` for hours.",
-    "q_file": "add_time_strings.py",
-    "exp_op": "all tests passed\n"
-  },
-  "3": {
     "question": "Write a function that returns:\n\n* `Good` for numbers divisible by 7\n* `Food` for numbers divisible by 6\n* `Universe` for numbers divisible by 42\n* `Oops` for all other numbers\n\nOnly one output is expected, with *divisible by 42* taking precedence. This question is based on the popular FizzBuzz test for programmers.",
     "q_file": "6by7.py",
     "exp_op": "all tests passed\n"
   },
-  "4": {
-    "question": "Check if two strings are same irrespective of case.",
+  "3": {
+    "question": "Check if two strings are the same irrespective of case. Assume that the strings can only have ASCII letters.",
     "q_file": "str_comparison.py",
     "exp_op": "all tests passed\n"
   },
-  "5": {
-    "question": "Check if two strings are anagrams. Assume that the input strings can contain only alphabets.",
+  "4": {
+    "question": "Check if two strings are anagrams. Assume that the input strings can contain only English alphabets. Differences due to case should be ignored.",
     "q_file": "str_same_letters.py",
     "exp_op": "all tests passed\n"
   },
-  "6": {
-    "question": "The function `len_int()` should return the length of integer numbers. For non-integer inputs, it should raise an exception as shown below.",
-    "q_file": "int_length.py",
+  "5": {
+    "question": "Write a function that adds two time strings of the format HH:MM:SS (hours, minutes, seconds). Assume that the input can be `0` to `99` for each of the three time components. The output format should be DD-HH:MM:SS where DD stands for number of days. The output should be normalized to not exceed `59` for minutes/seconds and `23` for hours.",
+    "q_file": "add_time_strings.py",
     "exp_op": "all tests passed\n"
   },
-  "7": {
+  "6": {
     "question": "Write a function that prints a styled version of the string argument it receives. Expected output is shown below inside a triple quoted string.",
     "q_file": "string_styling.py",
     "exp_op": "--------\n   hi   \n--------\n***********\n///hello///\n***********\n----------------------------\n          good day          \n----------------------------\n=-==-==-==-==-==-\n   pomegranate   \n=-==-==-==-==-==-\n:::::\n=fig=\n:::::\n"
   },
-  "8": {
-    "question": "Write a function that returns the maximum nested depth of curly braces in a string. For example, `'{{a+2}*{{b+{c*d}}+e*d}}'` should give `4`. Unbalanced or wrongly ordered braces like `'{a}*b{'` and `'}a+b{'` should return `-1`.",
-    "q_file": "count_nested_braces.py",
+  "7": {
+    "question": "Return a list of integers from a given range (inclusive) which reads the same in reversed form in both binary and decimal formats. For example, `33` in decimal is `100001` in binary and both of these are palindromic. The function should accept two keyword arguments `start=1` and `stop=10000`.",
+    "q_file": "numeric_palindrome.py",
     "exp_op": "all tests passed\n"
   },
-  "9": {
+  "8": {
     "question": "Write a function that returns both the minimum and maximum values from an iterable input. Assume that there will be at least one element in the input. Do not use the built-in `min()` and `max()` functions.",
     "q_file": "min_max_iter.py",
     "exp_op": "all tests passed\n"
   },
-  "10": {
+  "9": {
     "question": "Write a function that sums up zero or more numeric arguments passed to it. The function should also accept a default valued argument `initial` which should be added to the final total. For example, `sum_nums(3, -8)` should give `-5` and `sum_nums(1, 2, 3, 4, 5, initial=5)` should give `20`.",
     "q_file": "sum_numbers.py",
     "exp_op": "all tests passed\n"
   },
-  "11": {
+  "10": {
     "question": "Write a function that returns the sum of product of corresponding elements of two sequences. For example, the result should be `44` for `(1, 3, 5)` and `(2, 4, 6)`.",
     "q_file": "inner_product.py",
     "exp_op": "all tests passed\n"
   },
-  "12": {
+  "11": {
     "question": "Sort a sequence of numbers in such a way that the even numbers are all placed before the odd ones. The even and odd numbers should further be sorted in descending order.",
     "q_file": "sort_even_odd.py",
     "exp_op": "all tests passed\n"
   },
-  "13": {
-    "question": "Write a function that returns the product of numbers from an iterable. Empty sequence or non-numerical values should raise an exception as shown below.",
-    "q_file": "product_of_nums.py",
-    "exp_op": "all tests passed\n"
-  },
-  "14": {
+  "12": {
     "question": "Write a function that returns a list of first occurrences of an element from a sequence without changing the order.",
     "q_file": "first_occurrence.py",
     "exp_op": "all tests passed\n"
   },
-  "15": {
+  "13": {
     "question": "Write a function that checks whether an iterable has duplicate values or not. Assume that the iterable will not have any unhashable element.",
     "q_file": "iterable_duplicates.py",
     "exp_op": "all tests passed\n"
   },
-  "16": {
-    "question": "Write a function that returns a `list` of words present in the input string. A word here is defined as a sequence of English alphabets.",
-    "q_file": "list_of_words.py",
-    "exp_op": "all tests passed\n"
-  },
-  "17": {
-    "question": "Write a function that returns a dictionary sorted by values in ascending order.",
+  "14": {
+    "question": "Write a function that sorts a dictionary by value in ascending order.",
     "q_file": "dictionary_sort.py",
     "exp_op": "all tests passed\n"
   },
-  "18": {
-    "question": "Write a function that returns a list of string slices as per the following rules:\n\n* return the input string as the only element if its length is less than 3 characters\n* otherwise, return slices that have 2 or more characters as shown below\n\nAssume that the input string will contain only alphabets.",
+  "15": {
+    "question": "Write a function that returns a list of string slices as per the following rules:\n\n* return the input string as the only element if its length is less than 3 characters\n* otherwise, return slices that have 2 or more characters as shown below\n\nAssume that the input string will contain only English alphabets.",
     "q_file": "string_slices.py",
     "exp_op": "all tests passed\n"
   },
-  "19": {
+  "16": {
     "question": "Square even numbers and cube odd numbers. For example, `[321, 1, -4, 0, 5, 2]` should give `[33076161, 1, 16, 0, 125, 4]` as the output.",
     "q_file": "square_cube.py",
+    "exp_op": "all tests passed\n"
+  },
+  "17": {
+    "question": "Write a function that returns a list of words present in the input string. A word here is defined as a sequence of English alphabets.",
+    "q_file": "list_of_words.py",
+    "exp_op": "all tests passed\n"
+  },
+  "18": {
+    "question": "Write a function that checks if two words differ at most by a single character, irrespective of case. The length of both the words should be same and the characters should be in the same order for a positive match.",
+    "q_file": "character_diff.py",
+    "exp_op": "all tests passed\n"
+  },
+  "19": {
+    "question": "Write a function that checks if a word is in alphabetic order, irrespective of case. Order can be either ascending or descending. Write another function that uses the first function to check if all the words in a sentence are alphabetically ordered. Assume that the sentence can only have alphabets and whitespace characters.",
+    "q_file": "alphabetic_ordering.py",
     "exp_op": "all tests passed\n"
   },
   "20": {
@@ -100,28 +100,28 @@
     "exp_op": "10485.14\n"
   },
   "21": {
-    "question": "Return a list of integers from a given range (inclusive) which reads the same in reversed form in both binary and decimal formats. For example, `33` in decimal is `100001` in binary and both of these are palindromic. The function should accept two keyword arguments `start=1` and `stop=10000`.",
-    "q_file": "numeric_palindrome.py",
-    "exp_op": "all tests passed\n"
-  },
-  "22": {
     "question": "Write a function that returns a set of longest words from a file passed to it. Assume that the input file can only have whitespace separated words. Also assume that the input file is small enough to fit within the available memory. If the input file doesn't have any alphabets, the return value should be an empty set.",
     "q_file": "longest_words.py",
     "exp_op": "all tests passed\n"
   },
-  "23": {
+  "22": {
     "question": "Write a function that accepts a file argument and returns the sum of all integers present in the file. If the keyword argument `floating` (default `False`) is set to True, floating-point numbers should also be counted. Assume whitespace as the separator between numbers and other words in the input file. Only decimal format is allowed as a valid integer \u2014 Octal, Binary and Hexadecimal values shouldn't be counted. Scientific notation is valid for floating-point values.",
     "q_file": "sum_file_numbers.py",
     "exp_op": "all tests passed\n"
   },
+  "23": {
+    "question": "Write a function that returns the maximum nested depth of curly braces in a string. For example, `'{{a+2}*{{b+{c*d}}+e*d}}'` should give `4`. Unbalanced or wrongly ordered braces like `'{a}*b{'` and `'}a+b{'` should return `-1`.",
+    "q_file": "count_nested_braces.py",
+    "exp_op": "all tests passed\n"
+  },
   "24": {
-    "question": "Write a function that checks if two words differ at most by a single character, irrespective of case. The length of both the words should be same and the characters should be in the same order for a positive match.",
-    "q_file": "character_diff.py",
+    "question": "The function `len_int()` should return the length of integer numbers. For non-integer inputs, it should raise an exception as shown below.",
+    "q_file": "int_length.py",
     "exp_op": "all tests passed\n"
   },
   "25": {
-    "question": "Write a function that checks if a word is in alphabetic order, irrespective of case. Order can be either ascending or descending. Write another function that uses the first function to check if all the words in a sentence are alphabetically ordered. Assume that the sentence can only have alphabets and whitespace characters.",
-    "q_file": "alphabetic_ordering.py",
+    "question": "Write a function that returns the product of numbers from an iterable. Empty sequence or non-numerical values should raise an exception as shown below.",
+    "q_file": "product_of_nums.py",
     "exp_op": "all tests passed\n"
   }
 }

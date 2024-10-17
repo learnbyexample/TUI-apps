@@ -55,7 +55,7 @@ Some shortcuts were added in addition to the default options:
 * **Ctrl+d** duplicate the current line
 * **Ctrl+o** open a new line below with smart indentation
 
-Pressing the **Tab** key adds 4 space characters (single indentation level). Pressing the **Enter** key will automatically add smart indentation based on contents of the current line. Similarly, the **Backspace** key will delete up to the previous indentation level.
+Pressing the **Tab** key adds 4 space characters (single indentation level). Pressing the **Enter** key will automatically add smart indentation based on contents of the current line. Similarly, the **Backspace** key will delete up to the previous indentation level if the text before the cursor only has indented spaces.
 
 ### User progress
 
