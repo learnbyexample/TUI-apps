@@ -242,16 +242,17 @@ class Playground(Screen):
         self.l_input.update(self.data)
 
 class PyRegexPlayground(App):
-    SCREENS = {'playground': Playground(),
-               'guide': ShowMarkdown('app_guide.md'),
-               'cheatsheet': ShowMarkdown('cheatsheet.md'),
-               'examples': Examples()}
+    ENABLE_COMMAND_PALETTE = False
     CSS_PATH = 'pyregex_playground.css'
     BINDINGS = [('ctrl+t', 'toggle_theme', 'Theme'),
                 ('ctrl+q', 'app.quit', 'Quit')]
 
     def on_mount(self):
         self.app.dark = False
+        self.app.install_screen(Playground(), name='playground')
+        self.app.install_screen(ShowMarkdown('app_guide.md'), name='guide')
+        self.app.install_screen(ShowMarkdown('cheatsheet.md'), name='cheatsheet')
+        self.app.install_screen(Examples(), name='examples')
         self.app.push_screen('playground')
 
     def action_toggle_theme(self):
