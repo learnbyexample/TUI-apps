@@ -1,6 +1,6 @@
 # Python Exercises
 
-This interactive TUI app is intended to test the understanding of beginner to intermediate level Python learners.
+This interactive TUI app includes exercises and multiple-choice-questions intended to test the understanding of beginner to intermediate level Python learners.
 
 > **Warning:** This is a work-in-progress project.
 
@@ -18,7 +18,7 @@ See [app_guide.md](./app_guide.md)
 
 # Ebook
 
-The exercise questions in this app have been adapted from my [100 Page Python Intro](https://github.com/learnbyexample/100_page_python_intro) ebook.
+The exercise and quiz questions in this app have been adapted from my [100 Page Python Intro](https://github.com/learnbyexample/100_page_python_intro) ebook.
 
 # License
 

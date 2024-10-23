@@ -1,0 +1,186 @@
+1) Which of these programming paradigms does Python support?
+a) structured
+b) object-oriented
+c) functional
+d) all of the above
+d
+
+2) How would you specify literal characters { and } in f-strings?
+a) {{ and }} respectively
+b) \{ and \} respectively
+a
+
+3) If you define a function with arguments as total(n1, n2), can you still call this function using keywords, for example total(n2=5, n1=100)?
+a) False
+b) True
+b
+
+4) Given a sequence object named seq and a positive integer n, which of these is equivalent to seq[-n]?
+a) seq[len(seq) - n + 1]
+b) seq[len(seq) - n - 1]
+c) seq[len(seq) - n]
+c
+
+5) Given a dict object named fruits and you have a loop for k in fruits, what does k get in each iteration?
+a) key
+b) value
+c) key-value pair as a tuple object
+a
+
+6) Unary operators (+, - and ~) have higher precedence over multiplication * operator:
+a) True
+b) False
+a
+
+7) What would be the output for int(' \t 3a ', 16)?
+a) ValueError: invalid literal for int() with base 16: ' \t 3a '
+b) 58
+c) 3
+b
+
+8) If you use the return keyword without an expression:
+a) None value is used as the default
+b) you'll get SyntaxError
+c) you'll get runtime exception
+a
+
+9) Which command would you use to view the entire contents of the current function code with pdb?
+a) f
+b) ll
+c) c
+d) p
+b
+
+10) Given two set objects set1 and set2, what would be the equivalent for set1 ^ set2?
+a) (set2 - set1) | (set1 - set2)
+b) set1.symmetric_difference(set2)
+c) Both a) and b)
+c
+
+11) Which of these statements would you use if you want to define a placeholder function which does nothing?
+a) none
+b) pass
+c) nop
+d) Both a) and b)
+b
+
+12) Which of these statements is correct?
+a) from math import fact=factorial
+b) from math import factorial as fact
+c) Both a) and b)
+b
+
+13) If you execute the code *a, b = (*(1, 2), 3, *(4, 5)) you'll get:
+a) SyntaxError
+b) a = [1, 2, 3, 4] and b = 5
+c) a = 1 and b = [2, 3, 4, 5]
+d) a = (1, 2, 3, 4) and b = 5
+b
+
+14) Which of these built-in functions support the key argument to provide a custom function?
+a) sorted()
+b) min()
+c) max()
+d) all of the above
+d
+
+15) Which of these values can be used as a dict key or as a set element?
+a) (1, 2)
+b) [1, 2, 3]
+c) Both a) and b)
+a
+
+16) Which of these is a valid integer value?
+a) 100
+b) 0x1F
+c) 2_3_4_5
+d) all of the above
+d
+
+17) Given nums = [1, 4, 6, 22, 3, 5], which of these is NOT a valid list operation?
+a) nums[1:4] = [-100]
+b) nums[-2:] = 'hello'
+c) nums += ('a', 'b')
+d) nums += 100
+d
+
+18) Given fruit = 'apple', which of these will give you a TypeError?
+a) fruit.replace('p', 'a', count=1)
+b) fruit.replace('p', 'a', 1)
+c) fruit.replace('p', 'WXYZ')
+a
+
+19) The default mode for the built-in function open() is:
+a) rt (read text mode)
+b) rb (read binary mode)
+a
+
+20) Which of these can be a valid value for sys.argv[0]?
+a) name of the Python script
+b) -c
+c) empty string
+d) all of the above
+d
+
+21) Which string syntax allows you to embed expressions within {}?
+a) single quoted
+b) double quoted
+c) raw strings
+d) format strings
+e) all of the above
+d
+
+22) Which of these is the correct order of usage with range() function and sequence slicing?
+a) start, stop and step
+b) start, step and stop
+c) step, start and stop
+a
+
+23) Which of these is true?
+a) every iterator is also an iterable
+b) every iterable is also an iterator
+c) Both a) and b)
+a
+
+24) Which built-in function helps you to get the codepoint of a character?
+a) codepoint()
+b) chr()
+c) ord()
+c
+
+25) Which of these built-in features can be used to capture the output of an external command?
+a) os.popen()
+b) os.output()
+c) subprocess.check_output()
+d) Both a) and c)
+d
+
+26) num > 10 and num <= 20 is same as:
+a) 10 < num <= 20
+b) 20 >= num > 10
+c) Both a) and b)
+c
+
+27) What's the default exception raised by raise if there's no active exception?
+a) RuntimeError
+b) AssertionError
+a
+
+28) Which built-in function would you use to iterate over two or more iterables simultaneously?
+a) parallel()
+b) zip()
+c) iter()
+b
+
+29) What does this function definition def myfunc(**myargs) do?
+a) accepts arbitrary positional arguments
+b) accepts arbitrary keyword arguments
+c) Both a) and b)
+b
+
+30) Which of the following is the correct way to join a list of string values?
+a) ['hi', 'bye'].join('-')
+b) '-'.join(['hi', 'bye'])
+c) Both a) and b)
+b
+

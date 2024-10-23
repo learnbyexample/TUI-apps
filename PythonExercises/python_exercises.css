@@ -11,10 +11,11 @@ ContentSwitcher {
     height: auto;
 }
 
-#question {
-    border: blank;
+.question {
+    border: round gray;
     padding: 0 1 0 1;
     width: 100%;
+    border-title-align: center;
 }
 
 #output {
@@ -40,6 +41,21 @@ ContentSwitcher {
 #b_tabs {
     height: auto;
     align: center middle;
+}
+
+#b_quiz {
+    margin: 0 1 1 1;
+    width: 100%;
+}
+
+.lquiz {
+    width: 100%;
+    text-align: center;
+}
+
+#rset {
+    margin: 1 1 1 1;
+    width: 100%;
 }
 
 Button:focus {
