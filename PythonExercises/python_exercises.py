@@ -104,18 +104,17 @@ class PythonExercisesApp(App):
                 if not self.exercise_progress.get(idx, False):
                     break
             self.e_idx = idx
-        self.initial_tab = self.exercise_progress.get(-2, 'exercises')
 
         self.l_quiz = Label(classes='question')
-        self.l_quiz_result = Label(classes='lquiz')
-        self.r_quiz = RadioSet(id='rset')
+        self.l_quiz_result = Label(id='quiz_result')
+        self.rset_quiz = RadioSet(id='rset')
         self.rbuttons_quiz = [RadioButton()]
-        self.b_submit = Button('Submit', name='submit', id='b_quiz')
-        with open(SCRIPT_DIR.joinpath('quiz.txt'), encoding='UTF-8') as f:
-            self.quiz_blocks = f.read().rstrip().split('\n\n')
+        self.b_submit = Button('Submit', name='submit', id='submit')
+        self.quiz_blocks = Path.read_text(SCRIPT_DIR.joinpath('quiz.txt'),
+                                      encoding='UTF-8').rstrip().split('\n\n')
         self.q_idx = 0
-        self.q_correct_ans_count = 0
         self.q_max_idx = len(self.quiz_blocks) - 1
+        self.q_correct_ans_count = 0
         self.quiz_progress_file = SCRIPT_DIR.joinpath('quiz_progress.json')
         try:
             with open(self.quiz_progress_file, encoding='UTF-8') as f:
@@ -152,7 +151,7 @@ class PythonExercisesApp(App):
                 yield self.t_ref_solution
             with VerticalScroll(id='quiz'):
                 yield self.l_quiz
-                yield self.r_quiz
+                yield self.rset_quiz
                 yield self.b_submit
                 yield self.l_quiz_result
             with Vertical(id='guide'):
@@ -165,7 +164,7 @@ class PythonExercisesApp(App):
 
     def on_mount(self):
         self.dark = self.exercise_progress.get(-1, False)
-        if self.initial_tab == 'exercises':
+        if self.exercise_progress.get(-2, 'exercises') == 'exercises':
             self.action_exercises()
         else:
             self.action_quiz()
@@ -313,31 +312,30 @@ class PythonExercisesApp(App):
         q_question, *q_choices = quiz_block.split('\n')
         self.q_answer_choice = q_choices.pop()
         self.q_answer_idx = ord(self.q_answer_choice) - 97
-
         self.l_quiz.update(q_question[q_question.find(' ')+1:])
         self.l_quiz.border_title = f'{self.q_idx+1}/{self.q_max_idx+1}'
-        for b in self.rbuttons_quiz:
-            b.remove()
+
+        for rb in self.rbuttons_quiz:
+            rb.remove()
         self.rbuttons_quiz = []
         for s in q_choices:
-            b = RadioButton(rich_escape(s))
-            self.r_quiz.mount(b)
-            self.rbuttons_quiz.append(b)
+            rb = RadioButton(rich_escape(s))
+            self.rbuttons_quiz.append(rb)
+            self.rset_quiz.mount(rb)
         self.b_submit.disabled = True
 
         if self.q_idx in self.quiz_progress:
+            self.quiz_already_answered = True
             idx = self.quiz_progress[self.q_idx]
             self.rbuttons_quiz[idx].value = True
             self.quiz_submitted_idx = idx
-            self.quiz_already_answered = True
             self.process_quiz()
-            self.b_submit.variant = 'default'
         else:
             self.quiz_already_answered = False
+            self.rset_quiz.disabled = False
             self.l_quiz_result.update('')
-            self.r_quiz.disabled = False
             self.b_submit.variant = 'primary'
-            self.r_quiz.focus()
+            self.rset_quiz.focus()
 
     def process_quiz(self):
         if self.quiz_submitted_idx == self.q_answer_idx:
@@ -351,7 +349,7 @@ class PythonExercisesApp(App):
                                   f'{self.q_correct_ans_count}/{self.q_max_idx+1}')
         self.rbuttons_quiz[self.q_answer_idx].styles.color = 'green'
         self.rbuttons_quiz[self.q_answer_idx].styles.text_style = 'bold'
-        self.r_quiz.disabled = True
+        self.rset_quiz.disabled = True
         self.b_submit.disabled = True
         self.b_submit.variant = 'default'
         if not self.quiz_already_answered:

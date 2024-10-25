@@ -184,3 +184,63 @@ b) '-'.join(['hi', 'bye'])
 c) Both a) and b)
 b
 
+31) What will be the output for print(r'\') and print(r'\\')?
+a) SyntaxError and \\
+b) \ and \\
+c) \ for both
+a
+
+32) Is it valid to combine more than one string prefix such as b, r and f? For example, what would be the output for print(rf'C:\\quest{name}') given name = '\todo\ip.txt'?
+a) SyntaxError
+b) C:\\quest\todo\ip.txt
+c) C:\\quest    odo\ip.txt
+c
+
+33) What would happen if you call a function before it is defined?
+a) NameError
+b) function gets called
+c) TypeError
+a
+
+34) What would happen if you use the < or <= or > or >= operators between numeric and string values?
+a) Number will be converted to string
+b) String will be converted to number
+c) TypeError
+c
+
+35) The current working directory has an empty file named math.py. What will you get if you execute print(math.pi) after importing the math module?
+a) 3.141592653589793
+b) AttributeError: module 'math' has no attribute 'pi'
+b
+
+36) Given chars = tuple('hello'), what'd you get for print(chars[0]) and chars[0] = 'H'?
+a) h and TypeError
+b) TypeError and TypeError
+a
+
+37) Given primes = [2, 3, 5, 7, 11], what'd you get for primes[5] or primes[-6]?
+a) IndexError: list index out of range
+b) 11
+c) 2
+a
+
+38) Given primes = [2, 3, 5, 7, 11], what'd you get for primes[:5] or primes[-6:]?
+a) IndexError: list index out of range
+b) [2, 3, 5, 7, 11]
+c) [11, 7, 5, 3, 2]
+d) []
+b
+
+39) Given nums = (1, 2), will (a, b, c) = nums or (*a, *b) = nums raise an exception?
+a) both are valid
+b) you'll get ValueError and SyntaxError respectively
+c) first one is valid
+d) second one is valid
+b
+
+40) Given nums = [42, 3], which of these statements will update nums to [42, 3, 5]?
+a) nums += 5
+b) nums += [5]
+c) both a) and b)
+d) both a) and b) are invalid
+b
