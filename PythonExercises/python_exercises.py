@@ -4,7 +4,6 @@ from textual.containers import Horizontal, VerticalScroll, Vertical
 from textual.widgets import Footer, Label, TextArea, Button
 from textual.widgets import MarkdownViewer, ContentSwitcher, DirectoryTree
 from textual.widgets import RadioButton, RadioSet
-from rich.markdown import Markdown
 from rich.markup import escape as rich_escape
 
 import json
@@ -214,7 +213,8 @@ class PythonExercisesApp(App):
         self.l_ref_solution_clear()
         self.solved = False
         self.show_solution = False
-        self.l_exercise.update(Markdown(self.exercises[self.e_idx]['exercise']))
+        self.l_exercise.update(self.style_inline_code(
+                                   self.exercises[self.e_idx]['exercise']))
         self.l_exercise.border_title = f'{self.e_idx+1}/{self.e_max_idx+1}'
         self.e_file = self.exercises[self.e_idx]['e_file']
         self.py_file = self.user_scripts.joinpath(self.e_file)
@@ -277,6 +277,10 @@ class PythonExercisesApp(App):
         self.t_ref_solution.text = ''
         self.t_ref_solution.styles.border = ('none', 'green')
 
+    def style_inline_code(self, s):
+        return re.sub(r'`([^`]+)`',
+                 lambda m: f'[dark_orange3 on grey84]{m[1]}[/]', rich_escape(s))
+
     def action_reset(self):
         if self.cs_tabs.current == 'exercises':
             self.set_exercise(reset=True)
@@ -312,14 +316,15 @@ class PythonExercisesApp(App):
         q_question, *q_choices = quiz_block.split('\n')
         self.q_answer_choice = q_choices.pop()
         self.q_answer_idx = ord(self.q_answer_choice) - 97
-        self.l_quiz.update(q_question[q_question.find(' ')+1:])
+        self.l_quiz.update(self.style_inline_code(
+                               q_question[q_question.find(' ')+1:]))
         self.l_quiz.border_title = f'{self.q_idx+1}/{self.q_max_idx+1}'
 
         for rb in self.rbuttons_quiz:
             rb.remove()
         self.rbuttons_quiz = []
         for s in q_choices:
-            rb = RadioButton(rich_escape(s))
+            rb = RadioButton(self.style_inline_code(s))
             self.rbuttons_quiz.append(rb)
             self.rset_quiz.mount(rb)
         self.b_submit.disabled = True
@@ -347,7 +352,7 @@ class PythonExercisesApp(App):
 
         self.l_quiz_result.update(f'{text}\nCorrectly answered: '
                                   f'{self.q_correct_ans_count}/{self.q_max_idx+1}')
-        self.rbuttons_quiz[self.q_answer_idx].styles.color = 'green'
+        self.rbuttons_quiz[self.q_answer_idx].styles.background = 'lightgreen'
         self.rbuttons_quiz[self.q_answer_idx].styles.text_style = 'bold'
         self.rset_quiz.disabled = True
         self.b_submit.disabled = True

@@ -5,72 +5,72 @@ c) functional
 d) all of the above
 d
 
-2) How would you specify literal characters { and } in f-strings?
-a) {{ and }} respectively
-b) \{ and \} respectively
+2) How would you specify literal characters `{` and `}` in f-strings?
+a) `{{` and `}}` respectively
+b) `\{` and `\}` respectively
 a
 
-3) If you define a function with arguments as total(n1, n2), can you still call this function using keywords, for example total(n2=5, n1=100)?
+3) If you define a function with arguments as `total(n1, n2)`, can you still call this function using keywords, for example `total(n2=5, n1=100)`?
 a) False
 b) True
 b
 
-4) Given a sequence object named seq and a positive integer n, which of these is equivalent to seq[-n]?
-a) seq[len(seq) - n + 1]
-b) seq[len(seq) - n - 1]
-c) seq[len(seq) - n]
+4) Given a sequence object named `seq` and a positive integer `n`, which of these is equivalent to `seq[-n]`?
+a) `seq[len(seq) - n + 1]`
+b) `seq[len(seq) - n - 1]`
+c) `seq[len(seq) - n]`
 c
 
-5) Given a dict object named fruits and you have a loop for k in fruits, what does k get in each iteration?
+5) Given a dict object named `fruits` and you have a loop `for k in fruits`, what does `k` get in each iteration?
 a) key
 b) value
 c) key-value pair as a tuple object
 a
 
-6) Unary operators (+, - and ~) have higher precedence over multiplication * operator:
+6) Unary operators `+`, `-` and `~` have higher precedence over the multiplication `*` operator?
 a) True
 b) False
 a
 
-7) What would be the output for int(' \t 3a ', 16)?
+7) What would be the output for `int(' \t 3a ', 16)`?
 a) ValueError: invalid literal for int() with base 16: ' \t 3a '
 b) 58
 c) 3
 b
 
-8) If you use the return keyword without an expression:
-a) None value is used as the default
+8) If you use the `return` keyword without an expression:
+a) `None` value is used as the default
 b) you'll get SyntaxError
 c) you'll get runtime exception
 a
 
-9) Which command would you use to view the entire contents of the current function code with pdb?
+9) Which command would you use to view the entire contents of the current function code with `pdb`?
 a) f
 b) ll
 c) c
 d) p
 b
 
-10) Given two set objects set1 and set2, what would be the equivalent for set1 ^ set2?
-a) (set2 - set1) | (set1 - set2)
-b) set1.symmetric_difference(set2)
+10) Given two set objects `set1` and `set2`, what would be the equivalent for `set1 ^ set2`?
+a) `(set2 - set1) | (set1 - set2)`
+b) `set1.symmetric_difference(set2)`
 c) Both a) and b)
 c
 
 11) Which of these statements would you use if you want to define a placeholder function which does nothing?
-a) none
-b) pass
-c) nop
+a) `none`
+b) `pass`
+c) `nop`
 d) Both a) and b)
 b
 
 12) Which of these statements is correct?
-a) from math import fact=factorial
-b) from math import factorial as fact
+a) `from math import fact=factorial`
+b) `from math import factorial as fact`
 c) Both a) and b)
 b
 
-13) If you execute the code *a, b = (*(1, 2), 3, *(4, 5)) you'll get:
+13) If you execute the code `*a, b = (*(1, 2), 3, *(4, 5))` you'll get:
 a) SyntaxError
 b) a = [1, 2, 3, 4] and b = 5
 c) a = 1 and b = [2, 3, 4, 5]
@@ -78,9 +78,9 @@ d) a = (1, 2, 3, 4) and b = 5
 b
 
 14) Which of these built-in functions support the key argument to provide a custom function?
-a) sorted()
-b) min()
-c) max()
+a) `sorted()`
+b) `min()`
+c) `max()`
 d) all of the above
 d
 
@@ -97,32 +97,32 @@ c) 2_3_4_5
 d) all of the above
 d
 
-17) Given nums = [1, 4, 6, 22, 3, 5], which of these is NOT a valid list operation?
-a) nums[1:4] = [-100]
-b) nums[-2:] = 'hello'
-c) nums += ('a', 'b')
-d) nums += 100
+17) Given `nums = [1, 4, 6, 22, 3, 5]`, which of these is NOT a valid list operation?
+a) `nums[1:4] = [-100]`
+b) `nums[-2:] = 'hello'`
+c) `nums += ('a', 'b')`
+d) `nums += 100`
 d
 
-18) Given fruit = 'apple', which of these will give you a TypeError?
-a) fruit.replace('p', 'a', count=1)
-b) fruit.replace('p', 'a', 1)
-c) fruit.replace('p', 'WXYZ')
+18) Given `fruit = 'apple'`, which of these will give you a TypeError prior to Python version 3.13?
+a) `fruit.replace('p', 'a', count=1)`
+b) `fruit.replace('p', 'a', 1)`
+c) `fruit.replace('p', 'WXYZ')`
 a
 
-19) The default mode for the built-in function open() is:
-a) rt (read text mode)
-b) rb (read binary mode)
+19) The default mode for the built-in function `open()` is:
+a) `rt` (read text mode)
+b) `rb` (read binary mode)
 a
 
-20) Which of these can be a valid value for sys.argv[0]?
+20) Which of these can be a valid value for `sys.argv[0]`?
 a) name of the Python script
 b) -c
 c) empty string
 d) all of the above
 d
 
-21) Which string syntax allows you to embed expressions within {}?
+21) Which string syntax allows you to embed expressions within `{}`?
 a) single quoted
 b) double quoted
 c) raw strings
@@ -130,7 +130,7 @@ d) format strings
 e) all of the above
 d
 
-22) Which of these is the correct order of usage with range() function and sequence slicing?
+22) Which of these is the correct order of usage with `range()` function and sequence slicing?
 a) start, stop and step
 b) start, step and stop
 c) step, start and stop
@@ -143,21 +143,21 @@ c) Both a) and b)
 a
 
 24) Which built-in function helps you to get the codepoint of a character?
-a) codepoint()
-b) chr()
-c) ord()
+a) `codepoint()`
+b) `chr()`
+c) `ord()`
 c
 
 25) Which of these built-in features can be used to capture the output of an external command?
-a) os.popen()
-b) os.output()
-c) subprocess.check_output()
+a) `os.popen()`
+b) `os.output()`
+c) `subprocess.check_output()`
 d) Both a) and c)
 d
 
-26) num > 10 and num <= 20 is same as:
-a) 10 < num <= 20
-b) 20 >= num > 10
+26) `num > 10 and num <= 20` is same as:
+a) `10 < num <= 20`
+b) `20 >= num > 10`
 c) Both a) and b)
 c
 
@@ -167,30 +167,30 @@ b) AssertionError
 a
 
 28) Which built-in function would you use to iterate over two or more iterables simultaneously?
-a) parallel()
-b) zip()
-c) iter()
+a) `parallel()`
+b) `zip()`
+c) `iter()`
 b
 
-29) What does this function definition def myfunc(**myargs) do?
+29) What does this function definition `def myfunc(**myargs)` do?
 a) accepts arbitrary positional arguments
 b) accepts arbitrary keyword arguments
 c) Both a) and b)
 b
 
 30) Which of the following is the correct way to join a list of string values?
-a) ['hi', 'bye'].join('-')
-b) '-'.join(['hi', 'bye'])
+a) `['hi', 'bye'].join('-')`
+b) `'-'.join(['hi', 'bye'])`
 c) Both a) and b)
 b
 
-31) What will be the output for print(r'\') and print(r'\\')?
+31) What will be the output for `print(r'\')` and `print(r'\\')`?
 a) SyntaxError and \\
 b) \ and \\
 c) \ for both
 a
 
-32) Is it valid to combine more than one string prefix such as b, r and f? For example, what would be the output for print(rf'C:\\quest{name}') given name = '\todo\ip.txt'?
+32) Is it valid to combine more than one string prefix such as `b`, `r` and `f`? For example, what would be the output for `print(rf'C:\\quest{name}')` given `name = '\todo\ip.txt'`?
 a) SyntaxError
 b) C:\\quest\todo\ip.txt
 c) C:\\quest    odo\ip.txt
@@ -202,45 +202,45 @@ b) function gets called
 c) TypeError
 a
 
-34) What would happen if you use the < or <= or > or >= operators between numeric and string values?
+34) What would happen if you use the `<` or `<=` or `>` or `>=` operators between numeric and string values?
 a) Number will be converted to string
 b) String will be converted to number
 c) TypeError
 c
 
-35) The current working directory has an empty file named math.py. What will you get if you execute print(math.pi) after importing the math module?
+35) The current working directory has an empty file named `math.py`. What will you get if you execute `print(math.pi)` after importing the `math` module?
 a) 3.141592653589793
 b) AttributeError: module 'math' has no attribute 'pi'
 b
 
-36) Given chars = tuple('hello'), what'd you get for print(chars[0]) and chars[0] = 'H'?
+36) Given `chars = tuple('hello')`, what'd you get for `print(chars[0])` and `chars[0] = 'H'`?
 a) h and TypeError
 b) TypeError and TypeError
 a
 
-37) Given primes = [2, 3, 5, 7, 11], what'd you get for primes[5] or primes[-6]?
+37) Given `primes = [2, 3, 5, 7, 11]`, what'd you get for `primes[5]` or `primes[-6]`?
 a) IndexError: list index out of range
 b) 11
 c) 2
 a
 
-38) Given primes = [2, 3, 5, 7, 11], what'd you get for primes[:5] or primes[-6:]?
+38) Given `primes = [2, 3, 5, 7, 11]`, what'd you get for `primes[:5]` or `primes[-6:]`?
 a) IndexError: list index out of range
 b) [2, 3, 5, 7, 11]
 c) [11, 7, 5, 3, 2]
 d) []
 b
 
-39) Given nums = (1, 2), will (a, b, c) = nums or (*a, *b) = nums raise an exception?
+39) Given `nums = (1, 2)`, will `(a, b, c) = nums` or `(*a, *b) = nums` raise an exception?
 a) both are valid
 b) you'll get ValueError and SyntaxError respectively
 c) first one is valid
 d) second one is valid
 b
 
-40) Given nums = [42, 3], which of these statements will update nums to [42, 3, 5]?
-a) nums += 5
-b) nums += [5]
+40) Given `nums = [42, 3]`, which of these statements will update `nums` to `[42, 3, 5]`?
+a) `nums += 5`
+b) `nums += [5]`
 c) both a) and b)
 d) both a) and b) are invalid
 b

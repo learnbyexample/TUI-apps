@@ -5,7 +5,7 @@
     "exp_op": "'{5}'\n'{hello world}'\n'{[1, 2]}'\n"
   },
   "2": {
-    "exercise": "Write a function that returns:\n\n* `Good` for numbers divisible by 7\n* `Food` for numbers divisible by 6\n* `Universe` for numbers divisible by 42\n* `Oops` for all other numbers\n\nOnly one output is expected, with *divisible by 42* taking precedence. This question is based on the popular FizzBuzz test for programmers.",
+    "exercise": "Write a function that returns:\n\n* `Good` for numbers divisible by 7\n* `Food` for numbers divisible by 6\n* `Universe` for numbers divisible by 42\n* `Oops` for all other numbers\n\nOnly one output is expected, with 'divisible by 42' taking precedence. This question is based on the popular FizzBuzz test for programmers.",
     "e_file": "6by7.py",
     "exp_op": "all tests passed\n"
   },
