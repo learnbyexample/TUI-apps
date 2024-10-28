@@ -278,8 +278,8 @@ class PythonExercisesApp(App):
         self.t_ref_solution.styles.border = ('none', 'green')
 
     def style_inline_code(self, s):
-        return re.sub(r'`([^`]+)`',
-                 lambda m: f'[dark_orange3 on grey84]{m[1]}[/]', rich_escape(s))
+        return re.sub(r'`([^`]+)`', r'[dark_orange3 on grey84]\1[/]',
+                      rich_escape(s))
 
     def action_reset(self):
         if self.cs_tabs.current == 'exercises':
