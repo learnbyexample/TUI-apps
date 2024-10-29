@@ -277,3 +277,34 @@ b) `'figapplebanana'` and `'figapplebanana'`
 c) TypeError and `'applefigbanana'`
 d) TypeError and `'figapplebanana'`
 c
+
+46) What'd you get for `'na naanana'.removesuffix('na')` and `'na naanana'.rstrip('na')`?
+a) `'na naa'` and `'na '`
+b) `'na naana'` and `'na '`
+c) `'na naana'` and `' '`
+d) `'na naa'` and `' '`
+b
+
+47) Which string method will help you change `'thIs iS a saMple StrIng'` to `This Is A Sample String`?
+a) `title()`
+b) `capitalize()`
+c) `swapcase()`
+a
+
+48) What'd be the output for `'phototonic'.count('oto')`?
+a) 2
+b) 1
+c) 0
+b
+
+49) Given `nums = [1, 4, 6, 22, 3]`, what'd you get for `(n * n for n in nums)`?
+a) tuple comprehension
+b) SyntaxError
+c) generator expression
+c
+
+50) Which built-in module has a provision to edit a file in-place?
+a) `fileinput`
+b) `sys`
+c) `pathlib`
+a

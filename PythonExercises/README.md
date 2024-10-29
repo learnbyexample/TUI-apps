@@ -8,9 +8,13 @@ This interactive TUI app includes exercises and multiple-choice-questions intend
 
 Install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `python_exercises.py` file. You'll need to install `textual[syntax]` to enable syntax highlighting (see [documentation](https://textual.textualize.io/widgets/text_area/#syntax-highlighting-dependencies) for more details).
 
-Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines).
-
 **TODO**: PyPI app
+
+Adjust the terminal dimensions for the widgets to appear properly, for example 84x25 (characters x lines). Here are sample screenshots:
+
+<p align="center"><img src="./python_exercises.png" alt="Sample Python Exercise" /></p>
+
+<p align="center"><img src="./python_quiz.png" alt="Sample Python Quiz" /></p>
 
 # Guide
 
