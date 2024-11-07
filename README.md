@@ -12,6 +12,7 @@ Repository for Terminal User Interface (TUI) apps. Mostly for fun (ex: games), l
 * [Sed Exercises](./SedExercises) — 50+ exercises for `GNU sed`
 * [Awk Exercises](./AwkExercises) — 80+ exercises for `GNU awk`
 * [Awk Tutorial](./AwkTutorial) — brief tour of the `awk` command
+* [Python Exercises](./PythonExercises) — exercises and quiz for beginner-intermediate level Python learners
 
 # Acknowledgements
 
