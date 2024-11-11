@@ -1,5 +1,3 @@
-> **Warning:** This is a work-in-progress project.
-
 ### About
 
 This interactive TUI app includes exercises and multiple-choice-questions intended to test the understanding of beginner to intermediate level Python learners.

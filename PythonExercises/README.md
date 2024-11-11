@@ -2,8 +2,6 @@
 
 This interactive TUI app includes exercises and multiple-choice-questions intended to test the understanding of beginner to intermediate level Python learners.
 
-> **Warning:** This is a work-in-progress project.
-
 # Installation
 
 Install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `python_exercises.py` file. You'll need to install `textual[syntax]` to enable syntax highlighting (see [documentation](https://textual.textualize.io/widgets/text_area/#syntax-highlighting-dependencies) for more details).

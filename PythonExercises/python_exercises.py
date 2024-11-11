@@ -81,6 +81,8 @@ class PythonExercisesApp(App):
         self.e_max_idx = len(self.exercises) - 1
 
         self.code_themes = ('github_light', 'vscode_dark')
+        self.syntax_highlight = {'.md':'markdown', '.py':'python',
+                                 '.css':'css', '.json':'json'}
         self.t_script = SmartTextArea(id='script', language='python')
         self.t_script.tab_behavior = 'indent'
 
@@ -89,7 +91,8 @@ class PythonExercisesApp(App):
         self.t_ref_solution = TextArea(id='solution', language='python')
         self.t_ref_solution.read_only = True
         self.t_ref_solution.border_title = 'Reference Solution'
-        self.t_viewfile = TextArea(id='viewfile', language='python')
+        self.t_viewfile = TextArea(id='viewfile', language='python',
+                                   soft_wrap=False)
         self.t_viewfile.read_only = True
 
         self.progress_file = SCRIPT_DIR.joinpath('exercise_progress.json')
@@ -270,8 +273,10 @@ class PythonExercisesApp(App):
 
     def on_directory_tree_file_selected(self, event):
         path = event.path
+        self.t_viewfile.language = self.syntax_highlight.get(path.suffix, None)
         self.t_viewfile.text = self.read_file(path)
         self.t_viewfile.border_title = str(path)
+        self.t_viewfile.theme = self.code_themes[self.dark]
 
     def l_ref_solution_clear(self):
         self.t_ref_solution.text = ''
@@ -292,6 +297,7 @@ class PythonExercisesApp(App):
                 solution = SCRIPT_DIR.joinpath(f'solutions/{self.e_file}')
                 self.t_ref_solution.text = self.read_file(solution)
                 self.t_ref_solution.styles.border = ('round', 'green')
+                self.t_ref_solution.theme = self.code_themes[self.dark]
             else:
                 self.l_ref_solution_clear()
 

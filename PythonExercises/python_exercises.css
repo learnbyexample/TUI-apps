@@ -68,3 +68,7 @@ Button:focus {
     width: 1fr;
 }
 
+RadioButton {
+    border: none;
+}
+
