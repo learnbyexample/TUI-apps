@@ -23,7 +23,7 @@ ContentSwitcher {
     width: 100%;
 }
 
-#solution {
+.solution {
     border: round black;
     height: auto;
 }

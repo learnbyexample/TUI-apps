@@ -5,7 +5,7 @@
     "exp_op": "'{5}'\n'{hello world}'\n'{[1, 2]}'\n"
   },
   "2": {
-    "exercise": "Write a function that returns:\n\n* `Good` for numbers divisible by 7\n* `Food` for numbers divisible by 6\n* `Universe` for numbers divisible by 42\n* `Oops` for all other numbers\n\nOnly one output is expected, with 'divisible by 42' taking precedence. This question is based on the popular FizzBuzz test for programmers.",
+    "exercise": "Write a function that returns:\n\n\u2022 `Good` for numbers divisible by 7\n\u2022 `Food` for numbers divisible by 6\n\u2022 `Universe` for numbers divisible by 42\n\u2022 `Oops` for all other numbers\n\nOnly one output is expected, with 'divisible by 42' taking precedence. This question is based on the popular FizzBuzz test for programmers.",
     "e_file": "6by7.py",
     "exp_op": "all tests passed\n"
   },
@@ -70,7 +70,7 @@
     "exp_op": "all tests passed\n"
   },
   "15": {
-    "exercise": "Write a function that returns a list of string slices as per the following rules:\n\n* return the input string as the only element if its length is less than 3 characters\n* otherwise, return slices that have 2 or more characters as shown below\n\nAssume that the input string will contain only English alphabets.",
+    "exercise": "Write a function that returns a list of string slices as per the following rules:\n\n\u2022 return the input string as the only element if its length is less than 3 characters\n\u2022 otherwise, return slices that have 2 or more characters as shown below\n\nAssume that the input string will contain only English alphabets.",
     "e_file": "string_slices.py",
     "exp_op": "all tests passed\n"
   },
@@ -95,7 +95,7 @@
     "exp_op": "all tests passed\n"
   },
   "20": {
-    "exercise": "The file `nums.txt` (in the current working directory) contains a single column of numbers. Display the sum of these numbers (`10485.14`).",
+    "exercise": "The file `nums.txt` (in the current working directory) contains a single column of integer and floating-point numbers. Calculate the sum of these numbers.",
     "e_file": "sum_column.py",
     "exp_op": "10485.14\n"
   },

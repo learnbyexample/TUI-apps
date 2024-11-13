@@ -59,10 +59,10 @@ class PythonExercisesApp(App):
     CSS_PATH = SCRIPT_DIR.joinpath('python_exercises.css')
     BINDINGS = [
         Binding('ctrl+r', 'run', 'Run', show=True),
-        Binding('ctrl+l', 'reset', 'Reset', show=True),
         Binding('ctrl+s', 'show_solution', 'Solution', show=True),
         Binding('ctrl+p', 'previous', 'Previous', show=True),
         Binding('ctrl+n', 'next', 'Next', show=True),
+        Binding('ctrl+l', 'reset', 'Reset', show=True),
         Binding('f1', 'app_guide', 'App Guide', show=False),
         Binding('f2', 'exercises', 'Python Exercises', show=False),
         Binding('f3', 'quiz', 'Quiz', show=False),
@@ -85,12 +85,11 @@ class PythonExercisesApp(App):
                                  '.css':'css', '.json':'json'}
         self.t_script = SmartTextArea(id='script', language='python')
         self.t_script.tab_behavior = 'indent'
+        self.t_script.styles.border = ('heavy', 'ansi_bright_blue')
 
         self.l_output = Label(id='output', markup=False)
         self.l_output.styles.border_subtitle_align = 'left'
-        self.t_ref_solution = TextArea(id='solution', language='python')
-        self.t_ref_solution.read_only = True
-        self.t_ref_solution.border_title = 'Reference Solution'
+        self.t_ref_solution = TextArea()
         self.t_viewfile = TextArea(id='viewfile', language='python',
                                    soft_wrap=False)
         self.t_viewfile.read_only = True
@@ -146,11 +145,10 @@ class PythonExercisesApp(App):
             for button in self.b_tabs:
                 yield button
         with ContentSwitcher() as self.cs_tabs:  
-            with VerticalScroll(id='exercises'):
+            with VerticalScroll(id='exercises') as self.vs_exercise:
                 yield self.l_exercise
                 yield self.t_script
                 yield self.l_output
-                yield self.t_ref_solution
             with VerticalScroll(id='quiz'):
                 yield self.l_quiz
                 yield self.rset_quiz
@@ -178,8 +176,10 @@ class PythonExercisesApp(App):
             return
 
         Path.write_text(self.py_file, f'{self.t_script.text}\n', encoding='UTF-8')
+        self.solved = False
+        self.t_script.styles.border = ('heavy', 'ansi_bright_blue')
         try:
-            result = subprocess.run(f'{PYTHON} {self.py_file}', timeout=5,
+            result = subprocess.run(f'{PYTHON} {self.py_file}', timeout=2,
                                     shell=True, capture_output=True, text=True)
         except subprocess.TimeoutExpired:
             msg = ('App might become unresponsive.\n'
@@ -187,7 +187,7 @@ class PythonExercisesApp(App):
                    'Or, press Ctrl+C to quit (press multiple times if needed).')
             self.l_output.update(msg)
             self.l_output_style('red', 'Oops, command timed out!!!', '')
-            self.t_script.styles.background = 'palevioletred'
+            self.t_script.styles.border = ('thick', 'red')
         else:
             self.t_script.theme = self.code_themes[self.dark]
             if result.returncode:
@@ -200,11 +200,11 @@ class PythonExercisesApp(App):
                 self.l_output.update(s1)
                 self.l_output_style('gray', 'Output', '')
                 if s1 == s2:
-                    self.t_script.styles.background = 'lightgreen'
+                    self.t_script.styles.background = 'palegreen'
                     self.solved = True
                     self.show_solution = False
                     self.action_show_solution()
-            self.save_progress()
+        self.save_progress()
 
     def l_output_style(self, color, title, subtitle):
         self.l_output.styles.color = color
@@ -213,9 +213,13 @@ class PythonExercisesApp(App):
         self.l_output.border_subtitle = subtitle
 
     def set_exercise(self, reset=False):
-        self.l_ref_solution_clear()
+        self.t_ref_solution.remove()
+        self.t_ref_solution = TextArea(classes='solution', language='python')
+        self.t_ref_solution.read_only = True
+        self.t_ref_solution.border_title = 'Reference Solution'
         self.solved = False
         self.show_solution = False
+
         self.l_exercise.update(self.style_inline_code(
                                    self.exercises[self.e_idx]['exercise']))
         self.l_exercise.border_title = f'{self.e_idx+1}/{self.e_max_idx+1}'
@@ -229,9 +233,13 @@ class PythonExercisesApp(App):
             path = SCRIPT_DIR.joinpath(f'exercises/{self.e_file}')
         self.t_script.text = self.read_file(path)
         self.t_script.theme = self.code_themes[self.dark]
-        self.l_output.update('')
-        self.l_output_style('gray', 'Output', '')
         self.t_script.focus(scroll_visible=False)
+
+        if not reset and Path.exists(self.py_file):
+            self.action_run()
+        else:
+            self.l_output.update('')
+            self.l_output_style('gray', 'Output', '')
 
     def read_file(self, path):
         text = Path.read_text(path, encoding='UTF-8')
@@ -252,6 +260,7 @@ class PythonExercisesApp(App):
             return
 
         self.cs_tabs.current = name
+        self.refresh_bindings()
         for b in self.b_tabs:
             b.variant = 'default'
         if name == 'guide':
@@ -278,28 +287,32 @@ class PythonExercisesApp(App):
         self.t_viewfile.border_title = str(path)
         self.t_viewfile.theme = self.code_themes[self.dark]
 
-    def l_ref_solution_clear(self):
-        self.t_ref_solution.text = ''
-        self.t_ref_solution.styles.border = ('none', 'green')
-
     def style_inline_code(self, s):
         return re.sub(r'`([^`]+)`', r'[dark_orange3 on grey84]\1[/]',
                       rich_escape(s))
 
+    def check_action(self, action, parameters):
+        tab = self.cs_tabs.current
+        if action in ('reset', 'show_solution') and tab != 'exercises':
+            return False
+        elif action in ('run', 'previous', 'next') and \
+             tab not in ('exercises', 'quiz'):
+            return False
+        return True
+
     def action_reset(self):
-        if self.cs_tabs.current == 'exercises':
-            self.set_exercise(reset=True)
+        self.set_exercise(reset=True)
 
     def action_show_solution(self):
-        if self.cs_tabs.current == 'exercises':
-            self.show_solution ^= True
-            if self.show_solution:
-                solution = SCRIPT_DIR.joinpath(f'solutions/{self.e_file}')
-                self.t_ref_solution.text = self.read_file(solution)
-                self.t_ref_solution.styles.border = ('round', 'green')
-                self.t_ref_solution.theme = self.code_themes[self.dark]
-            else:
-                self.l_ref_solution_clear()
+        self.show_solution ^= True
+        if self.show_solution:
+            solution = SCRIPT_DIR.joinpath(f'solutions/{self.e_file}')
+            self.t_ref_solution.text = self.read_file(solution)
+            self.t_ref_solution.styles.border = ('round', 'green')
+            self.t_ref_solution.theme = self.code_themes[self.dark]
+            self.vs_exercise.mount(self.t_ref_solution)
+        else:
+            self.t_ref_solution.remove()
 
     def action_previous(self):
         if self.cs_tabs.current == 'exercises' and self.e_idx > 0:
@@ -394,6 +407,8 @@ class PythonExercisesApp(App):
         self.t_script.theme = self.code_themes[self.dark]
         self.t_ref_solution.theme = self.code_themes[self.dark]
         self.t_viewfile.theme = self.code_themes[self.dark]
+        if self.cs_tabs.current == 'exercises' and self.solved:
+            self.t_script.styles.background = 'palegreen'
         self.exercise_progress[-1] = self.dark
         self.write_exercise_progress_file()
 
