@@ -74,6 +74,11 @@ class PythonExercisesApp(App):
     def __init__(self):
         super().__init__()
 
+        for path in Path('.').rglob('*.pyc'):
+            path.unlink()
+        for path in Path('.').rglob('__pycache__'):
+            path.rmdir()
+
         self.l_exercise = Label(classes='question')
         with open(SCRIPT_DIR.joinpath('exercises.json'), encoding='UTF-8') as f:
             self.exercises = tuple(json.load(f).values())
@@ -83,9 +88,9 @@ class PythonExercisesApp(App):
         self.code_themes = ('github_light', 'vscode_dark')
         self.syntax_highlight = {'.md':'markdown', '.py':'python',
                                  '.css':'css', '.json':'json'}
-        self.t_script = SmartTextArea(id='script', language='python')
+        self.t_script = SmartTextArea(id='script', language='python',
+                                      soft_wrap=False)
         self.t_script.tab_behavior = 'indent'
-        self.t_script.styles.border = ('heavy', 'ansi_bright_blue')
 
         self.l_output = Label(id='output', markup=False)
         self.l_output.styles.border_subtitle_align = 'left'
@@ -178,6 +183,7 @@ class PythonExercisesApp(App):
         Path.write_text(self.py_file, f'{self.t_script.text}\n', encoding='UTF-8')
         self.solved = False
         self.t_script.styles.border = ('heavy', 'ansi_bright_blue')
+        self.t_script.theme = self.code_themes[self.dark]
         try:
             result = subprocess.run(f'{PYTHON} {self.py_file}', timeout=2,
                                     shell=True, capture_output=True, text=True)
@@ -189,7 +195,6 @@ class PythonExercisesApp(App):
             self.l_output_style('red', 'Oops, command timed out!!!', '')
             self.t_script.styles.border = ('thick', 'red')
         else:
-            self.t_script.theme = self.code_themes[self.dark]
             if result.returncode:
                 self.l_output.update(result.stderr)
                 self.l_output_style('red', 'Error!',
@@ -214,7 +219,8 @@ class PythonExercisesApp(App):
 
     def set_exercise(self, reset=False):
         self.t_ref_solution.remove()
-        self.t_ref_solution = TextArea(classes='solution', language='python')
+        self.t_ref_solution = TextArea(classes='solution', language='python',
+                                       soft_wrap=False)
         self.t_ref_solution.read_only = True
         self.t_ref_solution.border_title = 'Reference Solution'
         self.solved = False
@@ -233,6 +239,7 @@ class PythonExercisesApp(App):
             path = SCRIPT_DIR.joinpath(f'exercises/{self.e_file}')
         self.t_script.text = self.read_file(path)
         self.t_script.theme = self.code_themes[self.dark]
+        self.t_script.styles.border = ('heavy', 'ansi_bright_blue')
         self.t_script.focus(scroll_visible=False)
 
         if not reset and Path.exists(self.py_file):
