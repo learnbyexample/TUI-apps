@@ -21,7 +21,6 @@ ContentSwitcher {
     padding: 0 1 0 1;
     margin: 0 1 0 1;
     border: none;
-    background: silver;
 }
 
 .radio {
@@ -40,7 +39,6 @@ ContentSwitcher {
 #solution {
     width: 100%;
     padding: 0 1 0 1;
-    border: round gray;
     border-title-align: center;
 }
 

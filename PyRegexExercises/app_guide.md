@@ -25,7 +25,7 @@ The input box will accept a single valid Python expression. Some of the exercise
 
 Some of the error types are caught. In such cases, the background color of the input box will change to *red* and the error message will be displayed below the box. Other errors might result in the app crashing.
 
-The input box will turn *green* if the entered code solves all the sample input strings. A reference solution box will appear below the table in such cases. You can press **Ctrl+s** to show the solution box whenever you want.
+The input box will turn *green* if the entered code solves all the sample input strings. A reference solution box will appear below the table in such cases. You can press **Ctrl+s** to toggle the solution box whenever you want.
 
 For search related functions, the table below the input box will have a set of strings that should match and another set of strings that *shouldn't* match. These strings will be individually highlighted in *green* if the condition is satisfied and *red* otherwise.
 
@@ -45,7 +45,7 @@ You can either click the buttons using mouse or press the key combinations liste
 * **F2** view exercises
 * **Ctrl+n** go to the next question
 * **Ctrl+p** go to the previous question
-* **Ctrl+s** show solution box
+* **Ctrl+s** toggle solution box
 * **Ctrl+r** toggle between **str** and **repr**
 * **Ctrl+b** toggle between **expected** and **actual**
 * **Ctrl+t** toggle the theme between **light** and **dark** modes

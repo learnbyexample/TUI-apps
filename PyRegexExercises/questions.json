@@ -30,7 +30,7 @@
         "Reference solution": "re.search(r'(?i)is', ip)\nre.search(r'is', ip, flags=re.I)"
     },
     "2": {
-        "question": "Filter all elements that do *not* contain `e`.",
+        "question": "Filter all elements that do NOT contain `e`.",
         "fill": "[w for w in ip if ]",
         "left column": [
             "['goal', 'new', 'user', 'sit']",
@@ -1287,7 +1287,7 @@
         "Reference solution": "re.search(r'\\As(?=.*e)(?=.*t)', ip)\nre.search(r'\\As.*(e.*t|t.*e)', ip)"
     },
     "89": {
-        "question": "Match strings that satisfy all of these rules:\n\n* at least two alphabets\n* at least 3 digits\n* doesn't end with a whitespace character",
+        "question": "Match strings that satisfy all of these rules:\n\n\u2022 at least two alphabets\n\u2022 at least 3 digits\n\u2022 doesn't end with a whitespace character",
         "fill": "re.search(r'', ip)",
         "left column": [
             "F2H3u%9",
@@ -1375,7 +1375,7 @@
         "Reference solution": "re.findall(r'(?<![:#])(?<!<=>)(?<!-{4})\\b\\w+', ip)"
     },
     "95": {
-        "question": "Match strings if it contains `qty` followed by `price` but not if there is any **whitespace** character or the string `error` between them.",
+        "question": "Match strings if it contains `qty` followed by `price` but not if there is any whitespace character or the string `error` between them.",
         "fill": "re.search(r'', ip)",
         "left column": [
             "23,qty,price,42",
@@ -1412,7 +1412,7 @@
         "Reference solution": "re.sub(r'(?<!\\w)..(?!\\w)', '{\\g<0>}', ip)"
     },
     "98": {
-        "question": "For the given input strings, match all of these three conditions:\n\n* `This` case sensitively\n* `nice` and `cool` case insensitively",
+        "question": "For the given input strings, match all of these three conditions:\n\n\u2022 `This` case sensitively\n\u2022 `nice` and `cool` case insensitively",
         "fill": "re.search(r'', ip)",
         "left column": [
             "This is nice and Cool",

@@ -3,7 +3,7 @@ from textual.binding import Binding
 from textual.containers import Horizontal, Vertical, VerticalScroll
 from textual.widgets import Footer, Label, Input, MarkdownViewer, Button
 from textual.widgets import RadioButton, RadioSet, ContentSwitcher
-from rich.markdown import Markdown
+from rich.markup import escape as rich_escape
 
 import json
 import re
@@ -63,7 +63,7 @@ class PyRegexExercises(App):
         self.error_types = (SyntaxError, TypeError, ValueError,
                             NameError, AttributeError, IndexError,
                             re.error, regex._regex_core.error)
-        self.input_bg_color = 'gray'
+        self.input_bg_color = 'lightgray'
         self.input_error_color = 'ansi_red'
         self.item_color = 'gray'
         self.item_solved_color = 'green'
@@ -113,6 +113,7 @@ class PyRegexExercises(App):
         self.set_question()
 
     def on_button_pressed(self, event):
+        self.refresh_bindings()
         name = event.button.name
         idx = int(name == 'exercises')
         self.b_tabs[idx].variant = 'warning'
@@ -128,7 +129,8 @@ class PyRegexExercises(App):
         self.solved = self.eval_func[self.func_search]()
         if self.solved:
             self.i_user_code.styles.background = self.item_solved_color
-            self.show_solution()
+            self.update_solution_box()
+            self.show_solution = True
 
     def search(self):
         self.l_code_error.remove()
@@ -192,6 +194,7 @@ class PyRegexExercises(App):
     def set_question(self):
         self.v_exercises.scroll_home(animate=False)
         self.l_ref_solution_clear()
+        self.show_solution = False
 
         self.l_code_error.remove()
         self.v_left_col.remove()
@@ -201,9 +204,9 @@ class PyRegexExercises(App):
         self.h_columns.mount(self.v_left_col)
         self.h_columns.mount(self.v_right_col)
 
-        self.l_question.update(
-                Markdown(f'(Q:{self.q_idx+1}/{self.q_max_idx+1}) ' +
-                         self.questions[self.q_idx]['question']))
+        self.l_question.update(self.style_inline_code(
+                f'(Q:{self.q_idx+1}/{self.q_max_idx+1}) ' +
+                self.questions[self.q_idx]['question']))
         self.ref_solution = self.questions[self.q_idx]['Reference solution']
         self.fill = self.questions[self.q_idx]['fill']
         self.func_search = self.fill.startswith(('re.search(', 'regex.search(',
@@ -267,6 +270,16 @@ class PyRegexExercises(App):
         with open(self.progress_file, 'w', encoding='UTF-8') as f:
             json.dump(self.user_progress, f, indent=4)
 
+    def style_inline_code(self, s):
+        return re.sub(r'`([^`]+)`', r'[dark_orange3 on grey84]\1[/]',
+                      rich_escape(s))
+
+    def check_action(self, action, parameters):
+        tab = self.cs_tabs.current
+        if action in ('previous', 'next', 'solution') and tab != 'exercises':
+            return False
+        return True
+    
     def action_previous(self):
         if self.q_idx > 0:
             self.q_idx -= 1
@@ -279,15 +292,19 @@ class PyRegexExercises(App):
 
     def l_ref_solution_clear(self):
         self.l_ref_solution.update('')
-        self.l_ref_solution.styles.border = ('none', 'gray')
+        self.l_ref_solution.styles.border = ('none', 'brown')
 
-    def show_solution(self):
+    def update_solution_box(self):
         self.l_ref_solution.update(self.ref_solution)
-        self.l_ref_solution.styles.border = ('round', 'gray')
+        self.l_ref_solution.styles.border = ('round', 'brown')
 
     def action_solution(self):
-        self.show_solution()
-        self.v_exercises.scroll_end(animate=False)
+        self.show_solution ^= True
+        if self.show_solution:
+            self.update_solution_box()
+            self.v_exercises.scroll_end(animate=False)
+        else:
+            self.l_ref_solution_clear()
 
     def left_fmt_func(self):
         f = self.fmt_func[self.fmt_idx]
