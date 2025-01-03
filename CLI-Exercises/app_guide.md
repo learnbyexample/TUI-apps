@@ -31,7 +31,7 @@ You can either click the buttons using mouse or press the key combinations liste
 * **F3** view directory
 * **Ctrl+n** go to the next question
 * **Ctrl+p** go to the previous question
-* **Ctrl+s** show reference solution box
+* **Ctrl+s** toggle reference solution box
 * **Ctrl+t** toggle the theme between **light** and **dark** modes
 * **Ctrl+c** or **Ctrl+q** quit the application
 

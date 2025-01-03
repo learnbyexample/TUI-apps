@@ -3,11 +3,12 @@ from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll, Vertical
 from textual.widgets import Footer, Label, Input, Button
 from textual.widgets import MarkdownViewer, ContentSwitcher, DirectoryTree
-from rich.markdown import Markdown
+from rich.markup import escape as rich_escape
 
 import json
 import subprocess
 import os
+import re
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
@@ -118,6 +119,7 @@ class SedExercisesApp(App):
                     self.i_cmd.styles.background = 'green'
                     self.solved = True
                     self.action_show_solution()
+                    self.show_solution = True
                 else:
                     self.i_cmd.styles.background = 'lightgray'
             self.save_progress()
@@ -131,10 +133,11 @@ class SedExercisesApp(App):
     def set_quest_ip_op(self):
         self.l_ref_solution_clear()
         self.solved = False
-        self.l_question.update(
-                Markdown(f'(Q:{self.q_idx+1}/{self.q_max_idx+1}) ' +
-                         self.questions[self.q_idx]['question']))
+        self.l_question.update(self.style_inline_code(
+                f'(Q:{self.q_idx+1}/{self.q_max_idx+1}) ' +
+                self.questions[self.q_idx]['question']))
         self.ref_solution = self.questions[self.q_idx]['ref_solution']
+        self.show_solution = False
 
         self.h_ip_op.remove()
         ip_files = self.questions[self.q_idx]['ip_file']
@@ -189,6 +192,7 @@ class SedExercisesApp(App):
             json.dump(self.user_progress, f, indent=2)
 
     def on_button_pressed(self, event):
+        self.refresh_bindings()
         name = event.button.name
         self.cs_tabs.current = name
         for b in self.b_tabs:
@@ -213,8 +217,22 @@ class SedExercisesApp(App):
         self.l_ref_solution.styles.border = ('none', 'green')
 
     def action_show_solution(self):
-        self.l_ref_solution.update('\n'.join(self.ref_solution))
-        self.l_ref_solution.styles.border = ('round', 'green')
+        self.show_solution ^= True
+        if self.show_solution:
+            self.l_ref_solution.update('\n'.join(self.ref_solution))
+            self.l_ref_solution.styles.border = ('round', 'green')
+        else:
+            self.l_ref_solution_clear()
+
+    def style_inline_code(self, s):
+        return re.sub(r'`([^`]+)`', r'[dark_orange3 on grey84]\1[/]',
+                      rich_escape(s))
+
+    def check_action(self, action, parameters):
+        tab = self.cs_tabs.current
+        if action in ('previous', 'next', 'show_solution') and tab != 'exercises':
+            return False
+        return True
 
     def action_previous(self):
         if self.q_idx > 0:

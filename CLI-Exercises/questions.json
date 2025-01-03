@@ -11,7 +11,7 @@
         ]
     },
     "2": {
-        "question": "Display *except* the first 5 lines for the input `blocks.txt`",
+        "question": "Display except the first 5 lines for the input `blocks.txt`",
         "ip_file": [
             "blocks.txt"
         ],
@@ -107,7 +107,7 @@
         ]
     },
     "11": {
-        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n* `he` matched irrespective of case\n* either `World` or `Hi` matched case sensitively",
+        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n\u2022 `he` matched irrespective of case\n\u2022 either `World` or `Hi` matched case sensitively",
         "ip_file": [
             "sample.txt"
         ],
@@ -535,7 +535,7 @@
         ]
     },
     "52": {
-        "question": "Display contents of `ip.txt` *except* for line numbers 4, 5, 6 and 7",
+        "question": "Display contents of `ip.txt` except for line numbers 4, 5, 6 and 7",
         "ip_file": [
             "ip.txt"
         ],
@@ -699,7 +699,7 @@
         ]
     },
     "67": {
-        "question": "For the input file `ip.txt` filter paragraphs *not* containing digit characters. Use an empty line to separate the matching paragraphs",
+        "question": "For the input file `ip.txt` filter paragraphs NOT containing digit characters. Use an empty line to separate the matching paragraphs",
         "ip_file": [
             "ip.txt"
         ],

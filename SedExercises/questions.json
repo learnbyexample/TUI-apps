@@ -466,7 +466,7 @@
         ]
     },
     "47": {
-        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n* `he` matched irrespective of case\n* either `World` or `Hi` matched case sensitively",
+        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n\u2022 `he` matched irrespective of case\n\u2022 either `World` or `Hi` matched case sensitively",
         "ip_file": [
             "sample.txt"
         ],
@@ -510,7 +510,7 @@
         ]
     },
     "51": {
-        "question": "For the input file `nul_separated`, use the ASCII NUL character as the *line* separator and display lines containing `fig`. Also, change NUL characters in the output to the newline character.",
+        "question": "For the input file `nul_separated`, use the ASCII NUL character as the line separator and display lines containing `fig`. Also, change NUL characters in the output to the newline character.",
         "ip_file": [
             "nul_separated"
         ],
@@ -615,7 +615,7 @@
         ]
     },
     "61": {
-        "question": "For the input file `addr.txt`:\n\n* if a line contains `e`, surround all consecutive repeated characters with `{}` as well as uppercase those characters\n* else, if a line contains `u`, surround all uppercase letters in that line with `[]`",
+        "question": "For the input file `addr.txt`:\n\n\u2022 if a line contains `e`, surround all consecutive repeated characters with `{}` as well as uppercase those characters\n\u2022 else, if a line contains `u`, surround all uppercase letters in that line with `[]`",
         "ip_file": [
             "addr.txt"
         ],
