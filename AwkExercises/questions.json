@@ -10,7 +10,7 @@
         ]
     },
     "2": {
-        "question": "For the input file `addr.txt`, display the first field of lines *not* containing `y`. Consider space as the field separator for this file.",
+        "question": "For the input file `addr.txt`, display the first field of lines NOT containing `y`. Consider space as the field separator for this file.",
         "ip_file": [
             "addr.txt"
         ],
@@ -181,7 +181,7 @@
         ]
     },
     "19": {
-        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n* `to` or `he` matched irrespective of case\n* `World` or `No` matched case sensitively",
+        "question": "Display lines from `sample.txt` that satisfy both of these conditions:\n\n\u2022 `to` or `he` matched irrespective of case\n\u2022 `World` or `No` matched case sensitively",
         "ip_file": [
             "sample.txt"
         ],
@@ -457,7 +457,7 @@
         ]
     },
     "46": {
-        "question": "For the input file `scores.csv`, add another column named **GP** which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.",
+        "question": "For the input file `scores.csv`, add another column named GP which is calculated out of 100 by giving 50% weightage to Maths and 25% each for Physics and Chemistry.",
         "ip_file": [
             "scores.csv"
         ],

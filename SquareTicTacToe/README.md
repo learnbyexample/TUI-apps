@@ -35,7 +35,7 @@ $ pipx install squaretictactoe
 $ squaretictactoe
 ```
 
-As yet another alternative, you can install `textual` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `square_tictactoe.py` file.
+As yet another alternative, you can install `textual==0.85.2` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `square_tictactoe.py` file.
 
 Terminal dimension should be at least 84x25 (characters x lines) for the game widgets to appear properly. You should get an initial screen similar to the one shown below:
 
