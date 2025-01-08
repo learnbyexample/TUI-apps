@@ -1,43 +1,16 @@
-.header {
-    dock: top;
-    text-align: center;
-    color: black;
-    background: orange;
-    width: 100%;
+Screen {
+    overflow-y: hidden;
 }
 
-.container {
+#cs_main {
+    height: 1fr;
+}
+
+#ip_edit {
+    min-height: 5;
     height: auto;
-    align: center middle;
-}
-
-.code_container {
-    height: auto;
-    width: 100%;
-    border: solid brown;
-    border-title-align: center;    
-}
-
-.examples_ip {
-    height: 1;
-    padding: 0 1 0 1;
-    margin: 0 1 0 1;
-    border: none;
-    background: silver;
-}
-
-.examples_op {
-    padding: 0 1 1 1;
-    margin: 0 1 0 1;
-    border: none;
-    background: lightgray;
-    width: 100%;
-    color: black;
-}
-
-.examples_md {
-    margin: 1 2 0 2;
-    border: none;
+    border: round green;
+    border-title-align: center;
 }
 
 .playground_ip {
@@ -62,11 +35,48 @@
     border-title-align: center;
 }
 
+.container {
+    height: auto;
+    align: center middle;
+}
+
+.code_container {
+    height: auto;
+    width: 100%;
+    border: solid brown;
+    border-title-align: center;    
+}
+
 Button:focus {
     text-style: bold;
 }
 
 .buttons {
-    margin: 1 0 1 0;
-    width: 30%;
+    max-height: 1;
+    border: none;
+    width: 1fr;
 }
+
+.examples_ip {
+    height: 1;
+    padding: 0 1 0 1;
+    margin: 0 1 0 1;
+    border: none;
+    background: silver;
+}
+
+.examples_op {
+    padding: 0 1 1 1;
+    margin: 0 1 0 1;
+    border: none;
+    background: lightgray;
+    width: 100%;
+    color: black;
+}
+
+.examples_md {
+    margin: 1 2 0 2;
+    border: none;
+    width: 100%;
+}
+

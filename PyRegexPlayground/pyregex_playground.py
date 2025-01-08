@@ -1,18 +1,16 @@
 from textual.app import App
 from textual.binding import Binding
-from textual.containers import Horizontal, Vertical
-from textual.widgets import Footer, Label, Input, MarkdownViewer, Button
-from textual.screen import Screen
+from textual.containers import Horizontal, VerticalScroll, Vertical
+from textual.widgets import Footer, Label, Input, Button, TextArea
+from textual.widgets import MarkdownViewer, ContentSwitcher
 from rich.text import Text
 from rich.pretty import Pretty
 from rich.highlighter import Highlighter
-from rich.markdown import Markdown as RichMarkdown
 
 import json
-import re
-from functools import partial
-from math import factorial
 import os
+import re
+from math import factorial
 from pathlib import Path
 
 ERROR_TYPES = (re.error, SyntaxError, TypeError, ValueError,
@@ -23,48 +21,142 @@ class CommentHighlighter(Highlighter):
         if str(text[0]) == '#':
             text.stylize('italic color(8)')
 
+class PyRegexPlayground(App):
+    ENABLE_COMMAND_PALETTE = False
+    CSS_PATH = 'pyregex_playground.css'
+    BINDINGS = [
+        Binding('f1', 'app_guide', 'App Guide', show=False),
+        Binding('f2', 'playground', 'Regex Playground', show=False),
+        Binding('f3', 'cheatsheet', 'Cheatsheet', show=False),
+        Binding('f4', 'examples', 'Interactive Examples', show=False),
+        Binding('ctrl+p', 'update_ip', 'Update ip'),
+        Binding('ctrl+r', 'run', 'Run'),
+        Binding('ctrl+z', 'discard', 'Discard changes'),
+        Binding('ctrl+t', 'toggle_theme', 'Theme'),
+        Binding('ctrl+q', 'app.quit', 'Quit'),
+    ]
 
-class ShowMarkdown(Screen):
-    BINDINGS = [Binding('escape', 'app.pop_screen', 'Go back'),
-                Binding('ctrl+n', 'navigation', 'Navigation'),
-               ]
-
-    def __init__(self, md_file):
+    def __init__(self):
         super().__init__()
-        self.md_file = md_file
-        self.v_container = Vertical()
+
+        self.data = Path.read_text(
+                        Path('ip.txt'), encoding='UTF-8').removesuffix('\n')
+
+        self.t_input = TextArea(id='ip_edit', soft_wrap=False)
+        self.t_input.border_title = 'Edit ip'
+        self.t_input.indent_width = 8
+        self.l_input = Label(classes='playground_ip_op', markup=False, id='ip_label')
+        self.l_input.border_title = 'ip'
+        self.l_input.update(self.data)
+        self.t_input.text = self.data
+
+        self.l_output = Label(classes='playground_ip_op', markup=False)
+        self.l_output.border_title = 'Output'
+
+        self.code_bg_color = 'lightgray'
+        self.error_color = 'ansi_red'
+        self.l_compile_error = Label()
+        self.l_action_error = Label()
+
+        placeholder = 'Search pattern. Press Enter to compile.'
+        self.i_compile = Input(placeholder=placeholder, value="re.compile(r'')",
+                               classes='playground_ip')
+        self.i_compile.styles.background = self.code_bg_color
+        placeholder = "Function to run. For example: pat.sub('X', ip)"
+        self.i_action = Input(placeholder=placeholder,
+                              classes='playground_ip')
+        self.i_action.styles.background = self.code_bg_color
+
+        self.v_container = VerticalScroll(classes='container')
+
+        with open('app_guide.md', encoding='UTF-8') as f:
+            self.m_guide = MarkdownViewer(f.read(), show_table_of_contents=False)
+
+        with open('cheatsheet.md', encoding='UTF-8') as f:
+            self.m_cheatsheet = MarkdownViewer(f.read(), show_table_of_contents=False)
+
+        self.b_tabs = (Button('App Guide', name='guide', classes='buttons'),
+                       Button('Regex Playground', name='playground',
+                              classes='buttons', variant='warning'),
+                       Button('Cheatsheet', name='cheatsheet', classes='buttons'),
+                       Button('Interactive Examples', name='examples',
+                              classes='buttons'))
+        self.b_tabs[1].styles.width = '1.5fr'
+        self.b_tabs[3].styles.width = '1.5fr'
+        for b in self.b_tabs:
+            b.can_focus = False
 
     def compose(self):
-        yield self.v_container
+        with Horizontal(classes='container'):
+            for button in self.b_tabs:
+                yield button
+        with ContentSwitcher(initial='playground', id='cs_main') as self.cs_tabs:  
+            with VerticalScroll(id='playground') as self.v_exercises:
+                with Vertical(classes='code_container') as self.v_compile:
+                    yield self.i_compile
+                with ContentSwitcher(initial='ip_label') as self.cs_input:  
+                    yield self.l_input
+                    yield self.t_input
+                with Vertical(classes='code_container') as self.v_action:
+                    yield self.i_action
+                yield self.l_output
+            with Vertical(id='guide'):
+                yield self.m_guide
+            with Vertical(id='cheatsheet'):
+                yield self.m_cheatsheet
+            with VerticalScroll(id='examples'):
+                yield self.v_container
         yield Footer()
 
     def on_mount(self):
-        with open(self.md_file, encoding='UTF-8') as f:
-            md = f.read()
-        self.m_view = MarkdownViewer(md, show_table_of_contents=False)
-        self.v_container.mount(self.m_view)
-
-    def action_navigation(self):
-        self.m_view.show_table_of_contents ^= True
-
-
-class Examples(Screen):
-    BINDINGS = [Binding('escape', 'app.pop_screen', 'Go back'),
-                Binding('ctrl+r', 'reload', 'Reload'),
-                Binding('up', 'focus_previous', 'Focus previous', show=False),
-                Binding('down', 'focus_next', 'Focus next', show=False),
-               ]
-
-    def compose(self):
-        yield Label('[b]Interactive Examples', classes='header')
-        self.v_container = Vertical(classes='container')
-        yield self.v_container
-        yield Footer()
-
-    def on_mount(self):
+        self.dark = False
+        self.v_compile.border_title = 'Compile'
+        self.v_action.border_title = 'Action'
+        self.i_compile.cursor_position = 13
+        self.i_compile.focus()
         self.load_examples()
 
     def on_input_submitted(self, event):
+        if self.cs_tabs.current == 'playground':
+            self.action_run()
+        else:
+            self.process_examples(event)
+
+    def process_playground(self):
+        self.l_compile_error.remove()
+        ip = self.data
+        try:
+            self.i_compile.styles.background = self.code_bg_color
+            pat = eval(self.i_compile.value)
+        except ERROR_TYPES as e:
+            self.l_compile_error = Label(str(e), classes='error', markup=False)
+            self.l_compile_error.border_title = str(type(e).__name__)
+            self.v_compile.mount(self.l_compile_error)
+            self.i_compile.styles.background = self.error_color
+        else:
+            op = Text(ip)
+            for m in pat.finditer(ip):
+                op.stylize('bold red', *m.span())
+            self.l_input.update(op)
+
+        self.l_action_error.remove()
+        try:
+            self.i_action.styles.background = self.code_bg_color
+            if self.i_action.value:
+                op = eval(self.i_action.value)
+            else:
+                op = ''
+        except ERROR_TYPES as e:
+            self.l_action_error = Label(str(e), classes='error', markup=False)
+            self.l_action_error.border_title = str(type(e).__name__)
+            self.v_action.mount(self.l_action_error)
+            self.i_action.styles.background = self.error_color
+        else:
+            if type(op) != str:
+                op = Pretty(op)
+            self.l_output.update(op)
+
+    def process_examples(self, event):
         idx = int(event.input.name)
         input_block = self.input_collection[idx]
         for unit in input_block:
@@ -101,162 +193,75 @@ class Examples(Screen):
                     exec(''.join(setup))
                 op = eval(expr)
 
-                t = [Input(value=line, classes='examples_ip',
-                           highlighter=comment_highlighter, name=str(idx))
-                     for line in lines]
+                t = []
+                for line in lines:
+                    i = Input(value=line.removesuffix('\n'), classes='examples_ip',
+                            highlighter=comment_highlighter, name=str(idx))
+                    if line.startswith('#'):
+                        i.can_focus = False
+                    t.append(i)
                 l_op = Label(Pretty(op), classes='examples_op', markup=False)
                 t.append(l_op)
                 self.input_collection[idx].append(t)
                 cb_widgets.extend(t)
             self.v_code_block.append(Vertical(*cb_widgets, classes='code_container'))
-            md_cb_widgets.append(Label(RichMarkdown(info), classes='examples_md'))
+            md_cb_widgets.append(Label(info, classes='examples_md'))
             md_cb_widgets.append(self.v_code_block[idx])
             idx += 1
         self.v_examples = Vertical(*md_cb_widgets, classes='container')
         self.v_container.mount(self.v_examples)
 
-    def action_reload(self):
+    def action_discard(self):
         self.v_examples.remove()
         self.load_examples()
 
+    def action_update_ip(self):
+        self.cs_input.current = 'ip_edit'
+        self.t_input.focus(scroll_visible=False)
 
-class Playground(Screen):
-    BINDINGS = [Binding('ctrl+p', 'update_ip', 'Update ip', show=True),
-                Binding('f1', 'guide', 'App Guide', show=False),
-                Binding('f2', 'cheatsheet', 'Cheatsheet', show=False),
-                Binding('f3', 'examples', 'Interactive Examples', show=False),
-                Binding('up', 'focus_previous', 'Focus previous', show=False),
-                Binding('down', 'focus_next', 'Focus next', show=False),
-               ]
-
-    def __init__(self):
-        super().__init__()
-
-        self.l_compile_error = Label()
-        self.l_action_error = Label()
-
-        os.chdir(Path(__file__).parent.resolve())
-        self.ip_file = 'ip.txt'
-        self.read_data()
-        self.l_input = Label(classes='playground_ip_op', markup=False)
-        self.l_input.border_title = 'ip'
-        self.l_input.update(self.data)
-
-        self.l_output = Label(classes='playground_ip_op', markup=False)
-        self.l_output.border_title = 'Output'
-
-        self.code_bg_color = 'silver'
-        self.error_color = 'ansi_red'
-
-        placeholder = 'Search pattern. Press Enter to compile.'
-        self.i_compile = Input(placeholder=placeholder, value="re.compile(r'')",
-                               classes='playground_ip')
-        self.i_compile.styles.background = self.code_bg_color
-        placeholder = "Function to run. For example: pat.sub('X', ip)"
-        self.i_action = Input(placeholder=placeholder,
-                              classes='playground_ip')
-        self.i_action.styles.background = self.code_bg_color
-
-        self.b_guide = Button('App Guide', classes='buttons')
-        self.b_cheatsheet = Button('Cheatsheet', classes='buttons',
-                                   variant="success")
-        self.b_examples = Button('Interactive Examples', classes='buttons')
-
-    def compose(self):
-        yield Label('[b]Python re(gex)? playground', classes='header')
-        with Vertical(classes='code_container') as self.v_compile:
-            yield self.i_compile
-        yield self.l_input
-        with Vertical(classes='code_container') as self.v_action:
-            yield self.i_action
-        yield self.l_output
-        with Horizontal(classes='container'):
-            yield self.b_guide
-            yield self.b_cheatsheet
-            yield self.b_examples
-        yield Footer()
-
-    def on_mount(self):
-        self.i_compile.focus()
-        self.v_compile.border_title = 'Compile'
-        self.v_action.border_title = 'Action'
-
-    def on_input_submitted(self, event):
-        self.l_compile_error.remove()
-        ip = self.data
-        try:
-            self.i_compile.styles.background = self.code_bg_color
-            pat = eval(self.i_compile.value)
-        except ERROR_TYPES as e:
-            self.l_compile_error = Label(str(e), classes='error', markup=False)
-            self.l_compile_error.border_title = str(type(e).__name__)
-            self.v_compile.mount(self.l_compile_error)
-            self.i_compile.styles.background = self.error_color
-        else:
-            op = Text(ip)
-            for m in pat.finditer(ip):
-                op.stylize('bold red', *m.span())
-            self.l_input.update(op)
-
-        self.l_action_error.remove()
-        try:
-            self.i_action.styles.background = self.code_bg_color
-            if self.i_action.value:
-                op = eval(self.i_action.value)
-            else:
-                op = ''
-        except ERROR_TYPES as e:
-            self.l_action_error = Label(str(e), classes='error', markup=False)
-            self.l_action_error.border_title = str(type(e).__name__)
-            self.v_action.mount(self.l_action_error)
-            self.i_action.styles.background = self.error_color
-        else:
-            if type(op) != str:
-                op = Pretty(op)
-            self.l_output.update(op)
+    def action_run(self):
+        self.cs_input.current = 'ip_label'
+        self.data = self.t_input.text
+        self.process_playground()
 
     def on_button_pressed(self, event):
-        button_label = str(event.button.label)
-        if button_label == 'Cheatsheet':
-            self.action_cheatsheet()
-        elif button_label == 'Interactive Examples':
-            self.action_examples()
-        elif button_label == 'App Guide':
-            self.action_guide()
+        self.refresh_bindings()
+        name = event.button.name
+        self.cs_tabs.current = name
+        for b in self.b_tabs:
+            b.variant = 'default'
+        if name == 'guide':
+            idx = 0
+        elif name == 'playground':
+            idx = 1
+        elif name == 'cheatsheet':
+            idx = 2
+        else:
+            idx = 3
+        self.b_tabs[idx].variant = 'warning'
 
-    def read_data(self):
-        with open(self.ip_file, encoding='UTF-8') as f:
-            self.data = f.read()
+    def check_action(self, action, parameters):
+        tab = self.cs_tabs.current
+        if action in ('update_ip', 'run') and tab != 'playground':
+            return False
+        if action == 'discard' and tab != 'examples':
+            return False
+        return True
 
-    def action_guide(self):
-        self.app.push_screen('guide')
+    def action_app_guide(self):
+        self.b_tabs[0].press()
+
+    def action_playground(self):
+        self.b_tabs[1].press()
 
     def action_cheatsheet(self):
-        self.app.push_screen('cheatsheet')
+        self.b_tabs[2].press()
 
     def action_examples(self):
-        self.app.push_screen('examples')
-
-    def action_update_ip(self):
-        self.read_data()
-        self.l_input.update(self.data)
-
-class PyRegexPlayground(App):
-    ENABLE_COMMAND_PALETTE = False
-    CSS_PATH = 'pyregex_playground.css'
-    BINDINGS = [('ctrl+t', 'toggle_theme', 'Theme'),
-                ('ctrl+q', 'app.quit', 'Quit')]
-
-    def on_mount(self):
-        self.app.dark = False
-        self.app.install_screen(Playground(), name='playground')
-        self.app.install_screen(ShowMarkdown('app_guide.md'), name='guide')
-        self.app.install_screen(ShowMarkdown('cheatsheet.md'), name='cheatsheet')
-        self.app.install_screen(Examples(), name='examples')
-        self.app.push_screen('playground')
+        self.b_tabs[3].press()
 
     def action_toggle_theme(self):
-        self.app.dark ^= True
+        self.dark = not self.dark
 
 def main():
     os.chdir(Path(__file__).parent.resolve())

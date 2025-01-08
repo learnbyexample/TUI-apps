@@ -1,19 +1,19 @@
 {
-    "1a": "Examples for Python regular expressions are shown below. You can modify such code snippets and pressing the **Enter** key will update the corresponding output.\n\nAs a good practice, always use **raw strings** to construct the pattern, unless other formats are required. This will avoid conflict between special meaning of the backslash character in regular expressions and string literals.\n\n### Examples for `re.search()`\n\n",
+    "1a": "Examples for Python regular expressions are shown below. You can modify such code snippets and pressing the [bold]Enter[/] key will update the corresponding output.\n\nAs a good practice, always use [bold]raw strings[/] to construct the pattern, unless other formats are required. This will avoid conflict between special meaning of the backslash character in regular expressions and string literals.\n\n[bold]Examples for [dark_orange3 on grey84]re.search()[/][/]\n",
     "1b": [
         "sentence = 'This is a sample string'\n# check if 'sentence' contains the pattern described by RE argument\nbool(re.search(r'is', sentence))",
         "# ignore case while searching for a match\nbool(re.search(r'this', sentence, flags=re.I))",
         "# example when pattern isn't found in the input string\nbool(re.search(r'xyz', sentence))",
         "# use raw byte strings for patterns if input is of byte data type\nbool(re.search(rb'is', b'This is a sample string'))\n"
     ],
-    "2a": "\n### String and Line anchors\n\n",
+    "2a": "[bold]String and Line anchors[/]\n",
     "2b": [
         "# match the start of the input string\nbool(re.search(r'\\Ahi', 'hi hello\\ntop spot'))",
         "# match the start of a line\nbool(re.search(r'^top', 'hi hello\\ntop spot', flags=re.M))",
         "# match the end of strings\nwords = ['surrender', 'up', 'newer', 'do', 'era', 'eel', 'pest']\n[w for w in words if re.search(r'er\\Z', w)]",
         "# check if there's a whole line 'par'\nbool(re.search(r'^par$', 'spare\\npar\\ndare', flags=re.M))\n"
     ],
-    "3a": "\n### Examples for `re.findall()`\n\n",
+    "3a": "[bold]Examples for [dark_orange3 on grey84]re.findall()[/][/]\n",
     "3b": [
         "# match 'par' with optional 's' at start and optional 'e' at end\nre.findall(r'\\bs?pare?\\b', 'par spar apparent spare part pare')",
         "# numbers >= 100 with optional leading zeros\n# Python 3.11 supports possessive quantifiers\n# re.findall(r'\\b0*+\\d{3,}\\b', '0501 035 154 12 26 98234')\nre.findall(r'\\b0*[1-9]\\d{2,}\\b', '0501 035 154 12 26 98234')",
@@ -21,7 +21,7 @@
         "# normal capture group will hinder ability to get the whole match\n# non-capturing group to the rescue\nre.findall(r'\\b\\w*(?:st|in)\\b', 'cost akin more east run against')",
         "# useful for debugging purposes as well\nre.findall(r':.*?:', 'green:3.14:teal::brown:oh!:blue')\n"
     ],
-    "4a": "\n### Examples for `re.split()`\n\n",
+    "4a": "[bold]Examples for [dark_orange3 on grey84]re.split()[/][/]\n",
     "4b": [
         "# split based on one or more digit characters\nre.split(r'\\d+', 'Sample123string42with777numbers')",
         "# split based on digit or whitespace characters\nre.split(r'[\\d\\s]+', '**1\\f2\\n3star\\t7 77\\r**')",
@@ -29,42 +29,42 @@
         "# multiple capture groups example\n# note that the portion matched by b+ isn't present in the output\nre.split(r'(a+)b+(c+)', '3.14aabccc42')",
         "# use non-capturing group if capturing is not needed\nre.split(r'hand(?:y|ful)', '123handed42handy777handful500')\n"
     ],
-    "5a": "\n### Backreferencing within the search pattern\n\n",
+    "5a": "[bold]Backreferencing within the search pattern[/]\n",
     "5b": [
         "# whole words that have at least one consecutive repeated character\nwords = ['effort', 'flee', 'facade', 'oddball', 'rat', 'tool']\n[w for w in words if re.search(r'\\b\\w*(\\w)\\1\\w*\\b', w)]\n"
     ],
-    "6a": "\n### Working with matched portions\n\n",
+    "6a": "[bold]Working with matched portions[/]\n",
     "6b": [
         "# re.Match object\nre.search(r'so+n', 'too soon a song snatch')",
         "# retrieving entire matched portion, note the use of [0]\nmotivation = 'Doing is often better than thinking of doing.'\nre.search(r'of.*ink', motivation)[0]",
         "# capture group example\npurchase = 'coffee:100g tea:250g sugar:75g chocolate:50g'\nm = re.search(r':(.*?)g.*?:(.*?)g.*?chocolate:(.*?)g', purchase)\n# to get the matched portion of the second capture group\nm[2]",
         "# to get a tuple of all the capture groups\nm.groups()\n"
     ],
-    "7a": "\n### Examples for `re.finditer()`\n\n",
+    "7a": "[bold]Examples for [dark_orange3 on grey84]re.finditer()[/][/]\n",
     "7b": [
         "# numbers < 350\nm_iter = re.finditer(r'\\d+', '45 349 651 593 4 204 350')\n[m[0] for m in m_iter if int(m[0]) < 350]",
         "# start and end+1 index of each matching portion\nm_iter = re.finditer(r'so+n', 'song too soon snatch')\n[m.span() for m in m_iter]\n"
     ],
-    "8a": "\n### Examples for `re.sub()`\n\n",
+    "8a": "[bold]Examples for [dark_orange3 on grey84]re.sub()[/][/]\n",
     "8b": [
         "# add something to the start of every line\nip_lines = \"catapults\\nconcatenate\\ncat\"\nre.sub(r'^', r'* ', ip_lines, flags=re.M).splitlines(True)",
         "# replace 'par' only at the start of a word\nre.sub(r'\\bpar', r'X', 'par spar apparent spare part')",
         "# same as: r'part|parrot|parent'\nre.sub(r'par(en|ro)?t', r'X', 'par part parrot parent')",
         "# remove the first two columns where : is delimiter\nre.sub(r'\\A([^:]+:){2}', '', 'apple:123:banana:cherry')\n"
     ],
-    "9a": "\n### Backreferencing in the replacement section\n\n",
+    "9a": "[bold]Backreferencing in the replacement section[/]\n",
     "9b": [
         "# remove any number of consecutive duplicate words separated by space\n# use \\W+ instead of space to cover cases like 'a;a<-;a'\nre.sub(r'\\b(\\w+)( \\1)+\\b', r'\\1', 'aa a a a 42 f_1 f_1 f_13.14')",
         "# add something around the matched strings\nre.sub(r'\\d+', r'(\\g<0>0)', '52 apples and 31 mangoes')",
         "# swap words that are separated by a comma\nre.sub(r'(\\w+),(\\w+)', r'\\2,\\1', 'good,bad 42,24')",
         "# example with both capturing and non-capturing groups\nre.sub(r'(\\d+)(?:abc)+(\\d+)', r'\\2:\\1', '1000abcabc42 12abcd21')\n"
     ],
-    "10a": "\n### Using functions in the replacement section of `re.sub()`\n\n",
+    "10a": "[bold]Using functions in the replacement section of [dark_orange3 on grey84]re.sub()[/][/]\n",
     "10b": [
         "# factorial is imported from the math module\nnumbers = '1 2 3 4 5'\ndef fact_num(m): return str(factorial(int(m[0])))\nre.sub(r'\\d+', fact_num, numbers)",
         "# using lambda\nre.sub(r'\\d+', lambda m: str(factorial(int(m[0]))), numbers)\n"
     ],
-    "11a": "\n### Examples for lookarounds\n\n",
+    "11a": "[bold]Examples for lookarounds[/]\n",
     "11b": [
         "# change 'cat' only if it is not followed by a digit character\n# note that the end of string satisfies the given assertion\n# 'catcat' has two matches as the assertion doesn't consume characters\nre.sub(r'cat(?!\\d)', 'dog', 'hey cats! cat42 cat_5 catcat')",
         "# change whole word only if it is not preceded by : or -\nre.sub(r'(?<![:-])\\b\\w+\\b', r'X', ':cart <apple -rest ;tea')",
@@ -73,7 +73,7 @@
         "# match if 'do' is not there between 'at' and 'par'\nbool(re.search(r'at((?!do).)*par', 'fox,cat,dog,parrot'))",
         "# match if 'go' is not there between 'at' and 'par'\nbool(re.search(r'at((?!go).)*par', 'fox,cat,dog,parrot'))\n"
     ],
-    "12a": "\n### Examples for `re.compile()`\n\nRegular expressions can be compiled using the `re.compile()` function, which gives back a `re.Pattern` object. The top level `re` module functions are all available as methods for this object. Compiling a regular expression helps if the RE has to be used in multiple places or called upon multiple times inside a loop (speed benefit). By default, Python maintains a small list of recently used RE, so the speed benefit doesn't apply for trivial use cases.\n\n",
+    "12a": "[bold]Examples for [dark_orange3 on grey84]re.compile()[/][/]\n\nRegular expressions can be compiled using the [dark_orange3 on grey84]re.compile()[/] function, which gives back a [dark_orange3 on grey84]re.Pattern[/] object. The top level [dark_orange3 on grey84]re[/] module functions are all available as methods for this object. Compiling a regular expression helps if the RE has to be used in multiple places or called upon multiple times inside a loop (speed benefit). By default, Python maintains a small list of recently used RE, so the speed benefit doesn't apply for trivial use cases.\n",
     "12b": [
         "pet = re.compile(r'dog')\ntype(pet)",
         "bool(pet.search('They bought a dog'))",

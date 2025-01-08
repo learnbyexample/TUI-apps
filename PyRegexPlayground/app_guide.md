@@ -1,8 +1,6 @@
-# App Guide
+### Regex Playground
 
-### Playground
-
-You can type the search pattern in the **Compile** input box and press the **Enter** key to execute. For example, `re.compile(r'\d')` to match digit characters. Matching portions will be highlighted in red.
+You can type the search pattern in the **Compile** input box and press the **Enter** key (or **Ctrl+r**) to execute. For example, `re.compile(r'\d')` to match digit characters. Matching portions will be highlighted in red.
 
 The compiled pattern is available via the `pat` variable and you can use `ip` to refer to the input string. You can transform or extract data by typing appropriate expression in the **Action** box. For example, `pat.sub(r'(\g<0>)', ip)` will add parenthesis around the matching portions.
 
@@ -10,22 +8,15 @@ You can skip the Compile box and directly use the Action box too. For example, `
 
 > **Warning:** There is no safeguard against the commands you have typed. They are treated as if you executed them from a Python program.
 
+Press **F2** to get back to the Playground from other screens. You can also click the buttons at the top to navigate between the different screens.
+
 ### Changing ip
 
-The input string is obtained from the `ip.txt` file. You can change contents of this file and press **Ctrl+p** to update the `ip` variable. You'll have to press **Enter** again to update the results for the changed data.
+You can press **Ctrl+p** to edit the contents of the input string.
 
-If you cloned the repo, you'd be able to easily spot the `ip.txt` file in the same directory as the script you are running. If you installed the app via the `pip` command in a virtual environment, you'll have to locate this file first. For example:
+After making the changes, press **Ctrl+r** or navigate to Compile/Action box and press the **Enter** key to update the results for the changed data.
 
-```bash
-# go to the virtual environment
-$ find -name pyregex_playground.py
-./lib/python3.8/site-packages/regexplayground/pyregex_playground.py
-
-$ find -name ip.txt
-./lib/python3.8/site-packages/regexplayground/ip.txt
-```
-
-This convoluted procedure will be simplified in the future by adding a widget for accepting multiline user input.
+The input string is obtained from the `ip.txt` file located in the app directory. So, changing this file before starting the app is another option.
 
 ### Handling errors
 
@@ -33,7 +24,7 @@ Some of the error types are caught. In such cases, the background color of the i
 
 ### Input box shortcuts
 
-* Use mouse click to position the cursor anywhere you like
+* Use the mouse to position the cursor anywhere you like
 * **←** move left by one character
 * **→** move right by one character
 * **Home** or **Ctrl+a** move to the start of the line
@@ -46,28 +37,28 @@ Some of the error types are caught. In such cases, the background color of the i
 * **Ctrl+k** delete till the end of the line
 * **Backspace** or **Ctrl+h** delete character to the left of the cursor
 * **Delete** or **Ctrl+d** delete character under the cursor
-* **Enter** submit the code for execution
+* **Enter** or **Ctrl+r** submit the code for execution
 
-When there are multiple input boxes in the same screen:
+To navigate between widgets in the same screen:
 
-* **Tab** or **↓** to move to the next box
-* **Shift+Tab** or **↑** to move to the previous box
+* **Tab** to move to the next box
+* **Shift+Tab** to move to the previous box
 
 ### Theme
 
-Press **Ctrl+t** to toggle the theme between light and dark modes.
+Press **Ctrl+t** to toggle between light and dark themes.
 
 ### App Guide
 
-Press **F1** to display this help text from the playground screen. Press **Ctrl+n** to toggle table of contents. Press **Esc** to go back.
+Press **F1** to display this help screen.
 
 ### Cheatsheet
 
-Press **F2** to display a cheatsheet for Python regular expressions. Press **Ctrl+n** to toggle table of contents. Press **Esc** to go back.
+Press **F3** to display a cheatsheet for Python regular expressions.
 
 ### Interactive Examples
 
-Press **F3** for regular expression examples covering various topics. You can modify the code snippets and pressing the **Enter** key will update the corresponding output. Press **Ctrl+r** to discard changes and reload the examples. Press **Esc** to go back.
+Press **F4** for regular expression examples covering various topics. You can modify the code snippets and pressing the **Enter** key will update the corresponding output. Press **Ctrl+z** to discard changes and reload the examples.
 
 > **Warning:** There is no safeguard against the commands you have typed. They are treated as if you executed them from a Python program.
 
