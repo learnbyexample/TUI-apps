@@ -202,13 +202,14 @@
         ]
     },
     "21": {
-        "question": "For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar` and replace the last but second `ar` with `X`.",
+        "question": "For the input file `patterns.txt`, filter lines containing three or more occurrences of `ar`. For such lines, replace the third from last occurrence of `ar` with `X`.",
         "ip_file": [
             "patterns.txt"
         ],
         "op_file": "par car tX far Cart\npXt cart mart\n",
         "ref_solution": [
-            "awk 'BEGIN{r = @/(.*)ar((.*ar){2})/} $0~r{print gensub(r, \"\\\\1X\\\\2\", 1)}' patterns.txt"
+            "awk 'BEGIN{r = @/(.*)ar((.*ar){2})/} $0~r{print gensub(r, \"\\\\1X\\\\2\", 1)}' patterns.txt",
+            "awk -F'ar' 'NF>3{print gensub(FS, \"X\", NF-3)}' patterns.txt"
         ]
     },
     "22": {
@@ -580,11 +581,11 @@
         ]
     },
     "58": {
-        "question": "The input file `nums.txt` contains a single column of numbers. Change positive numbers to negative and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.",
+        "question": "The input file `nums.txt` contains a single column of numbers. If the number starts with a `-` sign, remove it and vice versa. Solution should use the `sub` function and shouldn't explicitly use the `if-else` control structure or the ternary operator.",
         "ip_file": [
             "nums.txt"
         ],
-        "op_file": "-42\n2\n-10101\n3.14\n75\n",
+        "op_file": "-42\n2\n-10101\n3.14\n75\n-2.3e4\n-0\n",
         "ref_solution": [
             "awk '!sub(/^-/, \"\"){sub(/^/, \"-\")} 1' nums.txt"
         ]
@@ -747,7 +748,7 @@
         ]
     },
     "74": {
-        "question": "For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `at` or `fun` in the third field. Assume space as the field separator.",
+        "question": "For the input files `sample.txt`, `secrets.txt`, `addr.txt` and `table.txt`, display only the names of files that contain `in` or `at` or `fun` in the third field. Assume space as the field separator. The output should not show a matching filename more than once.",
         "ip_file": [
             "sample.txt",
             "secrets.txt",
@@ -756,7 +757,7 @@
         ],
         "op_file": "secrets.txt\naddr.txt\ntable.txt\n",
         "ref_solution": [
-            "awk '$3 ~ /fun|at/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt"
+            "awk '$3 ~ /fun|at|in/{print FILENAME; nextfile}' sample.txt secrets.txt addr.txt table.txt"
         ]
     },
     "75": {
@@ -790,7 +791,7 @@
         ]
     },
     "78": {
-        "question": "For the input file `broken.txt`, print all lines between the markers `top` and `bottom`. Assume that the input file cannot have two `top` markers without a `bottom` marker appearing in between and vice-versa.",
+        "question": "The input file `broken.txt` starts with a line containing `top` followed by some content before a line containing `bottom` is found. Blocks of lines bounded by these two markers repeats except for the last block as it is missing the `bottom` marker. Print all lines between the markers `top` and `bottom`.",
         "ip_file": [
             "broken.txt"
         ],
