@@ -13,6 +13,7 @@ Repository for Terminal User Interface (TUI) apps. Mostly for fun (ex: games), l
 * [Awk Exercises](./AwkExercises) — 80+ exercises for `GNU awk`
 * [Awk Tutorial](./AwkTutorial) — brief tour of the `awk` command
 * [Python Exercises](./PythonExercises) — exercises and quiz for beginner-intermediate level Python learners
+* [Connect Four](./ConnectFour) — form a line or square or both with 4 cells
 
 # Acknowledgements
 

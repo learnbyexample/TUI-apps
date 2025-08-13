@@ -1,0 +1,44 @@
+#header {
+    dock: top;
+    text-align: center;
+    width: 100%;
+    background: orange;
+    color: black;
+}
+
+#info {
+    text-align: center;
+    width: 100%;
+    background: orange;
+    color: black;
+}
+
+Button:focus {
+    text-style: bold;
+}
+
+#board {
+    height: auto;
+    margin: 1;
+    align: center middle;
+}
+
+.cell {
+    min-height: 1;
+    margin: 0;
+    padding: 0;
+}
+
+.radio {
+    background: white 0%;
+    layout: horizontal;
+    border: none;
+    width: 1fr;
+    margin: 0 2 0 2;
+}
+
+RadioSet {
+    align: center middle;
+    padding: 1 0 0 0;
+}
+
