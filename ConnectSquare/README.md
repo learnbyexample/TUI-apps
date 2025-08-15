@@ -1,4 +1,4 @@
-# Connect Four
+# Connect Square
 
 From [wikipedia: Connect Four](https://en.wikipedia.org/wiki/Connect_Four):
 
@@ -13,16 +13,20 @@ As a twist, this TUI implementation also offers two more variations of the game:
 
 TODO: publish the app on PyPI
 
-As an alternative, you can install `textual==0.85.2` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `connect_four.py` file.
+As an alternative, you can install `textual==0.85.2` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `connect_square.py` file.
 
-Terminal dimension should be at least 84x30 (characters x lines) for the game widgets to appear properly. A sample screenshot is shown below:
+Adjust your terminal's dimension for the game widgets to appear properly, for example 80x30 (characters x lines). Sample screenshots are shown below:
+
+<p align="center"><img src="./connect_four.png" alt="Sample Connect Four game" /></p>
 
 <p align="center"><img src="./connect_square.png" alt="Sample Connect Square game" /></p>
+
+<p align="center"><img src="./connect_both.png" alt="Sample Connect Four or Square game" /></p>
 
 # Guide
 
 * Press the **n** key to start a new game. Existing game, if any, will be abandoned
-* You can choose between **Connect Four** (default), **Connect Square** and **Both** types of game
+* You can choose between **Connect Four**, **Connect Square** (default) and **Both** types of game
 * You can choose between **Easy** (default), **Medium** and **Hard** difficulty modes:
     * In the *Easy* mode, the AI will make a random move
     * In the *Medium* mode, the AI will make a random move based on certain weight calculations

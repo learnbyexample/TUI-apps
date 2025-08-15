@@ -5,9 +5,9 @@ from textual.widgets import Button, Footer, Label
 from textual.widgets import RadioButton, RadioSet
 import random
 
-class ConnectFourApp(App):
+class ConnectSquareApp(App):
     ENABLE_COMMAND_PALETTE = False
-    CSS_PATH = 'connect_four.css'
+    CSS_PATH = 'connect_square.css'
     BINDINGS = [
                 Binding('n', 'new_game', 'New Game'),
                 Binding('t', 'toggle_theme', 'Toggle theme'),
@@ -28,7 +28,7 @@ class ConnectFourApp(App):
         self.easy, self.medium, self.hard = (0, 1, 2)
         self.difficulty = self.easy
         self.four, self.square, self.both = (0, 1, 2)
-        self.game_type = self.four
+        self.game_type = self.square
         self.user_first, self.ai_first = (0, 1)
         self.first_move = self.user_first
         
@@ -134,7 +134,7 @@ class ConnectFourApp(App):
                         self.all_squares.append((n0, n1, n2, n3))
 
     def compose(self):
-        yield Label(renderable='[b]Connect Four[/b]', id='header')
+        yield Label(renderable='[b]Connect Square[/b]', id='header')
         yield self.grid
         yield self.status
         with RadioSet(name='choice', classes='radio'):
@@ -313,7 +313,7 @@ class ConnectFourApp(App):
         self.dark = not self.dark
 
 def main():
-    app = ConnectFourApp()
+    app = ConnectSquareApp()
     app.run()
 
 if __name__ == '__main__':
