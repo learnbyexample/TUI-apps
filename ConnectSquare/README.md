@@ -11,9 +11,29 @@ As a twist, this TUI implementation also offers two more variations of the game:
 
 # Installation
 
-TODO: publish the app on PyPI
+This app is available on PyPI as [connectsquare](https://pypi.org/project/connectsquare/). Example installation instructions are shown below, adjust them based on your preferences and OS.
 
-As an alternative, you can install `textual==0.85.2` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `connect_square.py` file.
+```bash
+# virtual environment
+$ python3 -m venv textual_apps
+$ cd textual_apps
+$ source bin/activate
+$ pip install connectsquare
+
+# launch the app
+$ connectsquare
+```
+
+To run the app without having to enter the virtual environment again, add this alias to `.bashrc` (or equivalent):
+
+```bash
+# you'll have to change the path
+alias connectsquare='/path/to/textual_apps/bin/connectsquare'
+```
+
+As an alternative to manually managing such virtual environments, you can use [uv](https://github.com/astral-sh/uv) or [pipx](https://github.com/pypa/pipx) instead.
+
+As yet another alternative, you can install `textual==0.85.2` (see [Textual documentation](https://textual.textualize.io/getting_started/) for more details), clone this repository and run the `connect_square.py` file.
 
 Adjust your terminal's dimension for the game widgets to appear properly, for example 80x30 (characters x lines). Sample screenshots are shown below:
 
