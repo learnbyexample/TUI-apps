@@ -159,12 +159,15 @@ class PyRegexPlayground(App):
     def process_examples(self, event):
         idx = int(event.input.name)
         input_block = self.input_collection[idx]
+        gbl = {}
+        exec('import re', gbl)
+        exec('from math import factorial', gbl)
         for unit in input_block:
             *i_setup, i_expr, l_op = unit
             try:
                 if i_setup:
-                    exec(''.join(ip.value for ip in i_setup))
-                op = eval(i_expr.value)
+                    exec('\n'.join(ip.value for ip in i_setup), gbl)
+                op = eval(i_expr.value, gbl)
                 l_op.update(Pretty(op))
                 l_op.styles.border = ('none', 'red')
                 l_op.styles.color = 'black'
@@ -186,12 +189,15 @@ class PyRegexPlayground(App):
             code_block = next(md)
             self.input_collection.append([])
             cb_widgets = []
+            gbl = {}
+            exec('import re', gbl)
+            exec('from math import factorial', gbl)
             for unit in code_block:
                 lines = unit.splitlines(keepends=True)
                 *setup, expr = lines
                 if setup:
-                    exec(''.join(setup))
-                op = eval(expr)
+                    exec(''.join(setup), gbl)
+                op = eval(expr, gbl)
 
                 t = []
                 for line in lines:
